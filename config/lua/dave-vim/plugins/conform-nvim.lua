@@ -10,6 +10,10 @@ local setup = function()
             lua = { "stylua" },
             python = { "isort", "black" },
             nix = { "nixfmt" },
+            javascript = { "prettier" },
+            javascriptreact = { "prettier" },
+            typescript = { "prettier" },
+            typescriptreact = { "prettier" },
         },
     })
 end

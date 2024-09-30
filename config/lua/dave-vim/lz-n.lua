@@ -39,4 +39,18 @@ require("lz.n").load({
         end,
         ft = "python",
     },
+    {
+        "dave-vim.plugins.lsp.ts_ls",
+        load = function()
+            require("dave-vim.plugins.lsp.ts_ls")
+        end,
+        ft = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+        },
+    },
 })

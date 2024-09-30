@@ -7,6 +7,10 @@ local linters_by_ft = {
     bash = { "shellcheck" },
     zsh = { "shellcheck" },
     nix = { "nix" },
+    javascript = { "eslint" },
+    javascriptreact = { "eslint" },
+    typescript = { "eslint" },
+    typescriptreact = { "eslint" },
 }
 
 local event = "BufWritePost"

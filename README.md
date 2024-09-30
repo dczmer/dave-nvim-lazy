@@ -19,3 +19,35 @@ I'm using the official `nixpkgs` version of neovim. It's easy to change the `neo
 
 I've included LSP+linter support for shell scripts, lua, and nix with the base load-out.
 I'm expecting that anything language-specific (pyright, ts-server, etc.) can be installed in a devenv and the lazy-loader will detect the file type, load the LSP, and it should just work.
+
+Instead of installing this as a system package or installing it in my user profile, I've been just running it from this local flake:
+`$> nix run /path/to/dave-nvim-lazy -- ...`
+This way, I can quickly modify the config in another terminal and then just restart vim to pick it up.
+
+# Notes on LSPs
+
+The idea was to only install a few core LSP/linters in the base config, and any projects can make devshells and install the lsp/linter dependencies and neovim can just use them from the environment.
+
+To do this, you need to make a dev shell for your project and install the required dependencies as `inputs`.
+
+## Python
+
+LSP: install `pkgs.pyright` in your devshell.
+
+Linting: install python package `flake8`.
+
+Formatting: install python packages `black` and `isort`.
+
+Installing python packages:
+- Option 1: pure-nix install using `pkgs.python3.withPackages ...`.
+- Option 2: using `poetry` and `poetry2nix` to manage a `requirements.txt` file that can be used on non-nix systems.
+
+## Javscript/Typescript
+
+LSP: `typescript-language-server` can serve typescript and javascript files. Install node packages `typescript` and `typescript-language-server`.
+
+Linting: Install node packages `eslint` and any config/plugins for your project.
+
+Formating: Install node package `prettier`.
+
+Installing node packages is kind of tricky still. You can use `yarn2nix` or `yarnConfigHook`/etc. to manage a `yarn` environment and install/manage packages.
