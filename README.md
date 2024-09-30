@@ -30,6 +30,8 @@ The idea was to only install a few core LSP/linters in the base config, and any 
 
 To do this, you need to make a dev shell for your project and install the required dependencies as `inputs`.
 
+Enter your shell with `nix develop`, which will make all the dependencies available, then run the nvim flake from that environment.
+
 ## Python
 
 LSP: install `pkgs.pyright` in your devshell.
