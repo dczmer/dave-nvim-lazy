@@ -14,6 +14,7 @@ local setup = function()
             javascriptreact = { "prettier" },
             typescript = { "prettier" },
             typescriptreact = { "prettier" },
+            json = { "prettier" },
         },
     })
 end
