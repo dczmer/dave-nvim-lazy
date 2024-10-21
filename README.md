@@ -24,6 +24,9 @@ Instead of installing this as a system package or installing it in my user profi
 `$> nix run /path/to/dave-nvim-lazy -- ...`
 This way, I can quickly modify the config in another terminal and then just restart vim to pick it up.
 
+NOTE: the `nvim-webdev-icons` package gives all the fancy VSCode-style icons and symbols, but requires a patched 'nerd font'.
+I've installed the `Hack` font as part of the flake, but you need to edit your shell settings to use that new font after installing (or install another nerd font of your choice).
+
 # Notes on LSPs
 
 The idea was to only install a few core LSP/linters in the base config, and any projects can make devshells and install the lsp/linter dependencies and neovim can just use them from the environment.

@@ -11,3 +11,10 @@ require("dave-vim.plugins.camelcasemotion")
 
 -- 3. lazy and lazy configs and tweaks go last
 require("dave-vim.lz-n")
+
+
+vim.cmd([[
+if filereadable(expand("~/.config/nvim/init.lua"))
+    luafile ~/.config/nvim/init.lua
+end
+]])
