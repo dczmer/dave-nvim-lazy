@@ -48,6 +48,7 @@
                 cyberdream-nvim
               ];
               opt = [
+                gitsigns-nvim
                 neo-tree-nvim
                 vim-startuptime
                 rainbow-delimiters-nvim

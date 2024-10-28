@@ -6,6 +6,7 @@ require("lz.n").load({
     require("dave-vim.plugins.nvim-surround").lazy(),
     require("dave-vim.plugins.tmux-navigator").lazy(),
     { "vim-fugitive" },
+    require("dave-vim.plugins.gitsigns").lazy(),
     require("dave-vim.plugins.lualine").lazy(),
     require("dave-vim.plugins.bufferline").lazy(),
     require("dave-vim.plugins.lazydev").lazy(),

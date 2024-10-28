@@ -5,6 +5,8 @@ vim.keymap.set("n", "<F4>", "<cmd>set paste!<cr>")
 vim.keymap.set("n", "<F11>", "<cmd>bprev<cr>")
 vim.keymap.set("n", "<F12>", "<cmd>bnext<cr>")
 
+vim.keymap.set("n", "<localleader>rnu", "<cmd>set rnu!<cr>")
+
 -- Create the lsp keymaps only when a language server is active
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",

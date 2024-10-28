@@ -13,6 +13,7 @@ o.scrolloff = 6
 o.backspace = "indent,eol,start"
 o.ruler = true
 o.nu = true
+o.rnu = true
 o.modeline = false
 o.wrap = false
 o.textwidth = 0
