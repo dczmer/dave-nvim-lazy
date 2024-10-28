@@ -8,14 +8,13 @@
   };
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
+      ...
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        # see https://github.com/nix-community/poetry2nix/tree/master#api for more functions and examples.
         pkgs = nixpkgs.legacyPackages.${system};
         customRC = import ./config { inherit pkgs; };
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
