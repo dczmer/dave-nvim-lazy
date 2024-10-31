@@ -15,6 +15,7 @@ require("lz.n").load({
     require("dave-vim.plugins.nvim-lint").lazy(),
     require("dave-vim.plugins.conform-nvim").lazy(),
     require("dave-vim.plugins.vim-suda").lazy(),
+    require("dave-vim.plugins.nvim-dap").lazy(),
     {
         "vim-markdown",
         ft = "markdown",

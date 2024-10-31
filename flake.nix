@@ -45,6 +45,7 @@
                 vim-nix
                 camelcasemotion
                 cyberdream-nvim
+                nvim-dap-python
               ];
               opt = [
                 gitsigns-nvim
@@ -64,6 +65,7 @@
                 lazydev-nvim
                 lualine-nvim
                 bufferline-nvim
+                nvim-dap
               ];
             };
           };

@@ -1,3 +1,6 @@
+-- TODO: oh, i bet the reason this wasn't working w lazy-loading is because
+-- of these top-level imports. if they were in the setup function scope, they
+-- probably wouldn't be a problem.
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
