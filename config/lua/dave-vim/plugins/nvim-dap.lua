@@ -39,6 +39,33 @@ local keys = {
         "<localleader>dsr", function() change("threads") end
     },
     {
+        "<localleader>dse", function() change("expression") end
+    },
+    {
+        "<localleader>drc",
+        function()
+            require('dap').run_to_cursor()
+        end,
+    },
+    {
+        "<localleader>d.",
+        function()
+            require('dap').focus_frame()
+        end,
+    },
+    {
+        "<localleader>dk",
+        function()
+            require('dap').up()
+        end,
+    },
+    {
+        "<localleader>dj",
+        function()
+            require('dap').down()
+        end,
+    },
+    {
         "<localleader>dq",
         function()
             require('dap').terminate()
@@ -81,7 +108,7 @@ local keys = {
         end,
     },
     {
-        "<localleader>dr",
+        "<localleader>drt",
         function()
             require('dap').repl.toggle({}, "below split")
         end,
