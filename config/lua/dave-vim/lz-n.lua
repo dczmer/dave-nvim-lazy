@@ -42,6 +42,13 @@ require("lz.n").load({
         ft = "python",
     },
     {
+        "dave-vim.plugins.lsp.ccls",
+        load = function()
+            require("dave-vim.plugins.lsp.ccls")
+        end,
+        ft = { "c", "cpp", "objc", "objcpp", "cuda" },
+    },
+    {
         "dave-vim.plugins.lsp.omnisharp",
         load = function()
             require("dave-vim.plugins.lsp.omnisharp")

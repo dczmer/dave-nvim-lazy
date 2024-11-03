@@ -15,6 +15,8 @@ local setup = function()
             typescript = { "prettier" },
             typescriptreact = { "prettier" },
             json = { "prettier" },
+            c = { "clang-format" },
+            cpp = { "clang-format" },
         },
         format_on_save = {
             lsp_format = "fallback",
