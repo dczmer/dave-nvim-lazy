@@ -11,6 +11,7 @@ local linters_by_ft = {
     javascriptreact = { "eslint" },
     typescript = { "eslint" },
     typescriptreact = { "eslint" },
+    yaml = { "yamllint" },
 }
 
 local event = "BufWritePost"

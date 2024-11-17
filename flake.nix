@@ -92,6 +92,8 @@
               shellcheck
               stylua
               nixfmt-rfc-style
+              yamlfix
+              yamllint
             ]
             ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         };

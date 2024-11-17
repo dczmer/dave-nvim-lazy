@@ -17,6 +17,7 @@ local setup = function()
             json = { "prettierd" },
             c = { "clang-format" },
             cpp = { "clang-format" },
+            yaml = { "yamlfix" },
         },
         format_on_save = {
             lsp_format = "fallback",
