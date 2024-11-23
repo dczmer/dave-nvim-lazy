@@ -21,6 +21,10 @@ require("lz.n").load({
         ft = "markdown",
     },
     {
+        "markdown-preview.nvim",
+        ft = "markdown",
+    },
+    {
         "dave-vim.plugins.lsp.lua-ls",
         load = function()
             require("dave-vim.plugins.lsp.lua-ls")

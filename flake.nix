@@ -29,6 +29,7 @@
                 # treesitter can be lazy loaded, and seems to work, but gives checkhealth errors.
                 nvim-treesitter.withAllGrammars
                 nvim-treesitter-textobjects
+                nvim-treesitter-parsers.fsharp
                 playground
                 nvim-web-devicons
                 telescope-fzf-native-nvim
@@ -59,6 +60,7 @@
                 nvim-surround
                 fugitive
                 vim-markdown
+                markdown-preview-nvim
                 vim-tmux-navigator
                 vim-suda
                 luvit-meta
