@@ -46,6 +46,13 @@ require("lz.n").load({
         ft = "python",
     },
     {
+        "dave-vim.plugins.lsp.gopls",
+        load = function()
+            require("dave-vim.plugins.lsp.gopls")
+        end,
+        ft = { "go", "gomod" },
+    },
+    {
         "dave-vim.plugins.lsp.ccls",
         load = function()
             require("dave-vim.plugins.lsp.ccls")

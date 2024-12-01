@@ -18,6 +18,7 @@ local setup = function()
             c = { "clang-format" },
             cpp = { "clang-format" },
             yaml = { "yamlfix" },
+            go = { "gofmt" },
         },
         format_on_save = {
             lsp_format = "fallback",
