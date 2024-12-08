@@ -1,11 +1,9 @@
--- TODO: oh, i bet the reason this wasn't working w lazy-loading is because
--- of these top-level imports. if they were in the setup function scope, they
--- probably wouldn't be a problem.
+local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local event = "InsertEnter"
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 local completion = {
     completeopt = "menu,menuone,preview,noselect",
@@ -67,7 +65,7 @@ local snippet = {
     end,
 }
 
-local window = function(cmp)
+local window = function()
     return {
         documentation = cmp.config.window.bordered(),
     }
@@ -80,40 +78,23 @@ local formatting = {
     }),
 }
 
-local setup = function()
-    local cmp = require("cmp")
-    local select_opts = { behavior = cmp.SelectBehavior.Select }
+cmp.setup({
+    completion = completion,
+    snippet = snippet,
+    mapping = cmp.mapping.preset.insert(mappings(cmp, select_opts)),
+    -- sources for autocompletion
+    sources = cmp.config.sources(sources),
+    windw = window(),
+    -- configure lspkind for vs-code like pictograms in completion menu
+    formatting = formatting,
+})
 
-    cmp.setup({
-        completion = completion,
-        snippet = snippet,
-        mapping = cmp.mapping.preset.insert(mappings(cmp, select_opts)),
-        -- sources for autocompletion
-        sources = cmp.config.sources(sources),
-        windw = window(cmp),
-        -- configure lspkind for vs-code like pictograms in completion menu
-        formatting = formatting,
-    })
+cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = "buffer" },
+    },
+})
 
-    cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = "buffer" },
-        },
-    })
-
-    -- fix issue where cmp breaks tab-completion in vim command prompt
-    vim.keymap.set("c", "<tab>", "<C-z>", { silent = false })
-end
-
-local lazy = function()
-    return {
-        "cmp-nvim",
-        after = setup,
-        event = event,
-    }
-end
-
-return {
-    lazy = lazy,
-}
+-- fix issue where cmp breaks tab-completion in vim command prompt
+vim.keymap.set("c", "<tab>", "<C-z>", { silent = false })

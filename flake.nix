@@ -34,6 +34,7 @@
                 nvim-web-devicons
                 telescope-fzf-native-nvim
                 nvim-lspconfig
+                nvim-cmp
                 cmp-buffer
                 cmp-path
                 cmp-nvim-lsp
@@ -54,7 +55,6 @@
                 vim-startuptime
                 rainbow-delimiters-nvim
                 telescope-nvim
-                nvim-cmp
                 nvim-lint
                 conform-nvim
                 nvim-surround

@@ -8,6 +8,7 @@ require("dave-vim.toggle-transparent-bg")
 -- nvim-treesitter seems to work with lazy loading but gives checkhealth errors.
 require("dave-vim.plugins.nvim-treesitter")
 require("dave-vim.plugins.camelcasemotion")
+require("dave-vim.plugins.cmp-nvim")
 
 -- 3. lazy and lazy configs and tweaks go last
 require("dave-vim.lz-n")

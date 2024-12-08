@@ -11,7 +11,6 @@ require("lz.n").load({
     require("dave-vim.plugins.bufferline").lazy(),
     require("dave-vim.plugins.lazydev").lazy(),
     { "luvit-meta" },
-    require("dave-vim.plugins.cmp-nvim").lazy(),
     require("dave-vim.plugins.nvim-lint").lazy(),
     require("dave-vim.plugins.conform-nvim").lazy(),
     require("dave-vim.plugins.vim-suda").lazy(),
