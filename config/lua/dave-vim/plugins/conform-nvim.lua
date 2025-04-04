@@ -10,11 +10,27 @@ local setup = function()
             lua = { "stylua" },
             python = { "isort", "black" },
             nix = { "nixfmt" },
+
+            --
+            --
+            -- JAVASCRIPT/TYPESCRIPT
+            --
+            -- NODE :(
             javascript = { "prettierd" },
             javascriptreact = { "prettierd" },
             typescript = { "prettierd" },
             typescriptreact = { "prettierd" },
             json = { "prettierd" },
+            --
+            -- DENO :)
+            --javascript = { "deno_fmt" },
+            --javascriptreact = { "deno_fmt" },
+            --typescript = { "deno_fmt" },
+            --typescriptreact = { "deno_fmt" },
+            --json = { "deno_fmt" },
+            --
+            --
+
             c = { "clang-format" },
             cpp = { "clang-format" },
             yaml = { "yamlfix" },

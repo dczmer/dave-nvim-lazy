@@ -48,6 +48,7 @@
                 camelcasemotion
                 cyberdream-nvim
                 nvim-dap-python
+                vim-sleuth
               ];
               opt = [
                 gitsigns-nvim
@@ -75,7 +76,7 @@
         app = pkgs.writeShellApplication {
           name = "nvim";
           text = ''
-            ${neovimWrapped}/bin/nvim "$@"
+            exec ${neovimWrapped}/bin/nvim "$@"
           '';
           runtimeInputs =
             with pkgs;

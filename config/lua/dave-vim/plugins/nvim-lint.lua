@@ -7,11 +7,26 @@ local linters_by_ft = {
     bash = { "shellcheck" },
     zsh = { "shellcheck" },
     nix = { "nix" },
+    yaml = { "yamllint" },
+
+    --
+    --
+    -- JAVASCRIPT/TYPESCRIPT
+    --
+    -- NODE :(
     javascript = { "eslint" },
     javascriptreact = { "eslint" },
     typescript = { "eslint" },
     typescriptreact = { "eslint" },
-    yaml = { "yamllint" },
+    --
+    -- DENO :)
+    ---- But deno lsp already takes care of everything.
+    ----javascript = { "deno" },
+    ----javascriptreact = { "deno" },
+    ----typescript = { "deno" },
+    ----typescriptreact = { "deno" },
+    --
+    --
 }
 
 local event = "BufWritePost"

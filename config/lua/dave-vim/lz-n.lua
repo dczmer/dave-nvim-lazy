@@ -23,6 +23,12 @@ require("lz.n").load({
         "markdown-preview.nvim",
         ft = "markdown",
     },
+
+    --
+    --
+    -- LSP CONFIGS:
+    --
+    --
     {
         "dave-vim.plugins.lsp.lua-ls",
         load = function()
@@ -65,6 +71,12 @@ require("lz.n").load({
         end,
         ft = "cs",
     },
+
+    --
+    --
+    -- JAVASCRIPT/TYPESCRIPT LSP
+    --
+    -- NODE :(
     {
         "dave-vim.plugins.lsp.ts_ls",
         load = function()
@@ -79,4 +91,22 @@ require("lz.n").load({
             "typescript.tsx",
         },
     },
+    --
+    -- DENO :)
+    --{
+    --    "dave-vim.plugins.lsp.denols",
+    --    load = function()
+    --        require("dave-vim.plugins.lsp.denols")
+    --    end,
+    --    ft = {
+    --        "javascript",
+    --        "javascriptreact",
+    --        "javascript.jsx",
+    --        "typescript",
+    --        "typescriptreact",
+    --        "typescript.tsx",
+    --    },
+    --},
+    --
+    --
 })
