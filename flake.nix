@@ -69,6 +69,7 @@
                 lualine-nvim
                 bufferline-nvim
                 nvim-dap
+                nvim-colorizer-lua
               ];
             };
           };
