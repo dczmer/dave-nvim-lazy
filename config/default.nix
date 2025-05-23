@@ -1,3 +1,6 @@
+# Copies the config files from this repository into the nix store, then
+# returns a string that will be the contents of the neovim rc file.
+# This file will just source the init.lua file from it's home in the nix store.
 { pkgs }:
 let
   configDir = pkgs.stdenv.mkDerivation {

@@ -13,7 +13,8 @@ require("dave-vim.plugins.cmp-nvim")
 -- 3. lazy and lazy configs and tweaks go last
 require("dave-vim.lz-n")
 
-
+-- 4. source a local init.lua so I can tweak or add things without updating the
+-- flake.
 vim.cmd([[
 if filereadable(expand("~/.config/nvim/init.lua"))
     luafile ~/.config/nvim/init.lua
