@@ -4,6 +4,7 @@ local linters_by_ft = {
     python = { "flake8" },
     -- lua-ls does everything we don't need an additional linter
     --lua = { 'luacheck' },
+    sh = { "shellcheck" },
     bash = { "shellcheck" },
     zsh = { "shellcheck" },
     nix = { "nix" },

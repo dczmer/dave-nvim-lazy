@@ -1,58 +1,87 @@
 # My Neovim + LSP + Treesitter flake for Nix
 
-My general-purpose vim flake.
+My general-purpose neovim configuration, implemented as a [nix flake](https://nixos.wiki/wiki/flakes).
 
 Uses lazy loading for most things, but I'm not trying to make startup time instant, just to not load the world for every language/LSP when they are not needed.
-Some things had to happen at startup, like `cmp` and `treesitter`.
+Some things had to happen at startup, like `cmp` and [`treesitter`](https://github.com/tree-sitter/tree-sitter).
 
-Leveraging nvim's treesitter API via `nvim-treesitter` and a few plugins to provide a `playground` and TS node-based textobject definitions.
+LSP support from neovim's LSP functionality and [lsp-config](https://github.com/neovim/nvim-lspconfig):
 
-Also leveraging nvim's native LSP functionality to replace `coc`.
+![LSP](./images/lsp-nvim-cmp.png)
 
-The colorscheme was chosen for dark terminal with transparency.
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) with [ripgrep](https://github.com/BurntSushi/ripgrep) and [fzf](https://github.com/junegunn/fzf):
 
-The lazy-loader config file is the new entry point for defining your configuration, and plugin-specific config modules make more sense than global `keys.vim`, `settings.vim`, etc.
+![Telescope](./images/telescope-neotree.png)
+
+[Nvim-cmp](https://github.com/hrsh7th/nvim-cmp) for the autocomplete and snippets support:
+
+![Nvim-cmp](./images/nvim-cmp.png)
+
+Using [lz.n](https://github.com/nvim-neorocks/lz.n) as the lazy-loader implementation because it is simple and it works better for nix, because it doesn't include another package manager for plugins.
+
+I think the lazy-loader config file is the new entry point for defining your configuration, and plugin-specific config modules make more sense than global `keys.vim`, `settings.vim`, etc.
 I've started using a pattern of making lua modules for each plugin, and exposing a `lazy()` method that returns the plugin spec for the lazy-loader directly.
 This lets me decompose the settings into local variables and functions and reduce the amount of nesting.
 
-I'm using the official `nixpkgs` version of neovim. It's easy to change the `neovim-unwrapped` package in the flake to use the nightly version from github, but my treesitter config had errors on that build.
+I've included LSP+linter support for shell scripts, lua, and nix with the base load-out, so they're always available for general purpose use, like for system administration tasks. Language-specific LSPs and other tools will need to be installed in some other way, and neovim will pick them up from the current environment.
 
-I've included LSP+linter support for shell scripts, lua, and nix with the base load-out.
-I'm expecting that anything language-specific (pyright, ts-server, etc.) can be installed in a devenv and the lazy-loader will detect the file type, load the LSP, and it should just work.
-
-Instead of installing this as a system package or installing it in my user profile, I've been just running it from this local flake:
-`$> nix run /path/to/dave-nvim-lazy -- ...`
-This way, I can quickly modify the config in another terminal and then just restart vim to pick it up.
-
-NOTE: the `nvim-webdev-icons` package gives all the fancy VSCode-style icons and symbols, but requires a patched 'nerd font'.
+> NOTE: the `nvim-webdev-icons` package gives all the fancy VSCode-style icons and symbols, but requires a patched 'nerd font'.
 I've installed the `Hack` font as part of the flake, but you need to edit your shell settings to use that new font after installing (or install another nerd font of your choice).
 
 # Notes on LSPs
 
-The idea was to only install a few core LSP/linters in the base config, and any projects can make devshells and install the lsp/linter dependencies and neovim can just use them from the environment.
+The idea was to only install a few core LSP/linters in the base config, and any projects can make [dev shells](https://nixos.wiki/wiki/Development_environment_with_nix-shell) and install the LSP/linter dependencies and neovim can just use them from the dev environment.
 
-To do this, you need to make a dev shell for your project and install the required dependencies as `inputs`.
+To do this, you need to make a dev shell for your project and install the required dependencies as `packages`.
 
-Enter your shell with `nix develop`, which will make all the dependencies available, then run the nvim flake from that environment.
+Enter your shell with `nix develop`, which will make all the dependencies available, then run the nvim flake from that environment and neovim will be able to use them.
 
-## Python
+## Example: Python
 
-LSP: install `pkgs.pyright` in your devshell.
+LSP: install `pkgs.pyright` in your dev shell.
 
 Linting: install python package `flake8`.
 
 Formatting: install python packages `black` and `isort`.
 
-Installing python packages:
-- Option 1: pure-nix install using `pkgs.python3.withPackages ...`.
-- Option 2: using `poetry` and `poetry2nix` to manage a `requirements.txt` file that can be used on non-nix systems.
+```nix
+pkgs.mkShell {
+  packages = with pkgs; [
+    pyright
+    (python3.withPackages (
+      p: with p; [
+        debugpy
+        isort
+        black
+        flake8
+      ]
+    ))
+  ];
+};
+```
 
-## Javscript/Typescript
+## Example: Javscript/Typescript
 
 LSP: `typescript-language-server` can serve typescript and javascript files. Install node packages `typescript` and `typescript-language-server`.
 
 Linting: Install node packages `eslint` and any config/plugins for your project.
 
-Formating: Install node package `prettier`.
+Formatting: Install node package `prettier`.
 
-Installing node packages is kind of tricky still. You can use `yarn2nix` or `yarnConfigHook`/etc. to manage a `yarn` environment and install/manage packages.
+```nix
+pkgs.mkShell {
+  packages = with pkgs; [
+    yarn
+    nodejs
+  ];
+};
+```
+
+```bash
+yarn add eslint prettier typescript typescript-language-server
+```
+
+# TODO
+
+- [ ] Shellcheck is great but it doesn't work that well with nvim-lint
+    - https://github.com/bash-lsp/bash-language-server (supported by nvim-lspconfig)
