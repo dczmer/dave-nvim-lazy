@@ -23,9 +23,31 @@ I think the lazy-loader config file is the new entry point for defining your con
 I've started using a pattern of making lua modules for each plugin, and exposing a `lazy()` method that returns the plugin spec for the lazy-loader directly.
 This lets me decompose the settings into local variables and functions and reduce the amount of nesting.
 
+Plugin config module:
+
+```lua
+local lazy = function()
+    return {
+        "plugin-name",
+        after = setup,
+        event = event,
+    }
+end
+
+return {
+    lazy = lazy,
+}
+```
+
+In the lazy-loader config:
+
+```lua
+require("dave-vim.plugins.nvim-lint").lazy(),
+```
+
 I've included LSP+linter support for shell scripts, lua, and nix with the base load-out, so they're always available for general purpose use, like for system administration tasks. Language-specific LSPs and other tools will need to be installed in some other way, and neovim will pick them up from the current environment.
 
-> NOTE: the `nvim-webdev-icons` package gives all the fancy VSCode-style icons and symbols, but requires a patched 'nerd font'.
+> NOTE: the [`nvim-webdev-icons`](https://github.com/nvim-tree/nvim-web-devicons) package gives all the fancy VSCode-style icons and symbols, but requires a patched 'nerd font'.
 I've installed the `Hack` font as part of the flake, but you need to edit your shell settings to use that new font after installing (or install another nerd font of your choice).
 
 # Notes on LSPs
