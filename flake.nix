@@ -49,6 +49,7 @@
                 cyberdream-nvim
                 nvim-dap-python
                 vim-sleuth
+                vimwiki
               ];
               opt = [
                 gitsigns-nvim
@@ -71,6 +72,7 @@
                 nvim-dap
                 nvim-colorizer-lua
                 undotree
+                tagbar
               ];
             };
           };
@@ -99,6 +101,15 @@
               nixfmt-rfc-style
               yamlfix
               yamllint
+              vimwiki-markdown
+              universal-ctags
+
+              (python3.withPackages (
+                p: with p; [
+                  tasklib
+                  pynvim
+                ]
+              ))
             ]
             ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         };

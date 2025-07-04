@@ -9,6 +9,7 @@ require("dave-vim.toggle-transparent-bg")
 require("dave-vim.plugins.nvim-treesitter")
 require("dave-vim.plugins.camelcasemotion")
 require("dave-vim.plugins.cmp-nvim")
+require("dave-vim.plugins.vimwiki")
 
 -- 3. lazy and lazy configs and tweaks go last
 require("dave-vim.lz-n")

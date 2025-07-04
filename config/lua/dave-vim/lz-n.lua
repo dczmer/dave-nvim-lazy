@@ -17,15 +17,15 @@ require("lz.n").load({
     require("dave-vim.plugins.nvim-dap").lazy(),
     require("dave-vim.plugins.nvim-colorizer-lua").lazy(),
     require("dave-vim.plugins.undotree").lazy(),
+    require("dave-vim.plugins.tagbar").lazy(),
     {
         "vim-markdown",
-        ft = "markdown",
+        ft = { "markdown", "vimwiki" },
     },
     {
         "markdown-preview.nvim",
-        ft = "markdown",
+        ft = { "markdown", "vimwiki" },
     },
-
     --
     --
     -- LSP CONFIGS:
