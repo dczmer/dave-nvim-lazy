@@ -1,6 +1,6 @@
 local setup = function()
     require("colorizer").setup({
-        '*'
+        '*';
     })
 end
 
