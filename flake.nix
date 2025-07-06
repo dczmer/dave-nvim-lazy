@@ -49,7 +49,6 @@
                 cyberdream-nvim
                 nvim-dap-python
                 vim-sleuth
-                vimwiki
               ];
               opt = [
                 gitsigns-nvim
@@ -73,6 +72,10 @@
                 nvim-colorizer-lua
                 undotree
                 tagbar
+                wiki-vim
+                vim-table-mode
+                mattn-calendar-vim
+                bullets-vim
               ];
             };
           };
@@ -103,6 +106,7 @@
               yamllint
               vimwiki-markdown
               universal-ctags
+              pandoc
 
               (python3.withPackages (
                 p: with p; [

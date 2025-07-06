@@ -18,6 +18,7 @@ require("lz.n").load({
     require("dave-vim.plugins.nvim-colorizer-lua").lazy(),
     require("dave-vim.plugins.undotree").lazy(),
     require("dave-vim.plugins.tagbar").lazy(),
+    require("dave-vim.plugins.wiki-vim").lazy(),
     {
         "vim-markdown",
         ft = { "markdown", "vimwiki" },
@@ -26,6 +27,18 @@ require("lz.n").load({
         "markdown-preview.nvim",
         ft = { "markdown", "vimwiki" },
     },
+    {
+        "vim-table-mode",
+        ft = { "markdown", "vimwiki" },
+        after = function()
+            vim.cmd("let g:table_mode_corner='|'")
+        end,
+    },
+    {
+        "bullets.vim",
+        ft = { "markdown", "text", "gitcommit" },
+    },
+    { "mattn-calendar-vim" },
     --
     --
     -- LSP CONFIGS:
