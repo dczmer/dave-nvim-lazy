@@ -37,6 +37,9 @@ require("lz.n").load({
     {
         "bullets.vim",
         ft = { "markdown", "text", "gitcommit" },
+        after = function()
+            vim.cmd("let g:bullets_delete_last_bullet_if_empty=2")
+        end,
     },
     { "mattn-calendar-vim" },
     --
