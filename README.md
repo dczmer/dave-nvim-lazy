@@ -105,6 +105,5 @@ yarn add eslint prettier typescript typescript-language-server
 
 # TODO
 
-- [ ] html closing tags; vscode-langservers-extracted (css)
 - [ ] Shellcheck is great but it doesn't work that well with nvim-lint
     - https://github.com/bash-lsp/bash-language-server (supported by nvim-lspconfig)

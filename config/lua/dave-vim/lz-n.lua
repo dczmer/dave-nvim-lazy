@@ -93,6 +93,13 @@ require("lz.n").load({
         end,
         ft = "cs",
     },
+    {
+        "dave-vim.plugins.lsp.cssls",
+        load = function()
+            require("dave-vim.plugins.lsp.cssls")
+        end,
+        ft = { "css", "scss", "less" },
+    },
 
     --
     --
