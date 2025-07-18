@@ -20,6 +20,10 @@ require("lz.n").load({
     require("dave-vim.plugins.tagbar").lazy(),
     require("dave-vim.plugins.wiki-vim").lazy(),
     {
+        "vim-closetag",
+        ft = { "html", "jsx", "tsx" },
+    },
+    {
         "vim-markdown",
         ft = { "markdown", "vimwiki" },
     },

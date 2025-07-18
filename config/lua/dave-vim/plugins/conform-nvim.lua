@@ -35,6 +35,9 @@ local setup = function()
             cpp = { "clang-format" },
             yaml = { "yamlfix" },
             go = { "gofmt" },
+            css = { "prettier" },
+            html = { "prettier" },
+            markdown = { "prettier" },
         },
         format_on_save = {
             lsp_format = "fallback",

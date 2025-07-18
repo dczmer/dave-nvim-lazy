@@ -76,6 +76,7 @@
                 vim-table-mode
                 mattn-calendar-vim
                 bullets-vim
+                vim-closetag
               ];
             };
           };
