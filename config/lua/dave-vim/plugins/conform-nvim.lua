@@ -38,6 +38,7 @@ local setup = function()
             css = { "prettier" },
             html = { "prettier" },
             markdown = { "prettier" },
+            elixir = { "mix" },
         },
         format_on_save = {
             lsp_format = "fallback",

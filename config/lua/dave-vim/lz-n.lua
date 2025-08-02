@@ -100,6 +100,13 @@ require("lz.n").load({
         end,
         ft = { "css", "scss", "less" },
     },
+    {
+        "dave-vim.plugins.lsp.elixir-ls",
+        load = function()
+            require("dave-vim.plugins.lsp.elixir-ls")
+        end,
+        ft = { "elixir", "eelixir", "heex", "surface" },
+    },
 
     --
     --
