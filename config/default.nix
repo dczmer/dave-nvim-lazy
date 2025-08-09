@@ -9,6 +9,7 @@ let
     installPhase = ''
       mkdir -p $out/lua
       cp ./init.lua $out/
+      cp -r ./snippets $out/snippets/
       cp -r ./dave-vim $out/lua/
     '';
   };

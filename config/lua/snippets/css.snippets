@@ -1,0 +1,73 @@
+snippet critical-css Critcal CSS Template
+    :root {
+        font-size: 14px;
+        text-underline-offset: 0.3em;
+        /* layout variables */
+        --layout-margin: 0.5rem;
+        --layout-padding: 1rem;
+        --margin-xsmall: 0.2em;
+        --margin-small: 0.4em;
+        --margin-medium: 0.8em;
+        --margin-large: 1em;
+        --margin-xlarge: 1.2em;
+        --margin-xxlarge: 2em;
+        --font-small: 0.8em;
+        --font-medium: 1em;
+        /* TODO: color pallet variables */
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+    }
+
+    body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: pretty;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        margin-top: var(--margin-large);
+        margin-left: 0;
+    }
+
+    html {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    p,
+    main > * {
+        margin: var(--margin-medium);
+    }
