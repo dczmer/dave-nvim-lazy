@@ -37,7 +37,7 @@ local setup = function()
             go = { "gofmt" },
             css = { "prettier" },
             html = { "prettier" },
-            markdown = { "prettier" },
+            --markdown = { "prettier" },
             elixir = { "mix" },
         },
         format_on_save = {
