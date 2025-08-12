@@ -42,7 +42,7 @@
                 lspkind-nvim
                 luasnip
                 cmp_luasnip
-                friendly-snippets
+                vim-snippets
                 plenary-nvim
                 vim-nix
                 camelcasemotion
