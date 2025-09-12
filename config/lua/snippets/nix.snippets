@@ -29,3 +29,9 @@ snippet dev-shell New devShell template
   }
 
 
+snippet python-with-pkgs Python3 with packages
+  (python3.withPackages (
+    p: with p; [
+      $1
+    ]
+  ))
