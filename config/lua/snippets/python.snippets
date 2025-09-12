@@ -5,3 +5,15 @@ snippet __main__ Python main function
 
     if __name__ == "__main__":
         main()
+
+
+snippet __main-async__ Python async main function
+    import asyncio
+
+
+    async def main():
+        $1
+
+
+    if __name__ == "__main__":
+        asyncio.run(main())
