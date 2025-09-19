@@ -1,0 +1,15 @@
+snippet deno-main Deno "main" function
+    if (import.meta.main) {
+        $1
+    }
+
+snippet deno-serve Deno server init
+  Deno.serve(
+    {
+      hostname: "localhost",
+      port: 8000,
+    },
+    (req: Request) => {
+      $1
+    }
+  );
