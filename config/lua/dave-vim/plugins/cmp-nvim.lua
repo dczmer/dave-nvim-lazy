@@ -65,12 +65,6 @@ local snippet = {
     end,
 }
 
-local window = function()
-    return {
-        documentation = cmp.config.window.bordered(),
-    }
-end
-
 local formatting = {
     format = lspkind.cmp_format({
         maxwidth = 50,
@@ -84,7 +78,14 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert(mappings(cmp, select_opts)),
     -- sources for autocompletion
     sources = cmp.config.sources(sources),
-    windw = window(),
+    window = {
+        completion = cmp.config.window.bordered({
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        }),
+        documentation = cmp.config.window.bordered({
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        }),
+    },
     -- configure lspkind for vs-code like pictograms in completion menu
     formatting = formatting,
 })

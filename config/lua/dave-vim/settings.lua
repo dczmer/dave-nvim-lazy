@@ -41,3 +41,14 @@ vim.cmd([[
 ]])
 
 vim.cmd.colorscheme("cyberdream")
+
+local set_hl_for_float = function()
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#333333" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#333333" })
+end
+set_hl_for_float()
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    desc = "Re-apply float window colors after changing schemes.",
+    callback = set_hl_for_float,
+})
