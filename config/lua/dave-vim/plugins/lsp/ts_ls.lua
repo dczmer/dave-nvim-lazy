@@ -1,8 +1,4 @@
--- you need to setup a yarn environment and `yarn add typescript typescript-language-server`
-local lspconfig = require("lspconfig")
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-lspconfig.ts_ls.setup({
-    cmd = { 'typescript-language-server', '--stdio' },
-    capabilities = lsp_capabilities,
+vim.lsp.config("ts_ls", {
+    cmd = { "typescript-language-server", "--stdio" },
 })
+vim.lsp.enable("ts_ls")

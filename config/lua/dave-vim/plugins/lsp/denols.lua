@@ -1,4 +1,1 @@
-local lspconfig = require("lspconfig")
-
-lspconfig.denols.setup({
-});
+vim.lsp.enable("denols")

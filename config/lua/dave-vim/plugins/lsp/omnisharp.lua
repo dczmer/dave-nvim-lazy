@@ -3,10 +3,7 @@
 -- that's kind of hard, since i was planning on installing the lsp
 -- server with the devshells, not with nvim.
 
-local lspconfig = require("lspconfig")
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-lspconfig.omnisharp.setup({
+vim.lsp.config("omnisharp", {
     cmd = { "OmniSharp" },
-    capabilities = lsp_capabilities,
 })
+vim.lsp.enable("omnisharp")

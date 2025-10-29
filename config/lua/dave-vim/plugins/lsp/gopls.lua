@@ -1,3 +1,1 @@
-local lspconfig = require("lspconfig")
-
-lspconfig.gopls.setup({})
+vim.lsp.enable("gopls")

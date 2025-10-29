@@ -14,3 +14,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = { "*.md" },
     command = "setlocal wrap",
 })
+vim.lsp.config('*', {
+    root_markers = { '.git' },
+})
