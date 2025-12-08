@@ -107,6 +107,13 @@ require("lz.n").load({
         end,
         ft = { "elixir", "eelixir", "heex", "surface" },
     },
+    {
+        "dave-vim.plugins.lsp.metals",
+        load = function()
+            require("dave-vim.plugins.lsp.metals")
+        end,
+        ft = { "scala" },
+    },
 
     --
     --
