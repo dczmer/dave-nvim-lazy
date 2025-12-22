@@ -30,7 +30,6 @@
                 nvim-treesitter.withAllGrammars
                 nvim-treesitter-textobjects
                 nvim-treesitter-parsers.fsharp
-                playground
                 nvim-web-devicons
                 telescope-fzf-native-nvim
                 nvim-lspconfig
