@@ -1,5 +1,7 @@
 require("lz.n").load({
     { "vim-startuptime" },
+    require("dave-vim.plugins.which-key").lazy(),
+    require("dave-vim.plugins.snacks").lazy(),
     require("dave-vim.plugins.neo-tree").lazy(),
     require("dave-vim.plugins.rainbow-delimiters").lazy(),
     require("dave-vim.plugins.telescope").lazy(),
@@ -113,6 +115,17 @@ require("lz.n").load({
             require("dave-vim.plugins.lsp.metals")
         end,
         ft = { "scala" },
+    },
+
+    --
+    -- AI tools
+    --
+    {
+        -- TODO: make a new config file
+        "opencode.nvim",
+        keys = {
+            "<localleader>ao",
+        },
     },
 
     --

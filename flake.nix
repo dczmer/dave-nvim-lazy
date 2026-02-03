@@ -76,6 +76,9 @@
                 mattn-calendar-vim
                 bullets-vim
                 vim-closetag
+                opencode-nvim
+                which-key-nvim
+                snacks-nvim
               ];
             };
           };
@@ -114,6 +117,8 @@
                   pynvim
                 ]
               ))
+
+              lsof
             ]
             ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         };
