@@ -76,9 +76,11 @@
                 mattn-calendar-vim
                 bullets-vim
                 vim-closetag
-                opencode-nvim
                 which-key-nvim
                 snacks-nvim
+                opencode-nvim
+                #claude-code-nvim
+                claudecode-nvim
               ];
             };
           };

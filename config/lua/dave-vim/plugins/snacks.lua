@@ -8,7 +8,7 @@ local setup = function()
         dashboard = { enabled = false },
         dim = { enabled = true },
         -- i use neotree
-        explorer = { enabled = false },
+        explorer = { enabled = true },
         gh = { enabled = false },
         -- i use fugitive
         git = { enabled = false },
@@ -18,7 +18,7 @@ local setup = function()
         -- TODO: i like `indent`, but it's too loud. can i toggle it on/off?
         indent = { enabled = true },
         input = { enabled = true },
-        layout = { enabled = false },
+        layout = { enabled = true },
         lazygit = { enabled = false },
         notifier = { enabled = true },
         notify = { enabled = true },

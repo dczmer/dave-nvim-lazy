@@ -22,9 +22,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
         vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
         vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-        vim.keymap.set('n', '<F5>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        vim.keymap.set("n", "<F5>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
         vim.keymap.set({ "n", "x" }, "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
         vim.keymap.set({ "n", "x" }, "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
         vim.keymap.set({ "n", "x" }, "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
     end,
 })
+
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
+vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
+vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
+vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
+vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")
