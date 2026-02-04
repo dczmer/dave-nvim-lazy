@@ -18,25 +18,26 @@ local setup = function()
 
         -- Terminal Configuration
         terminal = {
-            split_side = "left", -- "left" or "right"
-            split_width_percentage = 0.30,
-            provider = "snacks", -- "auto", "snacks", "native", "external", "none", or custom provider table
-            auto_close = true,
-            snacks_win_opts = {
-                position = "right",
-                width = 0.3,
-                height = 1,
-                keys = {
-                    claude_hide = {
-                        "<C-,>",
-                        function(self)
-                            self:hide()
-                        end,
-                        mode = "t",
-                        desc = "Hide",
-                    },
-                },
-            },
+            -- NOTE: i like to use tmux and manage the session manually
+            provider = "none", -- "auto", "snacks", "native", "external", "none", or custom provider table
+            --split_side = "left", -- "left" or "right"
+            --split_width_percentage = 0.30,
+            --auto_close = true,
+            --snacks_win_opts = {
+            --    position = "left",
+            --    width = 0.3,
+            --    height = 1,
+            --    keys = {
+            --        claude_hide = {
+            --            "<C-,>",
+            --            function(self)
+            --                self:hide()
+            --            end,
+            --            mode = "t",
+            --            desc = "Hide",
+            --        },
+            --    },
+            --},
 
             ---- Provider-specific options
             --provider_opts = {
@@ -67,13 +68,12 @@ local keys = {
     { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
     { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
     { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-    --{
-    --    "<leader>as",
-    --    "<cmd>ClaudeCodeTreeAdd<cr>",
-    --    desc = "Add file",
-    --    ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
-    --},
-    -- Diff management
+    {
+        "<leader>as",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+    },
     { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
     { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
 }

@@ -120,8 +120,8 @@ require("lz.n").load({
     --
     -- AI tools
     --
-    require("dave-vim.plugins.opencode").lazy(),
-    --require("dave-vim.plugins.claudecode").lazy(),
+    --require("dave-vim.plugins.opencode").lazy(),
+    require("dave-vim.plugins.claudecode").lazy(),
 
     --
     --
