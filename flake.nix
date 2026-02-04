@@ -46,7 +46,6 @@
                 vim-nix
                 camelcasemotion
                 cyberdream-nvim
-                nvim-dap-python
                 vim-sleuth
               ];
               opt = [
@@ -79,7 +78,6 @@
                 which-key-nvim
                 snacks-nvim
                 opencode-nvim
-                #claude-code-nvim
                 claudecode-nvim
               ];
             };

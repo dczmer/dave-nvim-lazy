@@ -1,4 +1,4 @@
-require("lz.n").load({
+local spec = {
     { "vim-startuptime" },
     require("dave-vim.plugins.which-key").lazy(),
     require("dave-vim.plugins.snacks").lazy(),
@@ -120,8 +120,9 @@ require("lz.n").load({
     --
     -- AI tools
     --
-    --require("dave-vim.plugins.opencode").lazy(),
-    require("dave-vim.plugins.claudecode").lazy(),
+    -- TODO: maybe use a global variable to conditionally add one tool or the other?
+    require("dave-vim.plugins.opencode").lazy(),
+    --require("dave-vim.plugins.claudecode").lazy(),
 
     --
     --
@@ -160,4 +161,14 @@ require("lz.n").load({
     --},
     --
     --
-})
+}
+
+-- TODO: conditionally add specs based on global config or presence of certain programs in the PATH
+-- deno/node (if deno found, use that. elif node found, use that)
+-- opencode/claude (if opencode found, use that. elif claude found, use that)
+-- supermaven?
+-- if this works, load all of the lsps based on presence of the required tools
+-- also, clean up the return structure of the plugin modules. in-line the value of the `lazy` table.
+-- table.insert(spec, {})
+
+require("lz.n").load(spec)
