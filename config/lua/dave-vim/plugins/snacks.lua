@@ -16,7 +16,7 @@ local setup = function()
         -- i do use kitty, so i can use `image`
         image = { enabled = true },
         -- TODO: i like `indent`, but it's too loud. can i toggle it on/off?
-        indent = { enabled = true },
+        indent = { enabled = false },
         input = { enabled = true },
         layout = { enabled = true },
         lazygit = { enabled = false },

@@ -119,16 +119,9 @@ require("lz.n").load({
 
     --
     -- AI tools
-    -- TODO: move these to plugins files and add setup code.
     --
-    {
-        -- TODO: make a new config file
-        "opencode.nvim",
-        keys = {
-            "<localleader>ao",
-        },
-    },
-    require("dave-vim.plugins.claudecode").lazy(),
+    require("dave-vim.plugins.opencode").lazy(),
+    --require("dave-vim.plugins.claudecode").lazy(),
 
     --
     --
