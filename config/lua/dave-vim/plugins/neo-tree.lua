@@ -1,5 +1,5 @@
 local keys = {
-    { "<leader>ft", "<CMD>Neotree toggle<CR>", desc = "NeoTree toggle" },
+    { "<leader>tt", "<CMD>Neotree toggle<CR>", desc = "NeoTree toggle" },
 }
 
 local opts = {

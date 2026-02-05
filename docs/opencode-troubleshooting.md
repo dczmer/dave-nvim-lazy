@@ -202,7 +202,7 @@ Common issues and solutions for OpenCode integration.
 **Solutions**:
 1. Ensure you're in Neo-tree buffer:
    ```vim
-   ,ft    " Toggle Neo-tree
+   ,tt    " Toggle Neo-tree
    ```
 
 2. Navigate to a file/directory in Neo-tree
@@ -264,7 +264,7 @@ Should show:
 
 ### "No node selected in Neo-tree"
 - Not in Neo-tree buffer or no file selected
-- Open Neo-tree (`,ft`) and navigate to file
+- Open Neo-tree (`,tt`) and navigate to file
 
 ### "No git changes to review"
 - No uncommitted changes

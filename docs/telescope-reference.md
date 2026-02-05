@@ -12,21 +12,79 @@ All Telescope commands use the leader prefix: `,` (comma)
 
 ## Quick Reference Table
 
-| Key | Action | Description |
-|-----|--------|-------------|
-| `,ff` | Find files | Search files by name in project |
-| `,fg` | Live grep | Search text content across files |
-| `,fb` | Buffers | List and switch between open buffers |
-| `,fh` | Help tags | Search Neovim help documentation |
+### File Navigation
+| Key | Description |
+|-----|-------------|
+| `,ff` | Find files |
+| `,fF` | Find ALL files (hidden/ignored) |
+| `,fr` | Recent files |
+| `,fw` | Find word under cursor |
+
+### Text Search
+| Key | Description |
+|-----|-------------|
+| `,fg` | Live grep |
+| `,fG` | Live grep (all files, no ignore) |
+| `,fs` | Search current buffer |
+
+### Buffer Management
+| Key | Description |
+|-----|-------------|
+| `,fb` | Buffers (press `dd` or `Ctrl-d` to delete) |
+
+### LSP Integration
+| Key | Description |
+|-----|-------------|
+| `,fl` | LSP: Find references |
+| `,fd` | LSP: Definitions |
+| `,fD` | LSP: Type definitions |
+| `,fi` | LSP: Implementations |
+| `,fx` | LSP: Diagnostics (all) |
+| `,fX` | LSP: Diagnostics (current buffer) |
+| `,fo` | LSP: Document symbols |
+| `,fO` | LSP: Workspace symbols |
+
+### Git Integration
+| Key | Description |
+|-----|-------------|
+| `,fc` | Git commits |
+| `,fC` | Git buffer commits |
+| `,ft` | Git status |
+| `,fB` | Git branches |
+| `,fT` | Git tracked files |
+
+### Vim Internals
+| Key | Description |
+|-----|-------------|
+| `,fh` | Help tags |
+| `,fk` | Keymaps |
+| `,fm` | Marks |
+| `,fj` | Jump list |
+| `,fq` | Quickfix list |
+| `,fL` | Location list |
+| `,fv` | Vim options |
+| `,f:` | Command history |
+| `,f/` | Search history |
+| `,fR` | Registers |
+| `,fA` | Autocommands |
+| `,fH` | Highlight groups |
+| `,fz` | Spelling suggestions |
+
+### Telescope Meta
+| Key | Description |
+|-----|-------------|
+| `,f?` | Telescope pickers |
+| `,fp` | Resume previous picker |
 
 ## Telescope Interface
 
 ### Navigation Keys (in Telescope picker)
 
+**Insert Mode** (while typing):
 | Key | Action |
 |-----|--------|
-| `<C-n>` / `<Down>` | Next item |
-| `<C-p>` / `<Up>` | Previous item |
+| `<C-n>` / `<C-j>` | Next item |
+| `<C-p>` / `<C-k>` | Previous item |
 | `<C-c>` / `<Esc>` | Close Telescope |
 | `<CR>` | Select item (open in current window) |
 | `<C-x>` | Open in horizontal split |
@@ -38,6 +96,20 @@ All Telescope commands use the leader prefix: `,` (comma)
 | `<Tab>` | Toggle selection (multi-select) |
 | `<S-Tab>` | Toggle selection (reverse) |
 | `<C-q>` | Send to quickfix list |
+| `<M-q>` | Send selected to quickfix list |
+
+**Normal Mode** (press `<Esc>` from insert mode):
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Next/previous item |
+| `gg` / `G` | Jump to top/bottom |
+| `<CR>` | Select item |
+| `<C-x>` | Open in horizontal split |
+| `<C-v>` | Open in vertical split |
+| `<C-t>` | Open in new tab |
+| `<C-u>` / `<C-d>` | Scroll preview |
+| `?` | Show key mappings (help) |
+| `<Esc>` | Close Telescope |
 
 ## Common Workflows
 
@@ -100,6 +172,79 @@ All Telescope commands use the leader prefix: `,` (comma)
 <C-u>                    " Scroll preview up
 ```
 
+## Advanced Pickers
+
+### LSP Navigation
+- `,fl` - Find references to symbol under cursor
+- `,fd` - Jump to definitions
+- `,fD` - Find type definitions
+- `,fi` - Find implementations
+- `,fo` - Browse document symbols (outline)
+- `,fO` - Browse workspace symbols
+- `,fx` - View all diagnostics (workspace)
+- `,fX` - View diagnostics (current buffer only)
+
+**Usage example**:
+```vim
+" Find where a function is used
+" 1. Place cursor on function name
+,fl                      " Find all references
+" Navigate with j/k, preview with C-d/C-u
+<CR>                     " Jump to selected location
+```
+
+### Git Integration
+- `,fc` - Browse commit history (all)
+- `,fC` - Browse commit history (current buffer)
+- `,ft` - View changed files (git status)
+- `,fB` - Switch branches
+- `,fT` - Search git-tracked files only
+
+**Usage example**:
+```vim
+" Review changes
+,ft                      " Git status picker
+" See all modified files with preview
+<CR>                     " Open file
+
+" Browse commit history
+,fc                      " All commits
+,fC                      " Commits for current file only
+```
+
+### File & Search
+- `,fF` - Find ALL files (including hidden/ignored)
+- `,fG` - Live grep ALL files (no gitignore)
+- `,fr` - Recently opened files
+- `,fw` - Find word under cursor across project
+- `,fs` - Fuzzy search current buffer
+
+**Usage example**:
+```vim
+" Lost track of a file you were editing?
+,fr                      " Recent files picker
+" Type partial name
+<CR>                     " Reopen
+```
+
+### Vim Internals
+- `,fk` - Browse all keymaps
+- `,fm` - Jump to marks
+- `,fj` - Navigate jump list
+- `,fq` - Quickfix list
+- `,f:` - Command history
+- `,f/` - Search history
+- `,f?` - List all telescope pickers
+- `,fp` - Resume previous picker
+
+**Usage example**:
+```vim
+" Forgot a keybinding?
+,fk                      " Search all keymaps
+" Type what you're looking for
+<CR>                     " See the mapping
+```
+
 ## Detailed Command Reference
 
 ### Find Files (`,ff`)
@@ -149,12 +294,14 @@ All Telescope commands use the leader prefix: `,` (comma)
 - Preview buffer content
 - Shows buffer numbers
 - Indicates modified buffers
+- Delete buffers directly from picker
 
 **Tips**:
 - Type buffer name or number
-- `<C-d>` to delete buffer (if configured)
+- `dd` (normal mode) or `<C-d>` (insert mode) to delete buffer
 - Works well with many open files
 - See which buffers are modified
+- Multi-select with `<Tab>` and delete multiple at once
 
 ### Help Tags (`,fh`)
 **Usage**: Search Neovim documentation
@@ -268,13 +415,18 @@ All Telescope commands use the leader prefix: `,` (comma)
 
 ### With LSP
 ```vim
-" Find references via Telescope
+" LSP navigation with keybindings
+,fl                      " Find references
+,fd                      " Find definitions
+,fi                      " Find implementations
+,fx                      " Show diagnostics (all)
+,fX                      " Show diagnostics (current buffer)
+,fo                      " Document symbols (outline)
+,fO                      " Workspace symbols
+
+" Or use commands directly
 :Telescope lsp_references
-
-" Find definitions
 :Telescope lsp_definitions
-
-" Show diagnostics
 :Telescope diagnostics
 ```
 
@@ -284,6 +436,94 @@ All Telescope commands use the leader prefix: `,` (comma)
 :Telescope git_files     " Git tracked files only
 :Telescope git_commits   " Browse commits
 :Telescope git_status    " Show changed files
+```
+
+## Performance & Customization
+
+### FZF Native Extension
+
+The configuration loads the FZF native extension for significant performance improvements:
+- **Speed**: 20-50x faster on large result sets
+- **Fuzzy matching**: True fuzzy search (not just substring)
+- **Smart case**: Automatically case-sensitive when uppercase used
+
+The FZF extension is loaded automatically when you first use a Telescope picker. You can verify it's loaded with:
+```vim
+:lua print(vim.inspect(require('telescope').extensions.fzf))
+```
+
+### File Ignores
+
+Configured to skip common directories:
+- `.git/`, `node_modules/`, `__pycache__/`
+- Binary files: `.o`, `.a`, `.pdf`, `.mkv`, `.mp4`
+- Nix build outputs: `result/`, `.direnv/`
+
+Override file ignores for a single search:
+```vim
+,fF                      " Find ALL files (no ignores)
+,fG                      " Grep ALL files (no ignores)
+```
+
+### Layout Themes
+
+Different pickers use optimized themes:
+- **Dropdown**: Quick selections (files, buffers, git status)
+  - Compact layout at top of screen
+  - Good for quick file/buffer switching
+- **Ivy**: Content-heavy displays (help, commits, diagnostics)
+  - Bottom layout with more vertical space
+  - Better for reading documentation/logs
+- **Horizontal**: Default with balanced preview
+  - Split layout with good preview window
+  - Best for code navigation
+
+### Buffer Management
+
+In buffers picker (`,fb`):
+- Press `Ctrl-d` (insert mode) or `dd` (normal mode) to delete buffer
+- Multi-select with `Tab` and delete multiple at once
+- Starts in normal mode for quick navigation
+- Dropdown theme for fast switching
+
+**Multi-delete workflow**:
+```vim
+,fb                      " Open buffers
+" (already in normal mode)
+<Tab>                    " Mark first buffer
+j                        " Move down
+<Tab>                    " Mark second buffer
+dd                       " Delete all marked buffers
+```
+
+## Common Workflows
+
+### Multi-File Search & Replace
+```vim
+" 1. Find all occurrences
+,fg                      " Live grep
+" Type search term
+
+" 2. Select files
+<Tab>                    " Mark files (repeat for multiple)
+<C-q>                    " Send to quickfix
+
+" 3. Replace across all files
+:cfdo %s/old/new/gc      " Interactive replace
+:wa                      " Write all changes
+```
+
+### LSP Code Navigation
+```vim
+" Find where a function is used
+" 1. Place cursor on function name
+,fl                      " Find all references
+" Navigate with j/k, preview with C-d/C-u
+<CR>                     " Jump to selected location
+
+" Jump to definition
+,fd                      " Telescope LSP definitions
+" Or use built-in: gd
 ```
 
 ## Troubleshooting
@@ -381,23 +621,29 @@ sudo pacman -S ripgrep fd
 
 ## Advanced Features
 
-### Custom Telescope Commands
+### Telescope Pickers with Keybindings
 
-Use `:Telescope` to access additional pickers:
+Many advanced pickers now have direct keybindings:
 ```vim
-:Telescope commands      " Search available commands
-:Telescope keymaps      " Search key mappings
-:Telescope oldfiles     " Recently opened files
-:Telescope marks        " Jump to marks
-:Telescope registers    " View registers
-:Telescope colorscheme  " Change colorscheme
-:Telescope vim_options  " Search Vim options
+,fk                      " Search key mappings
+,fr                      " Recently opened files
+,fm                      " Jump to marks
+,fR                      " View registers
+,fv                      " Search Vim options
+,f:                      " Search command history
+,f/                      " Search / history
+,fA                      " Autocommands
+,fH                      " Highlight groups
+,f?                      " List all Telescope pickers
 ```
 
-### Command History
+### Custom Telescope Commands
+
+Use `:Telescope` to access additional pickers without keybindings:
 ```vim
-:Telescope command_history   " Search command history
-:Telescope search_history    " Search / history
+:Telescope commands      " Search available commands
+:Telescope colorscheme   " Change colorscheme
+:Telescope filetypes     " Set filetype
 ```
 
 ## Keybinding Mnemonic Guide
