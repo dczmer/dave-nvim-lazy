@@ -202,6 +202,20 @@ IMPORTANT: You are in read-only mode. Suggest changes but do not implement them.
 
                 -- Neo-tree integration (when in Neo-tree buffer)
                 { "<leader>aa", desc = "Add Neo-tree node to OpenCode (in Neo-tree)" },
+
+                -- Advanced features
+                { "<leader>ad", desc = "Add documentation" },
+                { "<leader>ai", desc = "Improve/optimize code" },
+                { "<leader>au", desc = "Undo last OpenCode change" },
+                { "<leader>ah", desc = "Show OpenCode help" },
+                { "<leader>ag", desc = "Review git diff" },
+
+                -- Visual mode variants
+                { "<leader>ae", desc = "Explain selection", mode = "v" },
+                { "<leader>af", desc = "Find bugs in selection", mode = "v" },
+                { "<leader>ar", desc = "Refactor selection", mode = "v" },
+                { "<leader>at", desc = "Write tests for selection", mode = "v" },
+                { "<leader>ad", desc = "Document selection", mode = "v" },
             })
         end
     end)
@@ -617,6 +631,101 @@ local keys = {
             telescope_buffers_to_opencode()
         end,
         desc = "Select buffers for OpenCode",
+    },
+
+    -- ----------------------------------------------------------------------------
+    -- ADVANCED FEATURES
+    -- ----------------------------------------------------------------------------
+    -- Additional AI assistance features and visual mode support
+
+    -- Additional prompts
+    {
+        "<leader>ad",
+        function()
+            require("opencode").ask("Add comprehensive documentation to this code: @this", { submit = true })
+        end,
+        desc = "Add documentation",
+    },
+    {
+        "<leader>ai",
+        function()
+            require("opencode").ask("Improve and optimize this code: @this", { submit = true })
+        end,
+        desc = "Improve/optimize code",
+    },
+
+    -- Undo helper
+    {
+        "<leader>au",
+        function()
+            require("opencode").command("undo")
+        end,
+        desc = "Undo last OpenCode change",
+    },
+
+    -- Help reference
+    {
+        "<leader>ah",
+        function()
+            require("opencode").command("help")
+        end,
+        desc = "Show OpenCode help",
+    },
+
+    -- Git integration
+    {
+        "<leader>ag",
+        function()
+            local diff = vim.fn.system("git diff")
+            if diff == "" then
+                vim.notify("No git changes to review", vim.log.levels.INFO)
+                return
+            end
+            require("opencode").ask("Review these git changes:\n\n" .. diff, { submit = true })
+        end,
+        desc = "Review git diff",
+    },
+
+    -- Visual mode variants for context prompts
+    {
+        "<leader>ae",
+        function()
+            require("opencode").ask("Explain this code: @selection", { submit = true })
+        end,
+        mode = "v",
+        desc = "Explain selection",
+    },
+    {
+        "<leader>af",
+        function()
+            require("opencode").ask("Review this code for bugs: @selection", { submit = true })
+        end,
+        mode = "v",
+        desc = "Find bugs in selection",
+    },
+    {
+        "<leader>ar",
+        function()
+            require("opencode").ask("Refactor this code: @selection", { submit = true })
+        end,
+        mode = "v",
+        desc = "Refactor selection",
+    },
+    {
+        "<leader>at",
+        function()
+            require("opencode").ask("Write tests for: @selection", { submit = true })
+        end,
+        mode = "v",
+        desc = "Write tests for selection",
+    },
+    {
+        "<leader>ad",
+        function()
+            require("opencode").ask("Add documentation to: @selection", { submit = true })
+        end,
+        mode = "v",
+        desc = "Document selection",
     },
 }
 
