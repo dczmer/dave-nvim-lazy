@@ -1,3 +1,11 @@
+-- Detect which AI CLI tool is available
+local ai_plugin = nil
+if vim.fn.executable("claude") == 1 then
+    ai_plugin = "claudecode"
+elseif vim.fn.executable("opencode") == 1 then
+    ai_plugin = "opencode"
+end
+
 local spec = {
     { "vim-startuptime" },
     require("dave-vim.plugins.which-key").lazy(),
@@ -118,13 +126,6 @@ local spec = {
     },
 
     --
-    -- AI tools
-    --
-    -- TODO: maybe use a global variable to conditionally add one tool or the other?
-    --require("dave-vim.plugins.opencode").lazy(),
-    require("dave-vim.plugins.claudecode").lazy(),
-
-    --
     --
     -- JAVASCRIPT/TYPESCRIPT LSP
     --
@@ -163,12 +164,14 @@ local spec = {
     --
 }
 
--- TODO: conditionally add specs based on global config or presence of certain programs in the PATH
--- deno/node (if deno found, use that. elif node found, use that)
--- opencode/claude (if opencode found, use that. elif claude found, use that)
--- supermaven?
--- if this works, load all of the lsps based on presence of the required tools
--- also, clean up the return structure of the plugin modules. in-line the value of the `lazy` table.
--- table.insert(spec, {})
+--
+-- AI tools
+--
+-- Conditionally loaded based on available CLI tool (see end of spec)
+if ai_plugin == "opencode" then
+    table.insert(spec, require("dave-vim.plugins.opencode").lazy())
+elseif ai_plugin == "claudecode" then
+    table.insert(spec, require("dave-vim.plugins.claudecode").lazy())
+end
 
 require("lz.n").load(spec)
