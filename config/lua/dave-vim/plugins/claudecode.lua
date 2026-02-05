@@ -97,6 +97,7 @@ local lazy = function()
         "claudecode.nvim",
         after = setup,
         keys = keys,
+        lazy = false,
     }
 end
 
