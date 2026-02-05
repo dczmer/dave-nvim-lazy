@@ -1,12 +1,8 @@
 local setup = function()
     require("claudecode").setup({
         -- Server Configuration
-        --port_range = { min = 10000, max = 65535 },
         auto_start = true,
         log_level = "info", -- "trace", "debug", "info", "warn", "error"
-        --terminal_cmd = nil, -- Custom terminal command (default: "claude")
-        -- For local installations: "~/.claude/local/claude"
-        -- For native binary: use output from 'which claude'
 
         -- Send/Focus Behavior
         -- When true, successful sends will focus the Claude terminal if already connected
@@ -21,33 +17,6 @@ local setup = function()
             -- NOTE: Provider set to "none" for manual tmux workflow
             -- User manages Claude session in tmux manually rather than having Neovim control terminals
             provider = "none", -- "auto", "snacks", "native", "external", "none", or custom provider table
-            --split_side = "left", -- "left" or "right"
-            --split_width_percentage = 0.30,
-            --auto_close = true,
-            --snacks_win_opts = {
-            --    position = "left",
-            --    width = 0.3,
-            --    height = 1,
-            --    keys = {
-            --        claude_hide = {
-            --            "<C-,>",
-            --            function(self)
-            --                self:hide()
-            --            end,
-            --            mode = "t",
-            --            desc = "Hide",
-            --        },
-            --    },
-            --},
-
-            ---- Provider-specific options (kept for reference if switching from tmux workflow)
-            --provider_opts = {
-            --    -- Command for external terminal provider. Can be:
-            --    -- 1. String with %s placeholder: "alacritty -e %s" (backward compatible)
-            --    -- 2. String with two %s placeholders: "alacritty --working-directory %s -e %s" (cwd, command)
-            --    -- 3. Function returning command: function(cmd, env) return "alacritty -e " .. cmd end
-            --    external_terminal_cmd = nil,
-            --},
         },
 
         -- Diff Integration

@@ -1,22 +1,10 @@
-
---{
---    "vim-suda",
---    cmd = {
---        "SudaRead",
---        "SudaWrite",
---    },
---    keys = {
---        { "w!!", "<CMD>SudaWrite<CR>", mode = "c", desc = "NeoTree toggle" },
---    },
---},
-
 local cmd = {
     "SudaRead",
     "SudaWrite",
 }
 
 local keys = {
-    { "w!!", "<CMD>SudaWrite<CR>", mode = "c", desc = "NeoTree toggle" },
+    { "w!!", "<CMD>SudaWrite<CR>", mode = "c", desc = "SudaWrite" },
 }
 
 local lazy = function()

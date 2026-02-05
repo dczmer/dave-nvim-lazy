@@ -1,3 +1,8 @@
+local node_runtime = nil
+if vim.fn.executable("node") == 1 then
+    node_runtime = "node"
+end
+
 -- NOTE: seems to be ok to just define default linters for every flavor here.
 -- if they don't exist it just doesn't do anything.
 local linters_by_ft = {
@@ -9,26 +14,16 @@ local linters_by_ft = {
     zsh = { "shellcheck" },
     nix = { "nix" },
     yaml = { "yamllint" },
-
-    --
-    --
-    -- JAVASCRIPT/TYPESCRIPT
-    --
-    -- NODE :(
-    javascript = { "eslint" },
-    javascriptreact = { "eslint" },
-    typescript = { "eslint" },
-    typescriptreact = { "eslint" },
-    --
-    -- DENO :)
-    ---- But deno lsp already takes care of everything.
-    ----javascript = { "deno" },
-    ----javascriptreact = { "deno" },
-    ----typescript = { "deno" },
-    ----typescriptreact = { "deno" },
-    --
-    --
 }
+
+-- Node linters.
+-- Deno lsp already takes care of linting.
+if node_runtime == "node" then
+    linters_by_ft["javascript"] = { "eslint" }
+    linters_by_ft["javascriptreact"] = { "eslint" }
+    linters_by_ft["typescript"] = { "eslint" }
+    linters_by_ft["typescriptreact"] = { "eslint" }
+end
 
 local event = "BufWritePost"
 

@@ -1,8 +1,6 @@
 local setup = function()
     require("snacks").setup({
         animate = { enabled = false },
-        -- TODO: configure `bigfile`
-        -- >> bigfile adds a new filetype bigfile to Neovim that triggers when the file is larger than the configured size. This automatically prevents things like LSP and Treesitter attaching to the buffer.
         bigfile = { enabled = true },
         bufdelete = { enabled = false },
         dashboard = { enabled = false },
@@ -35,14 +33,56 @@ local setup = function()
         toggle = { enable = true },
         win = { enable = true },
         words = { enabled = true },
-        zen = { enabled = true },
+        zen = {
+            -- You can add any `Snacks.toggle` id here.
+            -- Toggle state is restored when the window is closed.
+            -- Toggle config options are NOT merged.
+            toggles = {
+                dim = true,
+                git_signs = false,
+                mini_diff_signs = false,
+                -- diagnostics = false,
+                -- inlay_hints = false,
+            },
+            center = true, -- center the window
+            show = {
+                statusline = false, -- can only be shown when using the global statusline
+                tabline = false,
+            },
+            win = { style = "zen" },
+            --- Callback when the window is opened.
+            --on_open = function(win) end,
+            --- Callback when the window is closed.
+            --on_close = function(win) end,
+            --- Options for the `Snacks.zen.zoom()`
+            zoom = {
+                toggles = {},
+                center = false,
+                show = { statusline = true, tabline = true },
+                win = {
+                    backdrop = false,
+                    width = 0, -- full width
+                },
+            },
+        },
     })
 end
+
+local keys = {
+    {
+        "<leader>zz",
+        function()
+            Snacks.zen()
+        end,
+        desc = "Toggle Zen Mode",
+    },
+}
 
 local lazy = function()
     return {
         "snacks.nvim",
         after = setup,
+        keys = keys,
         lazy = false,
     }
 end

@@ -44,7 +44,7 @@ local setup = function()
         theme = "opencode",       -- Default OpenCode theme
 
         -- Sharing preferences
-        share = "manual",         -- Options: "manual" (explicit /share), "auto", "disabled"
+        share = "disabled",         -- Options: "manual" (explicit /share), "auto", "disabled"
 
         -- File watcher ignore patterns
         watcher = {
@@ -157,68 +157,6 @@ IMPORTANT: You are in read-only mode. Suggest changes but do not implement them.
 
     -- Required for `opts.events.reload`.
     vim.o.autoread = true
-
-    -- Register with which-key for better discoverability
-    -- Schedule to run after which-key is loaded
-    vim.schedule(function()
-        local ok, wk = pcall(require, "which-key")
-        if ok then
-            wk.add({
-                -- Main group
-                { "<leader>a", group = "AI/OpenCode" },
-
-                -- Core operations
-                { "<leader>as", desc = "Ask OpenCode with context" },
-                { "<leader>ax", desc = "Select OpenCode operation" },
-
-                -- Context-aware prompts group
-                { "<leader>a", group = "Prompts", mode = "n" },
-                { "<leader>ae", desc = "Explain code" },
-                { "<leader>af", desc = "Find bugs" },
-                { "<leader>ar", desc = "Refactor code" },
-                { "<leader>at", desc = "Write tests" },
-
-                -- Session management group
-                { "<leader>an", desc = "New session" },
-                { "<leader>al", desc = "List sessions" },
-                { "<leader>ac", desc = "Clear session" },
-
-                -- Text operators
-                { "<leader>ao", desc = "Add range to OpenCode" },
-                { "<leader>aoo", desc = "Add current line to OpenCode" },
-
-                -- Mode switching
-                { "<leader>ab", desc = "Switch to Build mode" },
-                { "<leader>ap", desc = "Switch to Plan mode" },
-
-                -- Navigation
-                { "<leader>ak", desc = "Scroll OpenCode up" },
-                { "<leader>aj", desc = "Scroll OpenCode down" },
-
-                -- Telescope integration
-                { "<leader>aF", desc = "Search files for OpenCode" },
-                { "<leader>aG", desc = "Grep for OpenCode context" },
-                { "<leader>aB", desc = "Select buffers for OpenCode" },
-
-                -- Neo-tree integration (when in Neo-tree buffer)
-                { "<leader>aa", desc = "Add Neo-tree node to OpenCode (in Neo-tree)" },
-
-                -- Advanced features
-                { "<leader>ad", desc = "Add documentation" },
-                { "<leader>ai", desc = "Improve/optimize code" },
-                { "<leader>au", desc = "Undo last OpenCode change" },
-                { "<leader>ah", desc = "Show OpenCode help" },
-                { "<leader>ag", desc = "Review git diff" },
-
-                -- Visual mode variants
-                { "<leader>ae", desc = "Explain selection", mode = "v" },
-                { "<leader>af", desc = "Find bugs in selection", mode = "v" },
-                { "<leader>ar", desc = "Refactor selection", mode = "v" },
-                { "<leader>at", desc = "Write tests for selection", mode = "v" },
-                { "<leader>ad", desc = "Document selection", mode = "v" },
-            })
-        end
-    end)
 end
 
 -- ============================================================================
@@ -393,72 +331,6 @@ local telescope_buffers_to_opencode = function()
             return true
         end,
     })
-end
-
--- ============================================================================
--- NEO-TREE INTEGRATION HELPER
--- ============================================================================
--- Function to add Neo-tree selected node to OpenCode context
--- ============================================================================
-
--- Add current Neo-tree node to OpenCode
-local neotree_node_to_opencode = function()
-    -- Check if Neo-tree is available
-    local ok, neotree_manager = pcall(require, "neo-tree.sources.manager")
-    if not ok then
-        vim.notify("Neo-tree not available", vim.log.levels.ERROR)
-        return
-    end
-
-    -- Get the current Neo-tree state
-    local state = neotree_manager.get_state("filesystem")
-    if not state then
-        vim.notify("Neo-tree is not open", vim.log.levels.WARN)
-        return
-    end
-
-    -- Get the currently selected node
-    local tree = state.tree
-    if not tree then
-        vim.notify("No Neo-tree tree found", vim.log.levels.WARN)
-        return
-    end
-
-    local node = tree:get_node()
-    if not node then
-        vim.notify("No node selected in Neo-tree", vim.log.levels.WARN)
-        return
-    end
-
-    -- Get the file path
-    local path = node:get_id()
-    if not path or path == "" then
-        vim.notify("Invalid node path", vim.log.levels.WARN)
-        return
-    end
-
-    -- Format as relative path
-    local relative = vim.fn.fnamemodify(path, ":.")
-    
-    -- Check if it's a directory
-    if node.type == "directory" then
-        -- For directories, we could add all files in it
-        -- For now, just notify that it's a directory
-        local confirm = vim.fn.confirm(
-            string.format("Add directory: %s\nThis will add the directory path to OpenCode.", relative),
-            "&Yes\n&Cancel",
-            1
-        )
-        if confirm ~= 1 then
-            return
-        end
-    end
-
-    -- Add to OpenCode
-    local prompt = "@" .. relative .. ": "
-    require("opencode").ask(prompt, { submit = false })
-    
-    vim.notify(string.format("Added %s to OpenCode", relative), vim.log.levels.INFO)
 end
 
 local keys = {

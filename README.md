@@ -119,7 +119,7 @@ All OpenCode commands use the `,a` prefix (leader + a).
 - `,aF` - Search files to add to context (Telescope)
 - `,ag` - Review git diff
 
-**Discovery**: Press `,a` and wait to see all 30 available commands in which-key popup.
+**Discovery**: Press `,a` and wait to see all 30 available commands in which-key popup (`,?`).
 
 ## Features
 
@@ -166,8 +166,3 @@ Coding standards automatically loaded from:
 - `CONTRIBUTING.md` - Contribution guidelines
 
 OpenCode automatically follows these without manual reminders.
-
-# TODO
-
-- [ ] Shellcheck is great but it doesn't work that well with nvim-lint
-    - https://github.com/bash-lsp/bash-language-server (supported by nvim-lspconfig)
