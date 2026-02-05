@@ -1,4 +1,4 @@
-vim.g.mapLeader = ","
+vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<F4>", "<cmd>set paste!<cr>")

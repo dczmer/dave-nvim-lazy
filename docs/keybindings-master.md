@@ -404,11 +404,22 @@ All debug commands use the `<localleader>d` (`\d`) prefix.
 #### Neo-tree
 
 Configuration: `config/lua/dave-vim/plugins/neo-tree.lua`
+Full Reference: `docs/neo-tree-reference.md`
 
+**Global Keybindings**:
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `,ft` | Normal | Toggle Neo-tree | Toggle file tree |
-| `,aa` | Normal | Add to OpenCode | Add node to OpenCode (in Neo-tree only) |
+| `,tt` | Normal | Toggle Neo-tree | Toggle file tree explorer |
+
+**Internal Mappings** (when focused in neo-tree):
+- **Navigation**: `j`/`k`, `<space>` (toggle node), `<cr>` (open), `P` (preview)
+- **File ops**: `a` (add), `A` (add dir), `d` (delete), `r` (rename), `c` (copy), `m` (move)
+- **Splits**: `s` (horizontal), `v` (vertical), `t` (tab)
+- **Display**: `H` (toggle hidden), `I` (toggle gitignored), `R` (refresh), `.` (set root)
+- **Git**: `A` (add all), `ga` (add file), `gu` (unstage), `gc` (commit), `gp` (push)
+- **Other**: `?` (help), `q` (close), `i` (details), `,aa` (add to OpenCode)
+
+See `docs/neo-tree-reference.md` for complete documentation.
 
 #### Tagbar
 

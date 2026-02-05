@@ -11,6 +11,10 @@ This file provides essential context for Claude Code instances working in this N
 - **Format Nix files**: `nixfmt-rfc-style flake.nix`
 - **Format Lua files**: `stylua config/lua/`
 
+## Git Commits
+
+Never add the "co-authored" statement to git commit messages.
+
 ## Architecture Overview
 
 This is a Nix flake-based Neovim configuration using the `wrapNeovim` pattern for reproducible builds.

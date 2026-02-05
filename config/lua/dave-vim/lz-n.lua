@@ -121,8 +121,8 @@ local spec = {
     -- AI tools
     --
     -- TODO: maybe use a global variable to conditionally add one tool or the other?
-    require("dave-vim.plugins.opencode").lazy(),
-    --require("dave-vim.plugins.claudecode").lazy(),
+    --require("dave-vim.plugins.opencode").lazy(),
+    require("dave-vim.plugins.claudecode").lazy(),
 
     --
     --
