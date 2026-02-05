@@ -45,9 +45,188 @@ local setup = function()
                 -- Navigation
                 { "<leader>ak", desc = "Scroll OpenCode up" },
                 { "<leader>aj", desc = "Scroll OpenCode down" },
+
+                -- Telescope integration
+                { "<leader>aF", desc = "Search files for OpenCode" },
+                { "<leader>aG", desc = "Grep for OpenCode context" },
+                { "<leader>aB", desc = "Select buffers for OpenCode" },
             })
         end
     end)
+end
+
+-- ============================================================================
+-- TELESCOPE INTEGRATION HELPERS
+-- ============================================================================
+-- Functions to bridge Telescope pickers with OpenCode context
+-- ============================================================================
+
+-- Format selected files/entries for OpenCode
+local format_selections_for_opencode = function(selections, prompt_prefix)
+    if not selections or #selections == 0 then
+        return nil
+    end
+
+    local file_refs = {}
+    for _, entry in ipairs(selections) do
+        -- Handle different entry types from Telescope
+        local path = entry.path or entry.filename or entry.value
+        if path then
+            -- Use relative path for cleaner refs
+            local relative = vim.fn.fnamemodify(path, ":.")
+            table.insert(file_refs, "@" .. relative)
+        end
+    end
+
+    if #file_refs == 0 then
+        return nil
+    end
+
+    -- Build prompt with file references
+    local files_str = table.concat(file_refs, " ")
+    local prompt = prompt_prefix or ""
+
+    return prompt .. files_str .. ": "
+end
+
+-- Open Telescope file picker and send selections to OpenCode
+local telescope_files_to_opencode = function()
+    local ok, telescope = pcall(require, "telescope")
+    if not ok then
+        vim.notify("Telescope not available", vim.log.levels.ERROR)
+        return
+    end
+
+    local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local conf = require("telescope.config").values
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+
+    pickers
+        .new({}, {
+            prompt_title = "Select Files for OpenCode (Tab to multi-select)",
+            finder = finders.new_oneshot_job({ "fd", "--type", "f", "--hidden", "--exclude", ".git" }, {}),
+            sorter = conf.file_sorter({}),
+            attach_mappings = function(prompt_bufnr, map)
+                actions.select_default:replace(function()
+                    local picker = action_state.get_current_picker(prompt_bufnr)
+                    local selections = picker:get_multi_selection()
+
+                    -- If no multi-selection, use current selection
+                    if #selections == 0 then
+                        local selection = action_state.get_selected_entry()
+                        if selection then
+                            selections = { selection }
+                        end
+                    end
+
+                    actions.close(prompt_bufnr)
+
+                    local prompt = format_selections_for_opencode(selections, "")
+                    if prompt then
+                        require("opencode").ask(prompt, { submit = false })
+                    else
+                        vim.notify("No files selected", vim.log.levels.WARN)
+                    end
+                end)
+
+                return true
+            end,
+        })
+        :find()
+end
+
+-- Open Telescope grep and send results to OpenCode
+local telescope_grep_to_opencode = function()
+    local ok, telescope = pcall(require, "telescope")
+    if not ok then
+        vim.notify("Telescope not available", vim.log.levels.ERROR)
+        return
+    end
+
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+
+    -- Start with live_grep picker
+    require("telescope.builtin").live_grep({
+        prompt_title = "Grep for OpenCode (Tab to multi-select files)",
+        attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+                local picker = action_state.get_current_picker(prompt_bufnr)
+                local selections = picker:get_multi_selection()
+
+                if #selections == 0 then
+                    local selection = action_state.get_selected_entry()
+                    if selection then
+                        selections = { selection }
+                    end
+                end
+
+                actions.close(prompt_bufnr)
+
+                -- Extract unique files from grep results
+                local files = {}
+                local file_set = {}
+                for _, entry in ipairs(selections) do
+                    local filepath = entry.filename or entry.path
+                    if filepath and not file_set[filepath] then
+                        file_set[filepath] = true
+                        table.insert(files, { path = filepath })
+                    end
+                end
+
+                local prompt = format_selections_for_opencode(files, "")
+                if prompt then
+                    require("opencode").ask(prompt, { submit = false })
+                else
+                    vim.notify("No matches selected", vim.log.levels.WARN)
+                end
+            end)
+
+            return true
+        end,
+    })
+end
+
+-- Open Telescope buffer picker and send to OpenCode
+local telescope_buffers_to_opencode = function()
+    local ok, telescope = pcall(require, "telescope")
+    if not ok then
+        vim.notify("Telescope not available", vim.log.levels.ERROR)
+        return
+    end
+
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+
+    require("telescope.builtin").buffers({
+        prompt_title = "Select Buffers for OpenCode (Tab to multi-select)",
+        attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+                local picker = action_state.get_current_picker(prompt_bufnr)
+                local selections = picker:get_multi_selection()
+
+                if #selections == 0 then
+                    local selection = action_state.get_selected_entry()
+                    if selection then
+                        selections = { selection }
+                    end
+                end
+
+                actions.close(prompt_bufnr)
+
+                local prompt = format_selections_for_opencode(selections, "")
+                if prompt then
+                    require("opencode").ask(prompt, { submit = false })
+                else
+                    vim.notify("No buffers selected", vim.log.levels.WARN)
+                end
+            end)
+
+            return true
+        end,
+    })
 end
 
 local keys = {
@@ -194,6 +373,32 @@ local keys = {
             require("opencode").command("session.half.page.down")
         end,
         desc = "Scroll OpenCode down",
+    },
+
+    -- ----------------------------------------------------------------------------
+    -- TELESCOPE INTEGRATION
+    -- ----------------------------------------------------------------------------
+    -- Use Telescope to search and add files/code to OpenCode context
+    {
+        "<leader>aF",
+        function()
+            telescope_files_to_opencode()
+        end,
+        desc = "Search files for OpenCode",
+    },
+    {
+        "<leader>aG",
+        function()
+            telescope_grep_to_opencode()
+        end,
+        desc = "Grep for OpenCode context",
+    },
+    {
+        "<leader>aB",
+        function()
+            telescope_buffers_to_opencode()
+        end,
+        desc = "Select buffers for OpenCode",
     },
 }
 
