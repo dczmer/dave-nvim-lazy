@@ -6,6 +6,13 @@ elseif vim.fn.executable("opencode") == 1 then
     ai_plugin = "opencode"
 end
 
+local node_runtime = nil
+if vim.fn.executable("deno") == 1 then
+    node_runtime = "deno"
+else
+    node_runtime = "node"
+end
+
 local spec = {
     { "vim-startuptime" },
     require("dave-vim.plugins.which-key").lazy(),
@@ -124,13 +131,28 @@ local spec = {
         end,
         ft = { "scala" },
     },
+}
 
-    --
-    --
-    -- JAVASCRIPT/TYPESCRIPT LSP
-    --
-    -- NODE :(
-    {
+--
+-- Javascript LSP selection.
+--
+if node_runtime == "deno" then
+    table.insert(spec, {
+        "dave-vim.plugins.lsp.denols",
+        load = function()
+            require("dave-vim.plugins.lsp.denols")
+        end,
+        ft = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+        },
+    })
+elseif node_runtime == "node" then
+    table.insert(spec, {
         "dave-vim.plugins.lsp.ts_ls",
         load = function()
             require("dave-vim.plugins.lsp.ts_ls")
@@ -143,26 +165,8 @@ local spec = {
             "typescriptreact",
             "typescript.tsx",
         },
-    },
-    --
-    -- DENO :)
-    --{
-    --    "dave-vim.plugins.lsp.denols",
-    --    load = function()
-    --        require("dave-vim.plugins.lsp.denols")
-    --    end,
-    --    ft = {
-    --        "javascript",
-    --        "javascriptreact",
-    --        "javascript.jsx",
-    --        "typescript",
-    --        "typescriptreact",
-    --        "typescript.tsx",
-    --    },
-    --},
-    --
-    --
-}
+    })
+end
 
 --
 -- AI tools
