@@ -6,6 +6,13 @@ Configuration: `config/lua/dave-vim/plugins/cmp-nvim.lua`
 
 nvim-cmp provides intelligent autocompletion in Neovim with multiple sources including LSP, snippets, buffers, and file paths. Features VS Code-like pictograms and bordered windows for an enhanced completion experience.
 
+## Key Features
+- Performance-optimized with 15-item display limit
+- Source priority ranking (LSP > signatures > snippets > buffer > path)
+- Intelligent sorting with recently-used preference
+- Ghost text for inline suggestions
+- Auto-opening documentation window
+
 ## Keybindings
 
 ### Navigation
@@ -42,37 +49,37 @@ nvim-cmp provides intelligent autocompletion in Neovim with multiple sources inc
 
 ## Completion Sources
 
-Sources are queried in priority order:
+Sources are queried in priority order (highest to lowest):
 
-### 1. path
-- **Type**: File system paths
-- **Min length**: None
-- **Triggers**: Path-like patterns
-- **Example**: `./src/`, `~/config/`
-
-### 2. nvim_lsp
+### 1. nvim_lsp (Priority: 1000)
 - **Type**: Language Server Protocol
 - **Min length**: 1 character
 - **Triggers**: Context-aware suggestions
 - **Example**: Function names, variables, imports
 
-### 3. buffer
-- **Type**: Current file content
-- **Min length**: 3 characters
-- **Triggers**: Words in current buffer
-- **Example**: Variable names already in file
+### 2. nvim_lsp_signature_help (Priority: 900)
+- **Type**: Function signatures
+- **Min length**: 1 character
+- **Triggers**: Inside function calls
+- **Example**: Parameter names and types
 
-### 4. luasnip
+### 3. luasnip (Priority: 750)
 - **Type**: Code snippets
 - **Min length**: 2 characters
 - **Triggers**: Snippet keywords
 - **Example**: `for`, `func`, `if`, custom snippets
 
-### 5. nvim_lsp_signature_help
-- **Type**: Function signatures
-- **Min length**: 1 character
-- **Triggers**: Inside function calls
-- **Example**: Parameter names and types
+### 4. buffer (Priority: 500)
+- **Type**: Current file content
+- **Min length**: 3 characters
+- **Triggers**: Words in current buffer
+- **Example**: Variable names already in file
+
+### 5. path (Priority: 250)
+- **Type**: File system paths
+- **Min length**: None
+- **Triggers**: Path-like patterns
+- **Example**: `./src/`, `~/config/`
 
 ## Common Use Cases
 
@@ -133,6 +140,46 @@ Enter key confirms only when item is explicitly selected:
 - Loads SnipMate-style snippets lazily
 - Snippet files: Check `~/.config/nvim/snippets/`
 
+## Performance Optimizations
+
+**Max Items**: Limited to 15 visible completions for optimal rendering speed
+- Reduces memory usage with large completion lists
+- Faster menu display and navigation
+- Adjust `performance.max_item_count` in config if needed
+
+**Source Priorities**:
+- LSP (1000): Primary completions from language server
+- Signature Help (900): Function signatures during calls
+- Snippets (750): Code templates and patterns
+- Buffer (500): Words from current file
+- Path (250): File system paths
+
+## Sorting Strategy
+
+Custom comparators optimize completion order:
+1. **Exact matches**: Prioritized first
+2. **Recently used**: Items you've selected before
+3. **Score**: Relevance to current context
+4. **Kind**: Groups similar types (methods, properties, etc.)
+5. **Length**: Shorter suggestions when scores equal
+
+## Ghost Text
+
+Experimental inline completion preview:
+- **Appearance**: First completion shown as muted text (Comment style)
+- **Usage**: See suggestion while typing without opening menu
+- **Highlight**: `CmpGhostText` linked to `Comment` group
+
+To disable: Remove `experimental` section from config
+
+## Auto-Opening Documentation
+
+Documentation window appears automatically when navigating completions:
+- **Trigger**: Selecting any completion item
+- **Size**: Max 20 lines × 80 columns
+- **Manual scroll**: Use `<C-d>` (down) and `<C-u>` (up)
+- **Disable**: Set `view.docs.auto_open = false` in config
+
 ## Dependencies
 
 Required plugins:
@@ -152,6 +199,36 @@ Check minimum keyword lengths:
 - LSP/signatures: 1 char
 - Snippets: 2 chars
 - Buffer: 3 chars
+
+### Ghost text not visible
+Check highlight configuration:
+```lua
+:hi CmpGhostText
+```
+Should link to `Comment`. Colorscheme may override.
+
+### Too few/many completion items
+Adjust `performance.max_item_count` in `cmp-nvim.lua`:
+- Current: 15 (default)
+- Increase: More options (slower rendering)
+- Decrease: Faster but fewer choices
+
+### Documentation window too intrusive
+Disable auto-open in config:
+```lua
+view = {
+    docs = {
+        auto_open = false,
+    },
+},
+```
+Use `<C-d>` to manually trigger documentation.
+
+### Wrong completion priority
+Source priorities in config control order:
+- Higher number = higher priority
+- LSP should be 1000 (most relevant)
+- Adjust individual source `priority` values as needed
 
 ### Tab not working in command mode
 Fixed at line 101:

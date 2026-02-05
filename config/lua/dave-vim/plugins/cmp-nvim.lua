@@ -5,16 +5,20 @@ require("luasnip.loaders.from_snipmate").lazy_load()
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
+local performance = {
+    max_item_count = 15,
+}
+
 local completion = {
     completeopt = "menu,menuone,preview,noselect",
 }
 
 local sources = {
-    { name = "path" }, -- file system paths
-    { name = "nvim_lsp", keyword_length = 1 },
-    { name = "buffer", keyword_length = 3 }, -- text within current buffer
-    { name = "luasnip", keyword_length = 2 }, -- snippets
-    { name = "nvim_lsp_signature_help", keyword_length = 1 }, -- snippets
+    { name = "nvim_lsp", keyword_length = 1, priority = 1000 },
+    { name = "nvim_lsp_signature_help", keyword_length = 1, priority = 900 },
+    { name = "luasnip", keyword_length = 2, priority = 750 },
+    { name = "buffer", keyword_length = 3, priority = 500 },
+    { name = "path", priority = 250 },
 }
 
 local mappings = function(cmp, select_opts)
@@ -25,7 +29,7 @@ local mappings = function(cmp, select_opts)
         ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping({
             i = function(fallback)
@@ -40,7 +44,7 @@ local mappings = function(cmp, select_opts)
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_next_item()
+                cmp.select_next_item(select_opts)
             elseif luasnip.locally_jumpable(1) then
                 luasnip.jump(1)
             else
@@ -49,7 +53,7 @@ local mappings = function(cmp, select_opts)
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_prev_item()
+                cmp.select_prev_item(select_opts)
             elseif luasnip.locally_jumpable(-1) then
                 luasnip.jump(-1)
             else
@@ -72,6 +76,29 @@ local formatting = {
     }),
 }
 
+local sorting = {
+    comparators = {
+        cmp.config.compare.offset,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.locality,
+        cmp.config.compare.kind,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+    },
+}
+
+local experimental = {
+    ghost_text = {
+        hl_group = "CmpGhostText",
+    },
+}
+
+-- Define ghost text highlight (muted, like a comment)
+vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+
 cmp.setup({
     completion = completion,
     snippet = snippet,
@@ -84,10 +111,21 @@ cmp.setup({
         }),
         documentation = cmp.config.window.bordered({
             winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+            max_height = 20,
+            max_width = 80,
         }),
+    },
+    view = {
+        entries = { name = "custom", selection_order = "near_cursor" },
+        docs = {
+            auto_open = true,
+        },
     },
     -- configure lspkind for vs-code like pictograms in completion menu
     formatting = formatting,
+    performance = performance,
+    sorting = sorting,
+    experimental = experimental,
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
