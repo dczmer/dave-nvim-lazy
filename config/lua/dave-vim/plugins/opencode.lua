@@ -6,6 +6,67 @@ local setup = function()
         },
 
         -- ========================================================================
+        -- CONFIGURATION OPTIONS
+        -- ========================================================================
+        -- Model selection, permissions, UI preferences, and behavior settings
+        -- ========================================================================
+
+        -- Model configuration
+        model = "anthropic/claude-sonnet-4-5",        -- Default model for complex tasks
+        small_model = "anthropic/claude-haiku-4-5",   -- Fast model for lightweight tasks (titles, summaries)
+
+        -- Permission system (safety-first approach)
+        permission = {
+            bash = "ask",      -- Ask before running shell commands (security)
+            write = "ask",     -- Ask before creating new files (safety)
+            edit = "allow",    -- Allow editing existing files without asking
+        },
+
+        -- TUI (Terminal UI) preferences
+        tui = {
+            scroll_speed = 3,                    -- Scroll speed multiplier (1-10, default: 3)
+            scroll_acceleration = {
+                enabled = true,                   -- macOS-style smooth scroll acceleration
+            },
+            diff_style = "auto",                 -- "auto" (adapts to width) or "stacked" (single column)
+        },
+
+        -- Context management
+        compaction = {
+            auto = true,       -- Automatically compact context when full
+            prune = true,      -- Remove old tool outputs to save tokens
+        },
+
+        -- Auto-update behavior (Nix-friendly)
+        autoupdate = "notify",    -- Options: true (auto), false (never), "notify" (check but don't install)
+
+        -- Theme selection
+        theme = "opencode",       -- Default OpenCode theme
+
+        -- Sharing preferences
+        share = "manual",         -- Options: "manual" (explicit /share), "auto", "disabled"
+
+        -- File watcher ignore patterns
+        watcher = {
+            ignore = {
+                "node_modules/**",
+                "target/**",
+                ".git/**",
+                "result/**",           -- Nix build outputs
+                ".direnv/**",          -- direnv cache
+                "*.log",
+                "*.tmp",
+            },
+        },
+
+        -- Instructions/rules (automatically loaded into context)
+        instructions = {
+            "README.md",
+            "CONTRIBUTING.md",
+            ".opencode/rules/*.md",
+        },
+
+        -- ========================================================================
         -- CUSTOM SPECIALIZED AGENTS
         -- ========================================================================
         -- Three domain-expert agents optimized for specific workflows
