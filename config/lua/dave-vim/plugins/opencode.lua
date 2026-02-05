@@ -50,6 +50,9 @@ local setup = function()
                 { "<leader>aF", desc = "Search files for OpenCode" },
                 { "<leader>aG", desc = "Grep for OpenCode context" },
                 { "<leader>aB", desc = "Select buffers for OpenCode" },
+
+                -- Neo-tree integration (when in Neo-tree buffer)
+                { "<leader>aa", desc = "Add Neo-tree node to OpenCode (in Neo-tree)" },
             })
         end
     end)
@@ -227,6 +230,72 @@ local telescope_buffers_to_opencode = function()
             return true
         end,
     })
+end
+
+-- ============================================================================
+-- NEO-TREE INTEGRATION HELPER
+-- ============================================================================
+-- Function to add Neo-tree selected node to OpenCode context
+-- ============================================================================
+
+-- Add current Neo-tree node to OpenCode
+local neotree_node_to_opencode = function()
+    -- Check if Neo-tree is available
+    local ok, neotree_manager = pcall(require, "neo-tree.sources.manager")
+    if not ok then
+        vim.notify("Neo-tree not available", vim.log.levels.ERROR)
+        return
+    end
+
+    -- Get the current Neo-tree state
+    local state = neotree_manager.get_state("filesystem")
+    if not state then
+        vim.notify("Neo-tree is not open", vim.log.levels.WARN)
+        return
+    end
+
+    -- Get the currently selected node
+    local tree = state.tree
+    if not tree then
+        vim.notify("No Neo-tree tree found", vim.log.levels.WARN)
+        return
+    end
+
+    local node = tree:get_node()
+    if not node then
+        vim.notify("No node selected in Neo-tree", vim.log.levels.WARN)
+        return
+    end
+
+    -- Get the file path
+    local path = node:get_id()
+    if not path or path == "" then
+        vim.notify("Invalid node path", vim.log.levels.WARN)
+        return
+    end
+
+    -- Format as relative path
+    local relative = vim.fn.fnamemodify(path, ":.")
+    
+    -- Check if it's a directory
+    if node.type == "directory" then
+        -- For directories, we could add all files in it
+        -- For now, just notify that it's a directory
+        local confirm = vim.fn.confirm(
+            string.format("Add directory: %s\nThis will add the directory path to OpenCode.", relative),
+            "&Yes\n&Cancel",
+            1
+        )
+        if confirm ~= 1 then
+            return
+        end
+    end
+
+    -- Add to OpenCode
+    local prompt = "@" .. relative .. ": "
+    require("opencode").ask(prompt, { submit = false })
+    
+    vim.notify(string.format("Added %s to OpenCode", relative), vim.log.levels.INFO)
 end
 
 local keys = {
