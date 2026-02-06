@@ -2,6 +2,44 @@
 
 Comprehensive technical overview of a reproducible, lazy-loaded, AI-enhanced Neovim configuration built with Nix flakes.
 
+## Table of Contents
+
+- [Project Summary](#project-summary)
+- [Architecture Overview](#architecture-overview)
+  - [Nix Flake Architecture](#nix-flake-architecture)
+  - [Plugin Management System](#plugin-management-system)
+  - [Configuration Structure](#configuration-structure)
+- [Core Features](#core-features)
+  - [Language Server Protocol (LSP)](#language-server-protocol-lsp)
+  - [Code Completion & Snippets](#code-completion--snippets)
+  - [OpenCode AI Integration](#opencode-ai-integration)
+  - [Fuzzy Finding (Telescope)](#fuzzy-finding-telescope)
+  - [Debug Adapter (nvim-dap)](#debug-adapter-nvim-dap)
+  - [Git Integration](#git-integration)
+  - [Additional Features](#additional-features)
+- [Keybinding Organization](#keybinding-organization)
+  - [Hierarchy by Prefix](#hierarchy-by-prefix)
+  - [Contextual Bindings](#contextual-bindings)
+  - [Which-key Integration](#which-key-integration)
+- [Performance & Optimization](#performance--optimization)
+- [Development Workflow](#development-workflow)
+  - [Nix Flake Workflow](#nix-flake-workflow)
+  - [LSP Discovery Process](#lsp-discovery-process)
+  - [Plugin Configuration Workflow](#plugin-configuration-workflow)
+  - [OpenCode-Assisted Development](#opencode-assisted-development)
+- [Extensibility](#extensibility)
+  - [Adding Plugins](#adding-plugins)
+  - [Adding LSPs](#adding-lsps)
+  - [Custom Keybindings](#custom-keybindings)
+  - [OpenCode Customization](#opencode-customization)
+- [Key Design Decisions](#key-design-decisions)
+  - [Why Nix Flakes?](#why-nix-flakes)
+  - [Why lz.n?](#why-lzn)
+  - [Why Modular Plugin Pattern?](#why-modular-plugin-pattern)
+  - [Why OpenCode Integration?](#why-opencode-integration)
+- [Related Documentation](#related-documentation)
+- [Summary](#summary)
+
 ## Project Summary
 
 **dave-nvim-lazy** is a general-purpose Neovim configuration implementing modern development workflows through:

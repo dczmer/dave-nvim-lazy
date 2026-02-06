@@ -2,6 +2,38 @@
 
 Complete reference for all custom keybindings in dave-nvim-lazy.
 
+## Table of Contents
+
+- [Leader Keys](#leader-keys)
+- [Quick Help](#quick-help)
+- [Quick Reference by Prefix](#quick-reference-by-prefix)
+- [Mnemonic Guide](#mnemonic-guide)
+- [Detailed Reference by Category](#detailed-reference-by-category)
+  - [Core Navigation & Editing](#1-core-navigation--editing)
+  - [LSP Operations](#2-lsp-operations)
+  - [OpenCode AI Integration](#3-opencode-ai-integration)
+  - [Telescope Fuzzy Finding](#4-telescope-fuzzy-finding)
+  - [Telescope Picker Navigation](#5-telescope-picker-navigation)
+  - [Debug Adapter (nvim-dap)](#6-debug-adapter-nvim-dap)
+  - [File & Project Navigation](#7-file--project-navigation)
+  - [Tmux & Window Navigation](#8-tmux--window-navigation)
+  - [Terminal Mode](#9-terminal-mode)
+  - [Git Integration](#10-git-integration)
+  - [Code Formatting](#11-code-formatting)
+  - [Utilities & Toggles](#12-utilities--toggles)
+- [Contextual Bindings](#contextual-bindings)
+- [Mode-Specific Summary](#mode-specific-summary)
+  - [Normal Mode](#normal-mode)
+  - [Visual Mode](#visual-mode)
+  - [Insert Mode](#insert-mode)
+  - [Command Mode](#command-mode)
+  - [Terminal Mode](#terminal-mode-1)
+- [Related Documentation](#related-documentation)
+- [Customization](#customization)
+  - [Modifying Keybindings](#modifying-keybindings)
+  - [Discovering Keybindings](#discovering-keybindings)
+  - [Avoiding Conflicts](#avoiding-conflicts)
+
 ## Leader Keys
 
 - **Leader**: `,` (comma)
