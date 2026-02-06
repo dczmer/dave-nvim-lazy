@@ -208,16 +208,14 @@ local setup = function()
 end
 
 -- Export lazy-loader specification
-local lazy = function()
-    return {
-        "telescope.nvim",
-        after = setup,      -- Run setup after load
-        keys = keys,        -- Load on these keybindings
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "telescope.nvim",
+            after = setup,      -- Run setup after load
+            keys = keys,        -- Load on these keybindings
+        }
+    end,
 }
 ```
 

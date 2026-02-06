@@ -37,14 +37,12 @@ local setup = function()
     })
 end
 
-local lazy = function()
-    return {
-        "nvim-lint",
-        after = setup,
-        event = event,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "nvim-lint",
+            after = setup,
+            event = event,
+        }
+    end,
 }

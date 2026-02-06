@@ -14,15 +14,13 @@ local setup = function()
     })
 end
 
-local lazy = function()
-    return {
-        "which-key.nvim",
-        keys = keys,
-        after = setup,
-        lazy = false,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "which-key.nvim",
+            keys = keys,
+            after = setup,
+            lazy = false,
+        }
+    end,
 }

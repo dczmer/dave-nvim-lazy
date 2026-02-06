@@ -16,13 +16,11 @@ local setup = function()
     })
 end
 
-local lazy = function()
-    return {
-        "rainbow-delimiters.nvim",
-        after = setup,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "rainbow-delimiters.nvim",
+            after = setup,
+        }
+    end,
 }

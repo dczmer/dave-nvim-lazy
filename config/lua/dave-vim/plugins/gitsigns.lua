@@ -6,13 +6,11 @@ local setup = function()
     )
 end
 
-local lazy = function()
-    return {
-        "gitsigns.nvim",
-        after = setup,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "gitsigns.nvim",
+            after = setup,
+        }
+    end,
 }

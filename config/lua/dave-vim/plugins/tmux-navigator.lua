@@ -14,14 +14,12 @@ local keys = {
     --{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
 }
 
-local lazy = function()
-    return {
-        "vim-tmux-navigator",
-        cmd = cmd,
-        keys = keys,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "vim-tmux-navigator",
+            cmd = cmd,
+            keys = keys,
+        }
+    end,
 }

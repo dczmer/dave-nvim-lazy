@@ -47,13 +47,11 @@ local setup = function()
     })
 end
 
-local lazy = function()
-    return {
-        "lualine.nvim",
-        after = setup,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "lualine.nvim",
+            after = setup,
+        }
+    end,
 }

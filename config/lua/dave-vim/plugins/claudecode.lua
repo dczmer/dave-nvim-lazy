@@ -61,15 +61,13 @@ local keys = {
     { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
 }
 
-local lazy = function()
-    return {
-        "claudecode.nvim",
-        after = setup,
-        keys = keys,
-        lazy = false,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "claudecode.nvim",
+            after = setup,
+            keys = keys,
+            lazy = false,
+        }
+    end,
 }

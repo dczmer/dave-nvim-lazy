@@ -115,14 +115,12 @@ local keys = {
     },
 }
 
-local lazy = function()
-    return {
-        "nvim-dap",
-        after = setup,
-        keys = keys,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "nvim-dap",
+            after = setup,
+            keys = keys,
+        }
+    end,
 }

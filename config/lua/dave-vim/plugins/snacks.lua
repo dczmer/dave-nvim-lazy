@@ -78,15 +78,13 @@ local keys = {
     },
 }
 
-local lazy = function()
-    return {
-        "snacks.nvim",
-        after = setup,
-        keys = keys,
-        lazy = false,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "snacks.nvim",
+            after = setup,
+            keys = keys,
+            lazy = false,
+        }
+    end,
 }

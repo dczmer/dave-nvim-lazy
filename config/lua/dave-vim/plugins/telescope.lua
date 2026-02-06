@@ -247,14 +247,12 @@ local keys = {
 -- ==================================================================
 -- LAZY LOADER
 -- ==================================================================
-local lazy = function()
-    return {
-        "telescope.nvim",
-        keys = keys,
-        after = setup,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "telescope.nvim",
+            keys = keys,
+            after = setup,
+        }
+    end,
 }

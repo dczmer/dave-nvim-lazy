@@ -149,14 +149,12 @@ local setup = function()
     require("neo-tree").setup(opts)
 end
 
-local lazy = function()
-    return {
-        "neo-tree.nvim",
-        keys = keys,
-        after = setup
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "neo-tree.nvim",
+            keys = keys,
+            after = setup
+        }
+    end,
 }

@@ -57,14 +57,12 @@ local keys = {
     },
 }
 
-local lazy = function()
-    return {
-        "conform.nvim",
-        after = setup,
-        keys = keys,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "conform.nvim",
+            after = setup,
+            keys = keys,
+        }
+    end,
 }
