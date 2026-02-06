@@ -141,12 +141,6 @@ Switch agents in OpenCode with `/agent` command:
 - `/agent code-reviewer` - Security, performance, code quality (read-only)
 - `/agent build` - Default build agent
 
-## Documentation
-
-- **[Keybinding Reference](docs/opencode-keybindings.md)** - Complete keybinding list
-- **[Usage Guide](docs/opencode-usage.md)** - Workflows and examples
-- **[Troubleshooting](docs/opencode-troubleshooting.md)** - Common issues and solutions
-
 ## Configuration
 
 Located in `config/lua/dave-vim/plugins/opencode.lua`:
@@ -166,3 +160,30 @@ Coding standards automatically loaded from:
 - `CONTRIBUTING.md` - Contribution guidelines
 
 OpenCode automatically follows these without manual reminders.
+
+# Documentation
+
+Complete reference documentation for dave-nvim-lazy.
+
+## Overview
+
+- **[Project Overview](docs/overview.md)** - Architecture, features, and design decisions
+
+## Keybindings
+
+- **[Master Keybindings](docs/keybindings-master.md)** - Complete reference for all 80+ keybindings
+- **[Core Keybindings](docs/keybindings-core.md)** - Essential navigation and LSP bindings
+- **[Plugin Keymaps Reference](docs/keymaps.md)** - Leader and localleader bindings organized by prefix
+
+## Plugin References
+
+- **[Telescope](docs/telescope-reference.md)** - Fuzzy finder commands and workflows
+- **[nvim-dap](docs/nvim-dap-reference.md)** - Debug adapter protocol and Python debugging
+- **[nvim-cmp](docs/nvim-cmp-reference.md)** - Completion engine and snippet system
+- **[Neo-tree](docs/neo-tree-reference.md)** - File explorer navigation and git integration
+
+## OpenCode
+
+- **[Keybinding Reference](docs/opencode-keybindings.md)** - Complete OpenCode keybinding list
+- **[Usage Guide](docs/opencode-usage.md)** - Workflows, examples, and agent usage
+- **[Troubleshooting](docs/opencode-troubleshooting.md)** - Common issues and solutions
