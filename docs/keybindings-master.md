@@ -26,6 +26,68 @@ Press `,?` to show which-key popup with available commands.
 | `<F11>` | Normal | Previous buffer |
 | `<F12>` | Normal | Next buffer |
 
+--
+
+## Mnemonic Guide
+
+Memory aids for remembering key combinations:
+
+### Prefixes
+- `,f` = **f**ind (Telescope fuzzy finder)
+- `,a` = **a**I/assistant (OpenCode)
+- `\d` = **d**ebug (DAP debugger)
+- `\t` = **t**oggle (tagbar)
+- `\u` = **u**ndo (tree)
+- `g*` = **g**o to (LSP navigation)
+
+### OpenCode Prompts
+- `,ae` = **e**xplain
+- `,af` = **f**ind bugs
+- `,ar` = **r**efactor
+- `,at` = **t**ests
+- `,ad` = **d**ocumentation
+- `,ai` = **i**mprove
+
+### OpenCode Management
+- `,an` = **n**ew session
+- `,al` = **l**ist sessions
+- `,ac` = **c**lear session
+- `,aa` = **a**dd to context
+- `,ab` = **b**uild mode
+- `,ap` = **p**lan mode
+
+### OpenCode Context
+- `,aF` = **F**iles (uppercase F)
+- `,aG` = **G**rep (uppercase G)
+- `,aB` = **B**uffers (uppercase B)
+
+### Git
+- `\gb` = **g**it **b**lame
+- `,ag` = **a**I **g**it diff
+
+### Formatting
+- `\fw` = **f**ormat (on **w**rite)
+
+### Debug (DAP)
+- `\ds*` = **d**ebug **s**idebar (views)
+- `\db*` = **d**ebug **b**reakpoints
+- `\dr*` = **d**ebug **r**EPL/run
+- `\dc` = **c**ontinue
+- `\dn` = **n**ext (step over)
+- `\di` = step **i**nto
+- `\dq` = **q**uit (terminate)
+
+### LSP Navigation
+- `gd` = **g**o to **d**efinition
+- `gD` = **g**o to **D**eclaration
+- `gi` = **g**o to **i**mplementation
+- `go` = **g**o to type (type definiti**o**n)
+- `gr` = **g**o to **r**eferences
+- `gs` = **g**et **s**ignature
+
+---
+
+
 ### Leader Commands (`,`)
 
 #### Files & Search (`,f`)
@@ -625,65 +687,6 @@ Some keybindings only work in specific contexts or change behavior based on the 
 
 ---
 
-## Mnemonic Guide
-
-Memory aids for remembering key combinations:
-
-### Prefixes
-- `,f` = **f**ind (Telescope fuzzy finder)
-- `,a` = **a**I/assistant (OpenCode)
-- `\d` = **d**ebug (DAP debugger)
-- `\t` = **t**oggle (tagbar)
-- `\u` = **u**ndo (tree)
-- `g*` = **g**o to (LSP navigation)
-
-### OpenCode Prompts
-- `,ae` = **e**xplain
-- `,af` = **f**ind bugs
-- `,ar` = **r**efactor
-- `,at` = **t**ests
-- `,ad` = **d**ocumentation
-- `,ai` = **i**mprove
-
-### OpenCode Management
-- `,an` = **n**ew session
-- `,al` = **l**ist sessions
-- `,ac` = **c**lear session
-- `,aa` = **a**dd to context
-- `,ab` = **b**uild mode
-- `,ap` = **p**lan mode
-
-### OpenCode Context
-- `,aF` = **F**iles (uppercase F)
-- `,aG` = **G**rep (uppercase G)
-- `,aB` = **B**uffers (uppercase B)
-
-### Git
-- `\gb` = **g**it **b**lame
-- `,ag` = **a**I **g**it diff
-
-### Formatting
-- `\fw` = **f**ormat (on **w**rite)
-
-### Debug (DAP)
-- `\ds*` = **d**ebug **s**idebar (views)
-- `\db*` = **d**ebug **b**reakpoints
-- `\dr*` = **d**ebug **r**EPL/run
-- `\dc` = **c**ontinue
-- `\dn` = **n**ext (step over)
-- `\di` = step **i**nto
-- `\dq` = **q**uit (terminate)
-
-### LSP Navigation
-- `gd` = **g**o to **d**efinition
-- `gD` = **g**o to **D**eclaration
-- `gi` = **g**o to **i**mplementation
-- `go` = **g**o to type (type definiti**o**n)
-- `gr` = **g**o to **r**eferences
-- `gs` = **g**et **s**ignature
-
----
-
 ## Related Documentation
 
 ### Plugin-Specific References
@@ -723,15 +726,6 @@ vim.keymap.set("n", "<F12>", "<cmd>bnext<cr>")
     end,
     desc = "Custom action",
 }
-```
-
-### Reloading Configuration
-
-After making changes:
-
-1. **Restart Neovim**: Simplest approach
-2. **Source file**: `:source config/lua/dave-vim/maps.lua`
-3. **Reload plugins**: `:Lazy reload {plugin}`
 
 ### Discovering Keybindings
 
@@ -750,37 +744,3 @@ When adding custom keybindings:
 2. Use unused prefixes or local leader
 3. Follow the established patterns (`,f*` for find, `,a*` for AI, etc.)
 4. Test in a fresh buffer to ensure no conflicts
-
----
-
-## Summary Statistics
-
-**Total Custom Keybindings**: 80+
-
-**By Category**:
-- OpenCode AI Integration: 30 bindings
-- Debug Adapter (DAP): 18 bindings
-- LSP Operations: 13 bindings (contextual)
-- Telescope: 4 main + ~10 picker navigation
-- Core Navigation: 8 bindings
-- Terminal Mode: 5 bindings
-- Tmux Navigation: 4 bindings
-- Git Integration: 2 bindings
-- File Navigation: 3 bindings
-- Formatting: 2 bindings
-- Utilities: 4 bindings
-
-**By Mode**:
-- Normal mode: 70+ bindings
-- Visual mode: 7 bindings
-- Terminal mode: 5 bindings
-- Command mode: 1 binding
-- Insert mode: See nvim-cmp documentation
-
-**By Prefix**:
-- `,a*` (OpenCode): 25+ bindings
-- `\d*` (Debug): 18 bindings
-- `,f*` (Find): 5 bindings
-- `g*` (LSP Go to): 6 bindings
-- `<F*>` (Function keys): 6 bindings
-- `<C-*>` (Control keys): 4 bindings

@@ -20,21 +20,6 @@ Comprehensive technical overview of a reproducible, lazy-loaded, AI-enhanced Neo
 4. **AI-Enhanced Workflow**: Deep OpenCode integration with specialized domain experts
 5. **Documentation-Driven**: Comprehensive guides for every major feature
 
-### Quick Statistics
-
-```
-┌─────────────────────────────────────────────────┐
-│        dave-nvim-lazy Project Statistics        │
-├─────────────────────────────────────────────────┤
-│ Configuration:        2,100 lines of Lua        │
-│ Plugins:              48 total (12+36 split)    │
-│ LSP Servers:          11 languages              │
-│ Keybindings:          80+ custom bindings       │
-│ Documentation:        2,512 lines / 8 files     │
-│ OpenCode:             741 lines / 30 bindings   │
-└─────────────────────────────────────────────────┘
-```
-
 ### Target Use Cases
 
 - **System administration**: Core LSPs (Lua, Nix, Shell) always available
@@ -1428,67 +1413,6 @@ Automatically loaded in all OpenCode sessions.
 
 ---
 
-## Project Statistics
-
-### Configuration Metrics
-
-| Metric | Count | Details |
-|--------|-------|---------|
-| **Total Lines of Lua** | 2,100+ | All configuration code |
-| **Plugin Config Files** | 38 | One per plugin |
-| **LSP Configurations** | 11 | Lua, Nix, Python, Go, C/C++, C#, TS, CSS, Elixir, Scala, Shell |
-| **Total Plugins** | 48 | 12 start + 36 lazy-loaded |
-| **Startup Plugins** | 12 | 25% of total |
-| **Lazy-loaded Plugins** | 36 | 75% of total |
-| **Lines in flake.nix** | 139 | Nix flake definition |
-| **Lines in lz-n.lua** | 175 | Lazy-loader spec |
-| **Lines in opencode.lua** | 741 | OpenCode integration (largest file) |
-
-### Keybinding Metrics
-
-| Category | Count | Prefix |
-|----------|-------|--------|
-| **Total Custom Keybindings** | 80+ | - |
-| **Normal Mode** | 70+ | - |
-| **Visual Mode** | 7 | `,ae/af/ar/at/ad`, `<F3>`, `gl/[d/]d` |
-| **Terminal Mode** | 5 | `<ESC>`, `<C-h/j/k/l>` |
-| **Command Mode** | 1 | `<Tab>` |
-| **OpenCode (,a*)** | 30 | `,a` |
-| **Debug (\\d*)** | 18 | `\d` |
-| **LSP (contextual)** | 13 | `g*`, `<F2/3/5>`, `gl`, `[d`, `]d` |
-| **Telescope (,f*)** | 5 | `,f` |
-| **Function Keys** | 6 | `<F2>` - `<F12>` |
-| **Tmux Navigation** | 4 | `<C-h/j/k/l>` |
-
-### Documentation Metrics
-
-| Document | Lines | Purpose |
-|----------|-------|---------|
-| **Total Documentation** | 2,512 | All docs combined |
-| `keybindings-master.md` | 775 | Complete keybinding reference |
-| `nvim-dap-reference.md` | 377 | Debug adapter guide |
-| `telescope-reference.md` | 409 | Fuzzy finder reference |
-| `nvim-cmp-reference.md` | 175 | Completion keybindings |
-| `keybindings-core.md` | 193 | Core keybindings detail |
-| `opencode-keybindings.md` | ~200 | OpenCode keybindings |
-| `opencode-usage.md` | ~200 | OpenCode workflows |
-| `opencode-troubleshooting.md` | ~200 | OpenCode troubleshooting |
-
-### OpenCode Integration Metrics
-
-| Metric | Value |
-|--------|-------|
-| **Configuration Lines** | 741 |
-| **Keybindings** | 30+ |
-| **Specialized Agents** | 3 |
-| **Project Rules** | 3 files |
-| **Context Prompts** | 6 (explain, bugs, refactor, tests, docs, improve) |
-| **Visual Mode Variants** | 5 |
-| **Session Commands** | 3 (new, list, clear) |
-| **Telescope Integration** | 3 (files, grep, buffers) |
-
----
-
 ## Key Design Decisions
 
 ### Why Nix Flakes?
@@ -1671,22 +1595,6 @@ Documentation (8 files, 2512 lines)
 | **Understand Neovim standards** | `.opencode/rules/neovim.md` |
 | **Understand Nix patterns** | `.opencode/rules/nix.md` |
 | **Contribute documentation** | `.opencode/rules/documentation.md` |
-
-### Documentation Coverage
-
-**Complete coverage for**:
-- ✅ All 80+ keybindings
-- ✅ All major plugins (OpenCode, Telescope, DAP, nvim-cmp)
-- ✅ Project architecture and design decisions
-- ✅ LSP configuration patterns
-- ✅ Development workflows
-- ✅ Extensibility guides
-
-**Future documentation needs**:
-- Plugin-specific guides (Neo-tree, Gitsigns, etc.)
-- LSP per-language setup guides
-- Advanced workflows and tips
-- Video tutorials/screencasts
 
 ---
 
