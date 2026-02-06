@@ -86,7 +86,7 @@ local keys = {
     {
         "<localleader>di",
         function()
-            require('dap').step_over()
+            require('dap').step_into()
         end,
     },
     {

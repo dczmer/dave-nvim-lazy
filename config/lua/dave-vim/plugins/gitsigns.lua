@@ -1,7 +1,7 @@
 local setup = function()
     require('gitsigns').setup()
     vim.keymap.set(
-        "n", "<localleader>gb",
+        "n", "<leader>gb",
         "<cmd>Gitsigns toggle_current_line_blame<cr>"
     )
 end

@@ -308,4 +308,4 @@ Consider:
 
 - Telescope: Fuzzy file finding (`,ff`, `,fg`)
 - Oil.nvim: Alternative file explorer (if configured)
-- Tagbar: Code structure navigation (`\tt`)
+- Tagbar: Code structure navigation (`,ta`)

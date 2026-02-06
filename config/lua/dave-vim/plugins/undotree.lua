@@ -1,5 +1,5 @@
 local setup = function()
-    vim.keymap.set('n', '<localleader>u', vim.cmd.UndotreeToggle)
+    vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 end
 
 return {

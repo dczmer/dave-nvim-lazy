@@ -782,7 +782,7 @@ permission = {
 | `,fg` | `builtin.live_grep` | Search text content across files |
 | `,fb` | `builtin.buffers` | List and switch between open buffers |
 | `,fh` | `builtin.help_tags` | Search Neovim help documentation |
-| `,ft` | `Neotree toggle` | Toggle Neo-tree file explorer |
+| `,tt` | `Neotree toggle` | Toggle Neo-tree file explorer |
 
 #### Telescope Picker Navigation
 
@@ -896,7 +896,7 @@ Inline git indicators and blame:
 
 ```lua
 -- Keybinding
-{ "\gb", "<cmd>Gitsigns toggle_current_line_blame<cr>" }
+{ ",gb", "<cmd>Gitsigns toggle_current_line_blame<cr>" }
 ```
 
 **Features**:
@@ -930,9 +930,9 @@ Inline git indicators and blame:
 ### Additional Features
 
 **File Navigation**:
-- **Neo-tree**: File explorer (`,ft` to toggle, `,aa` to add to OpenCode)
-- **Tagbar**: Code outline/tags (`\tt` to toggle)
-- **Undo tree**: Visual undo history (`\u` to toggle)
+- **Neo-tree**: File explorer (`,tt` to toggle, `,aa` to add to OpenCode)
+- **Tagbar**: Code outline/tags (`,ta` to toggle)
+- **Undo tree**: Visual undo history (`,u` to toggle)
 
 **Syntax & Highlighting**:
 - **Treesitter**: Advanced syntax highlighting for all languages
@@ -969,12 +969,11 @@ Inline git indicators and blame:
 ```
 Keybindings (80+)
 ├── Leader (,) Commands (40+)
-│   ├── ,f* - Find (Telescope) - 5 bindings
+│   ├── ,f* - Find (Telescope) - 36 bindings
 │   │   ├── ,ff - Find files
 │   │   ├── ,fg - Live grep
 │   │   ├── ,fb - Buffers
-│   │   ├── ,fh - Help tags
-│   │   └── ,ft - Neo-tree toggle
+│   │   └── ,fh - Help tags
 │   │
 │   ├── ,a* - AI (OpenCode) - 30 bindings
 │   │   ├── Core Operations
@@ -1013,9 +1012,15 @@ Keybindings (80+)
 │   │   └── Visual Mode (5)
 │   │       └── ,ae/af/ar/at/ad
 │   │
+│   ├── ,t* - Toggle/Tags
+│   │   ├── ,tt - Neo-tree toggle
+│   │   └── ,ta - Toggle tagbar
+│   │
 │   ├── Other Leader Commands
 │   │   ├── ,? - Which-key help
-│   │   └── ,bg - Toggle background
+│   │   ├── ,bg - Toggle background
+│   │   ├── ,gb - Toggle git blame
+│   │   └── ,u - Toggle undo tree
 │   │
 ├── Local Leader (\) Commands (25+)
 │   ├── \d* - Debug (DAP) - 18 bindings
@@ -1045,10 +1050,7 @@ Keybindings (80+)
 │   │
 │   └── Other Local Commands
 │       ├── \rnu - Toggle relative numbers
-│       ├── \fw - Format with conform
-│       ├── \gb - Toggle git blame
-│       ├── \tt - Toggle tagbar
-│       └── \u - Toggle undo tree
+│       └── \fw - Format with conform
 │
 ├── Function Keys (6)
 │   ├── <F2> - Rename symbol (LSP)

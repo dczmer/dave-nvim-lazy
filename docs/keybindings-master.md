@@ -68,8 +68,8 @@ Memory aids for remembering key combinations:
 - `,f` = **f**ind (Telescope fuzzy finder)
 - `,a` = **a**I/assistant (OpenCode)
 - `\d` = **d**ebug (DAP debugger)
-- `\t` = **t**oggle (tagbar)
-- `\u` = **u**ndo (tree)
+- `,t` = **t**oggle/tags
+- `,u` = **u**ndo (tree)
 - `g*` = **g**o to (LSP navigation)
 
 ### OpenCode Prompts
@@ -94,7 +94,7 @@ Memory aids for remembering key combinations:
 - `,aB` = **B**uffers (uppercase B)
 
 ### Git
-- `\gb` = **g**it **b**lame
+- `,gb` = **g**it **b**lame
 - `,ag` = **a**I **g**it diff
 
 ### Formatting
@@ -130,7 +130,7 @@ Memory aids for remembering key combinations:
 | `,fg` | Live grep (Telescope) |
 | `,fb` | Buffers (Telescope) |
 | `,fh` | Help tags (Telescope) |
-| `,ft` | Toggle Neo-tree |
+| `,ft` | Git status (Telescope) |
 
 #### AI/OpenCode (`,a`)
 
@@ -167,6 +167,9 @@ Memory aids for remembering key combinations:
 |-----|--------|
 | `,?` | Toggle which-key |
 | `,bg` | Toggle transparent background |
+| `,gb` | Toggle git blame |
+| `,ta` | Toggle tagbar |
+| `,u` | Toggle undo tree |
 
 ### Local Leader Commands (`\`)
 
@@ -199,9 +202,6 @@ Memory aids for remembering key combinations:
 |-----|--------|
 | `\rnu` | Toggle relative line numbers |
 | `\fw` | Format with conform |
-| `\gb` | Toggle git blame |
-| `\tt` | Toggle tagbar |
-| `\u` | Toggle undo tree |
 
 ### Control Keys
 
@@ -521,7 +521,7 @@ Configuration: `config/lua/dave-vim/plugins/tagbar.lua`
 
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `\tt` | Normal | Toggle tagbar | Toggle tagbar (code outline) |
+| `,ta` | Normal | Toggle tagbar | Toggle tagbar (code outline) |
 
 #### Undo Tree
 
@@ -529,7 +529,7 @@ Configuration: `config/lua/dave-vim/plugins/undotree.lua`
 
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `\u` | Normal | Toggle undo tree | Toggle undo history tree |
+| `,u` | Normal | Toggle undo tree | Toggle undo history tree |
 
 ### 8. Tmux & Window Navigation
 
@@ -566,7 +566,7 @@ Configuration: `config/lua/dave-vim/plugins/gitsigns.lua`
 
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `\gb` | Normal | Toggle git blame | Show/hide git blame for current line |
+| `,gb` | Normal | Toggle git blame | Show/hide git blame for current line |
 
 #### OpenCode Git Review
 
@@ -644,7 +644,7 @@ Some keybindings only work in specific contexts or change behavior based on the 
 
 **Key affected**: `,aa` (Add to OpenCode)
 
-**How to check**: Open Neo-tree with `,ft` and navigate to a file/directory.
+**How to check**: Open Neo-tree with `,tt` and navigate to a file/directory.
 
 ### Tmux Navigation & Terminal Mode
 **Context**: The `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` keys work differently based on mode:
