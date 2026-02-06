@@ -1,5 +1,22 @@
-require("lz.n").load({
+-- Detect which AI CLI tool is available
+local ai_plugin = nil
+if vim.fn.executable("claude") == 1 then
+    ai_plugin = "claudecode"
+elseif vim.fn.executable("opencode") == 1 then
+    ai_plugin = "opencode"
+end
+
+local node_runtime = nil
+if vim.fn.executable("deno") == 1 then
+    node_runtime = "deno"
+else
+    node_runtime = "node"
+end
+
+local spec = {
     { "vim-startuptime" },
+    require("dave-vim.plugins.which-key").lazy(),
+    require("dave-vim.plugins.snacks").lazy(),
     require("dave-vim.plugins.neo-tree").lazy(),
     require("dave-vim.plugins.rainbow-delimiters").lazy(),
     require("dave-vim.plugins.telescope").lazy(),
@@ -114,13 +131,28 @@ require("lz.n").load({
         end,
         ft = { "scala" },
     },
+}
 
-    --
-    --
-    -- JAVASCRIPT/TYPESCRIPT LSP
-    --
-    -- NODE :(
-    {
+--
+-- Javascript LSP selection.
+--
+if node_runtime == "deno" then
+    table.insert(spec, {
+        "dave-vim.plugins.lsp.denols",
+        load = function()
+            require("dave-vim.plugins.lsp.denols")
+        end,
+        ft = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+        },
+    })
+elseif node_runtime == "node" then
+    table.insert(spec, {
         "dave-vim.plugins.lsp.ts_ls",
         load = function()
             require("dave-vim.plugins.lsp.ts_ls")
@@ -133,23 +165,17 @@ require("lz.n").load({
             "typescriptreact",
             "typescript.tsx",
         },
-    },
-    --
-    -- DENO :)
-    --{
-    --    "dave-vim.plugins.lsp.denols",
-    --    load = function()
-    --        require("dave-vim.plugins.lsp.denols")
-    --    end,
-    --    ft = {
-    --        "javascript",
-    --        "javascriptreact",
-    --        "javascript.jsx",
-    --        "typescript",
-    --        "typescriptreact",
-    --        "typescript.tsx",
-    --    },
-    --},
-    --
-    --
-})
+    })
+end
+
+--
+-- AI tools
+--
+-- Conditionally loaded based on available CLI tool (see end of spec)
+if ai_plugin == "opencode" then
+    table.insert(spec, require("dave-vim.plugins.opencode").lazy())
+elseif ai_plugin == "claudecode" then
+    table.insert(spec, require("dave-vim.plugins.claudecode").lazy())
+end
+
+require("lz.n").load(spec)

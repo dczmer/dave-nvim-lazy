@@ -13,13 +13,11 @@ local before = function()
     ]])
 end
 
-local lazy = function()
-    return {
-        "vim-airline",
-        before = before,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "vim-airline",
+            before = before,
+        }
+    end,
 }

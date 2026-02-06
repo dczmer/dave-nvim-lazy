@@ -86,7 +86,7 @@ local keys = {
     {
         "<localleader>di",
         function()
-            require('dap').step_over()
+            require('dap').step_into()
         end,
     },
     {
@@ -115,14 +115,12 @@ local keys = {
     },
 }
 
-local lazy = function()
-    return {
-        "nvim-dap",
-        after = setup,
-        keys = keys,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "nvim-dap",
+            after = setup,
+            keys = keys,
+        }
+    end,
 }

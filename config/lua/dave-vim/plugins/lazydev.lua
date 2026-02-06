@@ -10,14 +10,12 @@ local setup = function()
     })
 end
 
-local lazy = function()
-    return {
-        "lazydev.nvim",
-        ft = ft,
-        after = setup,
-    }
-end
-
 return {
-    lazy = lazy,
+    lazy = function()
+        return {
+            "lazydev.nvim",
+            ft = ft,
+            after = setup,
+        }
+    end,
 }

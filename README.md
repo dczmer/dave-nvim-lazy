@@ -103,7 +103,87 @@ pkgs.mkShell {
 yarn add eslint prettier typescript typescript-language-server
 ```
 
-# TODO
+# OpenCode Integration
 
-- [ ] Shellcheck is great but it doesn't work that well with nvim-lint
-    - https://github.com/bash-lsp/bash-language-server (supported by nvim-lspconfig)
+Comprehensive AI assistance integration using [OpenCode](https://opencode.ai) with 30 keybindings, specialized agents, and project-aware context.
+
+## Quick Start
+
+All OpenCode commands use the `,a` prefix (leader + a).
+
+**Most Common Commands**:
+- `,ae` - Explain code (at cursor or selection)
+- `,af` - Find bugs
+- `,ar` - Refactor code
+- `,at` - Write tests
+- `,aF` - Search files to add to context (Telescope)
+- `,ag` - Review git diff
+
+**Discovery**: Press `,a` and wait to see all 30 available commands in which-key popup (`,?`).
+
+## Features
+
+- **30 Keybindings**: Context prompts, file selection, session management, mode switching
+- **Visual Mode Support**: Select code, then use `,ae`, `,af`, `,ar`, `,at`, `,ad`
+- **Telescope Integration**: Multi-select files (`,aF`), grep code (`,aG`), buffers (`,aB`)
+- **Neo-tree Integration**: Add files from tree view (`,aa` in Neo-tree)
+- **3 Specialized Agents**: Nix expert, Neovim expert, Code reviewer (read-only)
+- **Project-Aware**: Automatically loads coding standards from `.opencode/rules/`
+- **Safety Controls**: Permission prompts for bash/write operations
+- **Git Integration**: Review diffs before committing (`,ag`)
+
+## Specialized Agents
+
+Switch agents in OpenCode with `/agent` command:
+
+- `/agent nix-expert` - Nix flakes, derivations, NixOS configuration
+- `/agent neovim-expert` - Neovim APIs, lazy-loading, plugin development
+- `/agent code-reviewer` - Security, performance, code quality (read-only)
+- `/agent build` - Default build agent
+
+## Configuration
+
+Located in `config/lua/dave-vim/plugins/opencode.lua`:
+- Model selection (Claude Sonnet for complex, Haiku for simple)
+- Permission system (ask before bash/write)
+- TUI preferences (scroll speed, diff style)
+- Context management (auto-compact, prune)
+- Auto-update (notify-only for Nix compatibility)
+- Instructions (auto-load README, .opencode/rules/)
+
+## Project Standards
+
+Coding standards automatically loaded from:
+- `.opencode/rules/neovim.md` - Neovim/Lua best practices
+- `.opencode/rules/nix.md` - Nix flake patterns
+- `README.md` - Project context
+- `CONTRIBUTING.md` - Contribution guidelines
+
+OpenCode automatically follows these without manual reminders.
+
+# Documentation
+
+Complete reference documentation for dave-nvim-lazy.
+
+## Overview
+
+- **[Project Overview](docs/overview.md)** - Architecture, features, and design decisions
+
+## Keybindings
+
+- **[Master Keybindings](docs/keybindings-master.md)** - Complete reference for all 80+ keybindings
+- **[Core Keybindings](docs/keybindings-core.md)** - Essential navigation and LSP bindings
+- **[Plugin Keymaps Reference](docs/keymaps.md)** - Leader and localleader bindings organized by prefix
+
+## Plugin References
+
+- **[Telescope](docs/telescope-reference.md)** - Fuzzy finder commands and workflows
+- **[nvim-dap](docs/nvim-dap-reference.md)** - Debug adapter protocol and Python debugging
+- **[nvim-cmp](docs/nvim-cmp-reference.md)** - Completion engine and snippet system
+- **[Neo-tree](docs/neo-tree-reference.md)** - File explorer navigation and git integration
+
+## OpenCode
+
+- **[Keybinding Reference](docs/opencode-keybindings.md)** - Complete OpenCode keybinding list
+- **[Usage Guide](docs/opencode-usage.md)** - Workflows, examples, and agent usage
+- **[Troubleshooting](docs/opencode-troubleshooting.md)** - Common issues and solutions

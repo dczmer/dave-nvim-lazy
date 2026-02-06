@@ -3,7 +3,7 @@ return {
         return {
             "tagbar",
             keys = {
-                { "<localleader>tt", "<CMD>TagbarToggle<CR>" },
+                { "<leader>ta", "<CMD>TagbarToggle<CR>" },
             },
         }
     end

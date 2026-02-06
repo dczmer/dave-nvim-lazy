@@ -46,7 +46,6 @@
                 vim-nix
                 camelcasemotion
                 cyberdream-nvim
-                nvim-dap-python
                 vim-sleuth
               ];
               opt = [
@@ -76,6 +75,10 @@
                 mattn-calendar-vim
                 bullets-vim
                 vim-closetag
+                which-key-nvim
+                snacks-nvim
+                opencode-nvim
+                claudecode-nvim
               ];
             };
           };
@@ -114,6 +117,8 @@
                   pynvim
                 ]
               ))
+
+              lsof
             ]
             ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         };
