@@ -58,7 +58,7 @@ Press `,?` to show which-key popup with available commands.
 | `<F11>` | Normal | Previous buffer |
 | `<F12>` | Normal | Next buffer |
 
---
+---
 
 ## Mnemonic Guide
 
