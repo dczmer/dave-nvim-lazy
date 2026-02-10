@@ -9,7 +9,7 @@ return {
         return {
             "wiki.vim",
             before = before,
-            ft = { "markdown" },
+            --ft = { "markdown", "vimwiki" },
         }
     end
 }
