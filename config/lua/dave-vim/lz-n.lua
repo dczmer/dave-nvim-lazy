@@ -63,7 +63,6 @@ local spec = {
         end,
     },
     { "mattn-calendar-vim" },
-    require("dave-vim.plugins.davewiki").lazy(),
     --
     --
     -- LSP CONFIGS:
