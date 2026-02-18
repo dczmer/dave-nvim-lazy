@@ -99,7 +99,6 @@ local opts = {
             ["R"] = "refresh",
             ["."] = "set_root",
             ["H"] = "toggle_hidden",
-            ["I"] = "toggle_gitignored",
             ["/"] = "fuzzy_finder",
 
             -- Other
