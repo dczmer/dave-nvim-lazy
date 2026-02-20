@@ -1,1 +1,0 @@
-" Random markdown / wikivim utilities
