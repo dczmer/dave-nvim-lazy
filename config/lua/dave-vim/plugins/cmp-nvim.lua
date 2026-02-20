@@ -39,7 +39,9 @@ local mappings = function(cmp, select_opts)
                     fallback()
                 end
             end,
-            s = cmp.mapping.confirm({ select = true }),
+            -- NOTE: I don't like cmp on search with incsearch enabled.
+            -- It makes it awkward to use the up-arrow to run the previous search, etc.
+            --s = cmp.mapping.confirm({ select = false }),
             c = cmp.mapping.confirm({ select = true }),
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
