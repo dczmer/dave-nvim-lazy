@@ -42,7 +42,7 @@ local mappings = function(cmp, select_opts)
             -- NOTE: I don't like cmp on search with incsearch enabled.
             -- It makes it awkward to use the up-arrow to run the previous search, etc.
             --s = cmp.mapping.confirm({ select = false }),
-            --c = cmp.mapping.confirm({ select = true }),
+            c = cmp.mapping.confirm({ select = true }),
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -52,7 +52,7 @@ local mappings = function(cmp, select_opts)
             else
                 fallback()
             end
-        end, { "i", "s" }),
+        end, { "i" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item(select_opts)
@@ -61,7 +61,7 @@ local mappings = function(cmp, select_opts)
             else
                 fallback()
             end
-        end, { "i", "s" }),
+        end, { "i" }),
     }
 end
 

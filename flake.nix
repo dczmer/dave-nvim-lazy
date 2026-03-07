@@ -17,6 +17,39 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         customRC = import ./config { inherit pkgs; };
+        runtimeInputs =
+          with pkgs;
+          [
+            # telescope and treesitter dependencies
+            ripgrep
+            fd
+            fzf
+            powerline-fonts
+            gcc
+
+            # always install lua and nix lsp
+            nixd
+            lua-language-server
+            lua54Packages.luacheck
+            shellcheck
+            stylua
+            nixfmt-rfc-style
+            yamlfix
+            yamllint
+            vimwiki-markdown
+            universal-ctags
+            pandoc
+
+            (python3.withPackages (
+              p: with p; [
+                tasklib
+                pynvim
+              ]
+            ))
+
+            lsof
+          ]
+          ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           configure = {
             inherit customRC;
@@ -79,6 +112,7 @@
                 snacks-nvim
                 opencode-nvim
                 claudecode-nvim
+                mini-test
               ];
             };
           };
@@ -88,39 +122,7 @@
           text = ''
             exec ${neovimWrapped}/bin/nvim "$@"
           '';
-          runtimeInputs =
-            with pkgs;
-            [
-              # telescope and treesitter dependencies
-              ripgrep
-              fd
-              fzf
-              powerline-fonts
-              gcc
-
-              # always install lua and nix lsp
-              nixd
-              lua-language-server
-              lua54Packages.luacheck
-              shellcheck
-              stylua
-              nixfmt-rfc-style
-              yamlfix
-              yamllint
-              vimwiki-markdown
-              universal-ctags
-              pandoc
-
-              (python3.withPackages (
-                p: with p; [
-                  tasklib
-                  pynvim
-                ]
-              ))
-
-              lsof
-            ]
-            ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+          inherit runtimeInputs;
         };
       in
       {
@@ -131,6 +133,20 @@
           default = {
             type = "app";
             program = "${app}/bin/nvim";
+          };
+        };
+        devShells = {
+          default = pkgs.mkShell {
+            packages =
+              with pkgs;
+              [
+                opencode
+              ]
+              ++ runtimeInputs;
+            shellHook = ''
+              # enable opencode extra tools for this shell
+              OPENCODE_ENABLE_EXA=1 exec zsh
+            '';
           };
         };
       }
