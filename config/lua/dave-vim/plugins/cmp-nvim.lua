@@ -23,8 +23,16 @@ local sources = {
 
 local mappings = function(cmp, select_opts)
     return {
-        ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
-        ["<Down>"] = cmp.mapping.select_next_item(select_opts),
+        ["<Up>"] = cmp.mapping({
+            i = function()
+                cmp.select_prev_item(select_opts)
+            end
+        }),
+        ["<Down>"] = cmp.mapping({
+            i = function()
+                cmp.select_next_item(select_opts)
+            end
+        }),
         ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
         ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
@@ -41,8 +49,8 @@ local mappings = function(cmp, select_opts)
             end,
             -- NOTE: I don't like cmp on search with incsearch enabled.
             -- It makes it awkward to use the up-arrow to run the previous search, etc.
-            --s = cmp.mapping.confirm({ select = false }),
-            c = cmp.mapping.confirm({ select = true }),
+            s = cmp.mapping.confirm({ select = false }),
+            c = cmp.mapping.confirm({ select = false }),
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
