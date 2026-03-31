@@ -36,6 +36,21 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1774917489,
+        "narHash": "sha256-YeYXaBCi4YNNBzuEy7SrDkaTTtYLbwqhnFkmwveNs8U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a0e0e455fe6141f3720ba971bf856938fbd9522b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pinned-treesitter": {
+      "locked": {
         "lastModified": 1766423800,
         "narHash": "sha256-7ZG4kllmLsUaq4vdGqJd3Qe9Xhzdj6AFEdDlqBib4i8=",
         "owner": "NixOS",
@@ -46,6 +61,7 @@
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
+        "rev": "532a0e9708624d93fbe14bd48efbd04cee8b8f8f",
         "type": "github"
       }
     },
@@ -53,7 +69,8 @@
       "inputs": {
         "davewiki2": "davewiki2",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "pinned-treesitter": "pinned-treesitter"
       }
     },
     "systems": {

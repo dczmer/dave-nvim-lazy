@@ -1,9 +1,8 @@
 {
   description = "Neovim with LSP and lazy-loading";
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    pinned-treesitter.url = "github:NixOS/nixpkgs/532a0e9708624d93fbe14bd48efbd04cee8b8f8f";
     flake-utils.url = "github:numtide/flake-utils";
     davewiki2 = {
       url = "github:dczmer/davewiki2";
@@ -13,6 +12,7 @@
   outputs =
     {
       nixpkgs,
+      pinned-treesitter,
       flake-utils,
       davewiki2,
       ...
@@ -20,7 +20,21 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        treesitterOverlay =
+          final: prev:
+          (with pinned-treesitter.legacyPackages.${system}.vimPlugins; {
+            vimPlugins = prev.vimPlugins.extend (
+              final': prev': {
+                nvim-treesitter = nvim-treesitter;
+                nvim-treesitter-textobjects = nvim-treesitter-textobjects;
+                nvim-treesitter-parsers.fsharp = nvim-treesitter-parsers.fsharp;
+              }
+            );
+          });
+        pkgs = import nixpkgs {
+          system = system;
+          overlays = [ treesitterOverlay ];
+        };
         davewiki2Plugin = pkgs.vimUtils.buildVimPlugin {
           pname = "davewiki2";
           version = "unstable";
@@ -43,7 +57,7 @@
             lua54Packages.luacheck
             shellcheck
             stylua
-            nixfmt-rfc-style
+            nixfmt
             yamlfix
             yamllint
             vimwiki-markdown
@@ -101,7 +115,7 @@
                 nvim-lint
                 conform-nvim
                 nvim-surround
-                fugitive
+                vim-fugitive
                 vim-markdown
                 markdown-preview-nvim
                 vim-tmux-navigator
