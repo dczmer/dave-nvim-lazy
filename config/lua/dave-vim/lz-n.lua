@@ -35,7 +35,6 @@ local spec = {
     require("dave-vim.plugins.nvim-colorizer-lua").lazy(),
     require("dave-vim.plugins.undotree").lazy(),
     require("dave-vim.plugins.tagbar").lazy(),
-    require("dave-vim.plugins.wiki-vim").lazy(),
     {
         "vim-closetag",
         ft = { "html", "jsx", "tsx" },
@@ -63,6 +62,7 @@ local spec = {
         end,
     },
     { "mattn-calendar-vim" },
+    require("dave-vim.plugins.davewiki2").lazy(),
     --
     --
     -- LSP CONFIGS:

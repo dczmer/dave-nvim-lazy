@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "davewiki2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774915796,
+        "narHash": "sha256-OB/t+n/LMe2u4OSmGzvU/ikkbdI5ZwrqSfDyNlVFOhI=",
+        "owner": "dczmer",
+        "repo": "davewiki2",
+        "rev": "579df8ee053910196f929f986c1413a63d7df245",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dczmer",
+        "repo": "davewiki2",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -35,6 +51,7 @@
     },
     "root": {
       "inputs": {
+        "davewiki2": "davewiki2",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }

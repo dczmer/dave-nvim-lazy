@@ -5,17 +5,27 @@
       url = "github:NixOS/nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    davewiki2 = {
+      url = "github:dczmer/davewiki2";
+      flake = false;
+    };
   };
   outputs =
     {
       nixpkgs,
       flake-utils,
+      davewiki2,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        davewiki2Plugin = pkgs.vimUtils.buildVimPlugin {
+          pname = "davewiki2";
+          version = "unstable";
+          src = davewiki2;
+        };
         customRC = import ./config { inherit pkgs; };
         runtimeInputs =
           with pkgs;
@@ -49,7 +59,7 @@
 
             lsof
           ]
-          ++ vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+          ++ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           configure = {
             inherit customRC;
@@ -82,6 +92,7 @@
                 vim-sleuth
               ];
               opt = [
+                davewiki2Plugin
                 gitsigns-nvim
                 neo-tree-nvim
                 vim-startuptime
@@ -103,7 +114,6 @@
                 nvim-colorizer-lua
                 undotree
                 tagbar
-                wiki-vim
                 vim-table-mode
                 mattn-calendar-vim
                 bullets-vim
@@ -145,7 +155,8 @@
               ++ runtimeInputs;
             shellHook = ''
               # enable opencode extra tools for this shell
-              OPENCODE_ENABLE_EXA=1 exec zsh
+              export OPENCODE_ENABLE_EXA=1
+              #exec zsh
             '';
           };
         };

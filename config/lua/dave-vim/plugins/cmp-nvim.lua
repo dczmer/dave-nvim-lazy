@@ -16,6 +16,7 @@ local completion = {
 local sources = {
     { name = "nvim_lsp", keyword_length = 1, priority = 1000 },
     { name = "nvim_lsp_signature_help", keyword_length = 1, priority = 900 },
+    { name = "wiki_tags", keyword_length = 1, priority = 800 },
     { name = "luasnip", keyword_length = 2, priority = 750 },
     { name = "buffer", keyword_length = 3, priority = 500 },
     { name = "path", priority = 250 },
@@ -26,12 +27,12 @@ local mappings = function(cmp, select_opts)
         ["<Up>"] = cmp.mapping({
             i = function()
                 cmp.select_prev_item(select_opts)
-            end
+            end,
         }),
         ["<Down>"] = cmp.mapping({
             i = function()
                 cmp.select_next_item(select_opts)
-            end
+            end,
         }),
         ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
         ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
