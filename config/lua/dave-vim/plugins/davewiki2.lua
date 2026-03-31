@@ -1,5 +1,5 @@
 local after = function()
-    require("davewiki").setup({
+    local davewiki = require("davewiki").setup({
         wiki_root = "~/davewiki",
         highlight_tags = true,
         show_tag_backlinks = true,
