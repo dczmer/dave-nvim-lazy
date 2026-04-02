@@ -1,23 +1,28 @@
-local transparent = 0
+local transparent_bg = {
+    "Normal",
+    "ctermfg=188",
+    "ctermbg=NONE",
+    "guifg=#e8e8d3",
+    "guibg=NONE",
+}
+
+local opaque_bg = {
+    "Normal",
+    "ctermfg=188",
+    "ctermbg=234",
+    "guifg=#e8e8d3",
+    "guibg=#151515",
+}
+
+local transparent = 1
+vim.cmd.highlight(transparent_bg)
 
 local Toggle_transparent_bg = function()
     if transparent > 0 then
-        vim.cmd.highlight({
-            "Normal",
-            "ctermfg=188",
-            "ctermbg=234",
-            "guifg=#e8e8d3",
-            "guibg=#151515",
-        })
+        vim.cmd.highlight(opaque_bg)
         transparent = 0
     else
-        vim.cmd.highlight({
-            "Normal",
-            "ctermfg=188",
-            "ctermbg=NONE",
-            "guifg=#e8e8d3",
-            "guibg=NONE",
-        })
+        vim.cmd.highlight(transparent_bg)
         transparent = 1
     end
 end
