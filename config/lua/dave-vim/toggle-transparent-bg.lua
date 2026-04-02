@@ -14,8 +14,7 @@ local opaque_bg = {
     "guibg=#151515",
 }
 
-local transparent = 1
-vim.cmd.highlight(transparent_bg)
+local transparent = 0
 
 local Toggle_transparent_bg = function()
     if transparent > 0 then
