@@ -21,6 +21,7 @@ local setup = function()
         typescript = { js_formatter },
         typescriptreact = { js_formatter },
         json = { js_formatter },
+        jsonc = { js_formatter },
 
         c = { "clang-format" },
         cpp = { "clang-format" },
