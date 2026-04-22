@@ -27,39 +27,36 @@
           src = davewiki2;
         };
         customRC = import ./config { inherit pkgs; };
-        runtimeInputs =
-          with pkgs;
-          [
-            # telescope and treesitter dependencies
-            ripgrep
-            fd
-            fzf
-            powerline-fonts
-            gcc
+        runtimeInputs = with pkgs; [
+          # telescope and treesitter dependencies
+          ripgrep
+          fd
+          fzf
+          powerline-fonts
+          gcc
 
-            # always install lua and nix lsp
-            nixd
-            lua-language-server
-            lua54Packages.luacheck
-            shellcheck
-            stylua
-            nixfmt-rfc-style
-            yamlfix
-            yamllint
-            vimwiki-markdown
-            universal-ctags
-            pandoc
+          # always install lua and nix lsp
+          nixd
+          lua-language-server
+          lua54Packages.luacheck
+          shellcheck
+          stylua
+          nixfmt
+          yamlfix
+          yamllint
+          vimwiki-markdown
+          universal-ctags
+          pandoc
 
-            (python3.withPackages (
-              p: with p; [
-                tasklib
-                pynvim
-              ]
-            ))
+          (python3.withPackages (
+            p: with p; [
+              tasklib
+              pynvim
+            ]
+          ))
 
-            lsof
-          ]
-          ++ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+          lsof
+        ];
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           configure = {
             inherit customRC;
@@ -70,9 +67,6 @@
                 # these either need to be installed at start, or just provide
                 # lua libraries for other plugins and don't affect startup time.
                 # treesitter can be lazy loaded, and seems to work, but gives checkhealth errors.
-                nvim-treesitter.withAllGrammars
-                nvim-treesitter-textobjects
-                nvim-treesitter-parsers.fsharp
                 nvim-web-devicons
                 telescope-fzf-native-nvim
                 nvim-lspconfig
@@ -101,7 +95,7 @@
                 nvim-lint
                 conform-nvim
                 nvim-surround
-                fugitive
+                vim-fugitive
                 vim-markdown
                 markdown-preview-nvim
                 vim-tmux-navigator
