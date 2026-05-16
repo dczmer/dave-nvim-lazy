@@ -56,6 +56,7 @@
           ))
 
           lsof
+          pstree
         ];
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           configure = {

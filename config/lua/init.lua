@@ -2,6 +2,7 @@
 require("dave-vim.settings")
 require("dave-vim.maps")
 require("dave-vim.commands")
+require("dave-vim.tmux-agent").setup()
 require("dave-vim.toggle-transparent-bg")
 
 -- 2. non-lazy-loaded plugin configs go here (always sourced at startup)
