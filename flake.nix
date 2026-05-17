@@ -115,8 +115,6 @@
                 vim-closetag
                 which-key-nvim
                 snacks-nvim
-                opencode-nvim
-                claudecode-nvim
                 mini-test
               ];
             };
@@ -142,17 +140,7 @@
         };
         devShells = {
           default = pkgs.mkShell {
-            packages =
-              with pkgs;
-              [
-                opencode
-              ]
-              ++ runtimeInputs;
-            shellHook = ''
-              # enable opencode extra tools for this shell
-              export OPENCODE_ENABLE_EXA=1
-              #exec zsh
-            '';
+            packages = runtimeInputs;
           };
         };
       }

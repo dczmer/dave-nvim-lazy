@@ -106,40 +106,7 @@ local opts = {
             ["?"] = "show_help",
             ["i"] = "show_file_details",
 
-            -- OpenCode integration (preserved from original config)
-            ["<leader>aa"] = {
-                function(state)
-                    local node = state.tree:get_node()
-                    if not node then
-                        vim.notify("No node selected", vim.log.levels.WARN)
-                        return
-                    end
 
-                    local path = node:get_id()
-                    if not path or path == "" then
-                        vim.notify("Invalid node path", vim.log.levels.WARN)
-                        return
-                    end
-
-                    -- Format as relative path
-                    local relative = vim.fn.fnamemodify(path, ":.")
-
-                    -- Check if it's a directory
-                    if node.type == "directory" then
-                        local confirm = vim.fn.confirm(
-                            string.format("Add directory: %s\nThis will add the directory path to OpenCode.", relative),
-                            "&Yes\n&Cancel",
-                            1
-                        )
-                        if confirm ~= 1 then
-                            return
-                        end
-                    end
-
-                    vim.notify(string.format("Added %s to OpenCode", relative), vim.log.levels.INFO)
-                end,
-                desc = "Add to OpenCode",
-            },
         },
     },
 }

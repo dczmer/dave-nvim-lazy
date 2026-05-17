@@ -32,7 +32,7 @@ M.ensure_pane = function()
         return vim.g.tmux_agent_pane
     end
 
-    local targets = { "pi", "opencode" }
+    local targets = { "pi", "opencode", "claude" }
     for _, target in ipairs(targets) do
         local pane = M.find_agent_pane(target)
         if pane then
@@ -40,7 +40,7 @@ M.ensure_pane = function()
         end
     end
 
-    vim.notify("no agent pane found (tried pi, opencode)", vim.log.levels.ERROR)
+    vim.notify("no agent pane found (tried pi, opencode, claude)", vim.log.levels.ERROR)
     return nil
 end
 
@@ -109,10 +109,10 @@ M.setup = function()
 
     -- === Keymaps ===
 
-    vim.keymap.set("n", "<leader>tf", "<cmd>TmuxAgentFind<cr>", { desc = "Find agent tmux pane" })
-    vim.keymap.set("n", "<leader>tb", "<cmd>TmuxAgentSendBuffer<cr>", { desc = "Send buffer ref to agent" })
-    vim.keymap.set("v", "<leader>tv", "<cmd>TmuxAgentSendVisual<cr>", { desc = "Send visual range to agent" })
-    vim.keymap.set("n", "<leader>tp", "<cmd>TmuxAgentPrompt<cr>", { desc = "Prompt agent (auto-submit)" })
+    vim.keymap.set("n", "<leader>af", "<cmd>TmuxAgentFind<cr>", { desc = "Find agent tmux pane" })
+    vim.keymap.set("n", "<leader>ab", "<cmd>TmuxAgentSendBuffer<cr>", { desc = "Send buffer ref to agent" })
+    vim.keymap.set("v", "<leader>av", "<cmd>TmuxAgentSendVisual<cr>", { desc = "Send visual range to agent" })
+    vim.keymap.set("n", "<leader>ap", "<cmd>TmuxAgentPrompt<cr>", { desc = "Prompt agent (auto-submit)" })
 end
 
 return M

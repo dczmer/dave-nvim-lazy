@@ -1,11 +1,3 @@
--- Detect which AI CLI tool is available
-local ai_plugin = nil
-if vim.fn.executable("claude") == 1 then
-    ai_plugin = "claudecode"
-elseif vim.fn.executable("opencode") == 1 then
-    ai_plugin = "opencode"
-end
-
 local node_runtime = nil
 if vim.fn.executable("deno") == 1 then
     node_runtime = "deno"
@@ -166,16 +158,6 @@ elseif node_runtime == "node" then
             "typescript.tsx",
         },
     })
-end
-
---
--- AI tools
---
--- Conditionally loaded based on available CLI tool (see end of spec)
-if ai_plugin == "opencode" then
-    table.insert(spec, require("dave-vim.plugins.opencode").lazy())
-elseif ai_plugin == "claudecode" then
-    table.insert(spec, require("dave-vim.plugins.claudecode").lazy())
 end
 
 require("lz.n").load(spec)

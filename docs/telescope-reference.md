@@ -331,7 +331,7 @@ All Telescope commands use the leader prefix: `,` (comma)
    - `tlsc` finds `telescope.lua`
    - `nvdap` finds `nvim-dap.lua`
 2. **Use fragments**: Type key parts of filename
-   - `open maps` finds `opencode-maps.lua`
+   - `maps` finds `maps.lua`
 3. **Directory hints**: Include directory fragments
    - `plug tel` finds `plugins/telescope.lua`
 
@@ -404,14 +404,6 @@ All Telescope commands use the leader prefix: `,` (comma)
 4. **Preview size**: Toggle preview if slow (`:Telescope preview=false`)
 
 ## Integration with Other Tools
-
-### With OpenCode
-```vim
-" Add files to OpenCode context
-,ff                      " Find file
-" Then use OpenCode commands
-,aF                      " OpenCode file picker (separate feature)
-```
 
 ### With LSP
 ```vim
@@ -617,7 +609,7 @@ sudo pacman -S ripgrep fd
 
 - **Core keybindings**: `docs/keybindings-core.md`
 - **Leader key**: Set in `config/lua/dave-vim/maps.lua`
-- **OpenCode integration**: `docs/opencode-usage.md`
+- **tmux-agent**: `config/lua/dave-vim/tmux-agent.lua`
 
 ## Advanced Features
 

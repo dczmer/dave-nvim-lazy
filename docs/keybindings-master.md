@@ -11,7 +11,7 @@ Complete reference for all custom keybindings in dave-nvim-lazy.
 - [Detailed Reference by Category](#detailed-reference-by-category)
   - [Core Navigation & Editing](#1-core-navigation--editing)
   - [LSP Operations](#2-lsp-operations)
-  - [OpenCode AI Integration](#3-opencode-ai-integration)
+  - [AI Agent (tmux-agent)](#3-ai-agent-tmux-agent)
   - [Telescope Fuzzy Finding](#4-telescope-fuzzy-finding)
   - [Telescope Picker Navigation](#5-telescope-picker-navigation)
   - [Debug Adapter (nvim-dap)](#6-debug-adapter-nvim-dap)
@@ -66,36 +66,20 @@ Memory aids for remembering key combinations:
 
 ### Prefixes
 - `,f` = **f**ind (Telescope fuzzy finder)
-- `,a` = **a**I/assistant (OpenCode)
+- `,a` = **a**I/agent (tmux-agent)
 - `\d` = **d**ebug (DAP debugger)
 - `,t` = **t**oggle/tags
 - `,u` = **u**ndo (tree)
 - `g*` = **g**o to (LSP navigation)
 
-### OpenCode Prompts
-- `,ae` = **e**xplain
-- `,af` = **f**ind bugs
-- `,ar` = **r**efactor
-- `,at` = **t**ests
-- `,ad` = **d**ocumentation
-- `,ai` = **i**mprove
-
-### OpenCode Management
-- `,an` = **n**ew session
-- `,al` = **l**ist sessions
-- `,ac` = **c**lear session
-- `,aa` = **a**dd to context
-- `,ab` = **b**uild mode
-- `,ap` = **p**lan mode
-
-### OpenCode Context
-- `,aF` = **F**iles (uppercase F)
-- `,aG` = **G**rep (uppercase G)
-- `,aB` = **B**uffers (uppercase B)
+### Agent Keybindings
+- `,af` = **f**ind agent pane
+- `,ab` = send **b**uffer ref
+- `,av` = send **v**isual range
+- `,ap` = **p**rompt agent
 
 ### Git
 - `,gb` = **g**it **b**lame
-- `,ag` = **a**I **g**it diff
 
 ### Formatting
 - `\fw` = **f**ormat (on **w**rite)
@@ -132,34 +116,14 @@ Memory aids for remembering key combinations:
 | `,fh` | Help tags (Telescope) |
 | `,ft` | Git status (Telescope) |
 
-#### AI/OpenCode (`,a`)
+#### AI Agent (tmux-agent) (`,a`)
 
 | Key | Action |
 |-----|--------|
-| `,as` | Ask OpenCode with context |
-| `,ae` | Explain code |
-| `,af` | Find bugs |
-| `,ar` | Refactor code |
-| `,at` | Write tests |
-| `,ad` | Add documentation |
-| `,ai` | Improve/optimize code |
-| `,an` | New session |
-| `,al` | List sessions |
-| `,ac` | Clear session |
-| `,ao` | Add range operator |
-| `,aoo` | Add current line |
-| `,aF` | Search files for OpenCode |
-| `,aG` | Grep for OpenCode |
-| `,aB` | Select buffers for OpenCode |
-| `,aa` | Add Neo-tree node (in Neo-tree only) |
-| `,ab` | Build mode |
-| `,ap` | Plan mode |
-| `,ak` | Scroll up |
-| `,aj` | Scroll down |
-| `,au` | Undo last change |
-| `,ah` | Show help |
-| `,ag` | Review git diff |
-| `,ax` | Select operation |
+| `,af` | Find agent tmux pane |
+| `,ab` | Send buffer ref to agent |
+| `,av` | Send visual range to agent |
+| `,ap` | Prompt agent (auto-submit) |
 
 #### Other Leader Commands
 
@@ -297,96 +261,29 @@ Configuration: `config/lua/dave-vim/maps.lua`
 
 **See also**: `docs/keybindings-core.md`
 
-### 3. OpenCode AI Integration
+### 3. AI Agent (tmux-agent)
 
-Configuration: `config/lua/dave-vim/plugins/opencode.lua`
+Configuration: `config/lua/dave-vim/tmux-agent.lua`
 
-All OpenCode commands use the `<leader>a` (`,a`) prefix.
+All tmux-agent commands use the `<leader>a` (`,a`) prefix. Requires running inside tmux with a target agent pane (pi, opencode, or claude).
 
-#### Core Operations
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,as` | Normal | Ask OpenCode | Ask OpenCode with @this context |
-| `,ax` | Normal | Select operation | Show operation menu |
-
-#### Context-Aware Prompts
+#### Commands
 
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `,ae` | Normal | Explain code | Explain this code: @this |
-| `,af` | Normal | Find bugs | Review code for bugs: @this |
-| `,ar` | Normal | Refactor code | Refactor and improve: @this |
-| `,at` | Normal | Write tests | Write comprehensive tests: @this |
-| `,ad` | Normal | Add documentation | Add comprehensive documentation: @this |
-| `,ai` | Normal | Improve/optimize | Improve and optimize: @this |
+| `,af` | Normal | Find agent pane | Discover and cache tmux agent pane |
+| `,ab` | Normal | Send buffer ref | Send `@FILE` reference to agent |
+| `,av` | Visual | Send visual range | Send `@FILE:START:END` to agent |
+| `,ap` | Normal | Prompt agent | Prompt for message, prepend `@FILE:LINE`, auto-submit |
 
-#### Session Management
+**Commands**:
+- `:TmuxAgentFind [target]` - Find and cache agent pane
+- `:TmuxAgentSend <text>` - Send literal text to agent
+- `:TmuxAgentSendBuffer` - Send current buffer reference
+- `:TmuxAgentSendVisual` - Send visual selection range
+- `:TmuxAgentPrompt` - Prompt for message with auto-submit
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,an` | Normal | New session | Create new OpenCode session |
-| `,al` | Normal | List sessions | List all OpenCode sessions |
-| `,ac` | Normal | Clear session | Clear current session history |
-
-#### Text Operators
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,ao` | Normal | Add range operator | Use as operator (e.g., `,ao3j`) |
-| `,aoo` | Normal | Add current line | Add current line to OpenCode |
-
-#### Telescope Integration
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,aF` | Normal | Search files | Search files to add to context |
-| `,aG` | Normal | Grep code | Grep code to add to context |
-| `,aB` | Normal | Select buffers | Select buffers to add to context |
-
-#### Neo-tree Integration
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,aa` | Normal | Add node | Add Neo-tree node to OpenCode (context-specific) |
-
-**Context**: Only works when cursor is in Neo-tree buffer.
-
-#### Mode Switching
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,ab` | Normal | Build mode | Switch to Build mode (can edit) |
-| `,ap` | Normal | Plan mode | Switch to Plan mode (read-only) |
-
-#### Navigation
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,ak` | Normal | Scroll up | Scroll OpenCode output up |
-| `,aj` | Normal | Scroll down | Scroll OpenCode output down |
-
-#### Utilities
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,au` | Normal | Undo | Undo last OpenCode change |
-| `,ah` | Normal | Help | Show OpenCode help |
-| `,ag` | Normal | Review git diff | Review git changes with OpenCode |
-
-#### Visual Mode Variants
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,ae` | Visual | Explain selection | Explain this code: @selection |
-| `,af` | Visual | Find bugs | Review for bugs: @selection |
-| `,ar` | Visual | Refactor selection | Refactor: @selection |
-| `,at` | Visual | Write tests | Write tests for: @selection |
-| `,ad` | Visual | Document selection | Add documentation: @selection |
-
-**See also**: 
-- `docs/opencode-keybindings.md` - Detailed OpenCode keybindings
-- `docs/opencode-usage.md` - OpenCode workflows and examples
+**See also**: `config/lua/dave-vim/tmux-agent.lua`
 
 ### 4. Telescope Fuzzy Finding
 
@@ -511,7 +408,7 @@ Full Reference: `docs/neo-tree-reference.md`
 - **Splits**: `s` (horizontal), `v` (vertical), `t` (tab)
 - **Display**: `H` (toggle hidden), `I` (toggle gitignored), `R` (refresh), `.` (set root)
 - **Git**: `A` (add all), `ga` (add file), `gu` (unstage), `gc` (commit), `gp` (push)
-- **Other**: `?` (help), `q` (close), `i` (details), `,aa` (add to OpenCode)
+- **Other**: `?` (help), `q` (close), `i` (details)
 
 See `docs/neo-tree-reference.md` for complete documentation.
 
@@ -568,13 +465,7 @@ Configuration: `config/lua/dave-vim/plugins/gitsigns.lua`
 |-----|------|--------|-------------|
 | `,gb` | Normal | Toggle git blame | Show/hide git blame for current line |
 
-#### OpenCode Git Review
 
-Configuration: `config/lua/dave-vim/plugins/opencode.lua`
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `,ag` | Normal | Review git diff | Review git changes with OpenCode |
 
 ### 11. Code Formatting
 
@@ -639,13 +530,6 @@ Some keybindings only work in specific contexts or change behavior based on the 
 
 **How to check**: Run `:LspInfo` to see if LSP is attached.
 
-### Neo-tree Context
-**Context**: The `,aa` keybinding only works when the cursor is inside a Neo-tree buffer.
-
-**Key affected**: `,aa` (Add to OpenCode)
-
-**How to check**: Open Neo-tree with `,tt` and navigate to a file/directory.
-
 ### Tmux Navigation & Terminal Mode
 **Context**: The `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` keys work differently based on mode:
 
@@ -678,7 +562,7 @@ Some keybindings only work in specific contexts or change behavior based on the 
 **Categories**:
 - Core navigation & editing (5)
 - LSP operations (13 when attached)
-- OpenCode AI integration (23)
+- AI Agent (tmux-agent) (4)
 - Telescope fuzzy finding (4)
 - Debug adapter (18)
 - File & project navigation (3)
@@ -690,12 +574,9 @@ Some keybindings only work in specific contexts or change behavior based on the 
 ### Visual Mode
 **Total**: 7 keybindings
 
-**All OpenCode prompts**:
-- `,ae` - Explain selection
-- `,af` - Find bugs in selection
-- `,ar` - Refactor selection
-- `,at` - Write tests for selection
-- `,ad` - Document selection
+**All visual mode bindings**:
+- `<F3>` - Format selection (LSP)
+- `gl`, `[d`, `]d` - Diagnostic navigation
 - `<F3>` - Format selection (LSP)
 - `gl`, `[d`, `]d` - Diagnostic navigation
 
@@ -722,9 +603,6 @@ Some keybindings only work in specific contexts or change behavior based on the 
 ## Related Documentation
 
 ### Plugin-Specific References
-- `docs/opencode-keybindings.md` - OpenCode detailed keybindings guide
-- `docs/opencode-usage.md` - OpenCode workflows and examples
-- `docs/opencode-troubleshooting.md` - OpenCode troubleshooting
 - `docs/keybindings-core.md` - Core keybindings detailed guide
 - `docs/telescope-reference.md` - Telescope fuzzy finder reference
 - `docs/nvim-dap-reference.md` - Debug adapter detailed reference
@@ -732,7 +610,7 @@ Some keybindings only work in specific contexts or change behavior based on the 
 
 ### Configuration Files
 - `config/lua/dave-vim/maps.lua` - Core keybindings
-- `config/lua/dave-vim/plugins/opencode.lua` - OpenCode configuration
+- `config/lua/dave-vim/tmux-agent.lua` - Tmux agent configuration
 - `config/lua/dave-vim/plugins/telescope.lua` - Telescope configuration
 - `config/lua/dave-vim/plugins/nvim-dap.lua` - DAP configuration
 - `config/lua/dave-vim/plugins/` - All plugin configurations
@@ -750,14 +628,10 @@ To customize keybindings, edit the relevant configuration files:
 vim.keymap.set("n", "<F11>", "<cmd>bprev<cr>")
 vim.keymap.set("n", "<F12>", "<cmd>bnext<cr>")
 
--- Example: Add custom OpenCode prompt in opencode.lua
-{
-    "<leader>ax",
-    function()
-        require("opencode").ask("Custom prompt: @this", { submit = true })
-    end,
-    desc = "Custom action",
-}
+-- Example: Add custom tmux-agent binding in tmux-agent.lua
+vim.keymap.set("n", "<leader>ax", function()
+    require("dave-vim.tmux-agent").send_to_agent("custom text", { submit = true })
+end, { desc = "Custom agent action" })
 
 ### Discovering Keybindings
 

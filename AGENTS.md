@@ -1,12 +1,12 @@
 # AGENTS.md
 
 Context for AI coding agents working in this Neovim configuration repository.
-Also read `.opencode/rules/*.md` for detailed Neovim, Nix, Git, and documentation standards.
+Also read `docs/` for detailed Neovim, Nix, Git, and documentation standards.
 
 ## Project Overview
 
 Nix flake-based Neovim configuration using `wrapNeovim` for reproducible builds.
-48 plugins total (12 startup, 36 lazy-loaded via lz.n). Leader key is `,`.
+46 plugins total (12 startup, 34 lazy-loaded via lz.n). Leader key is `,`.
 
 ### Key Files
 
@@ -77,7 +77,7 @@ Tools available in the Nix environment: `nixd`, `lua-language-server`, `luacheck
 
 - **File names**: `kebab-case.lua` (e.g., `neo-tree.lua`, `cmp-nvim.lua`)
 - **Variables**: `snake_case` (e.g., `lsp_capabilities`, `file_set`)
-- **Functions**: `snake_case` (e.g., `set_hl_for_float`, `format_selections_for_opencode`)
+- **Functions**: `snake_case` (e.g., `set_hl_for_float`, `send_to_agent`)
 - **No camelCase** in user-authored code
 
 ## Import / Require Patterns
@@ -197,7 +197,6 @@ Not currently used. No LuaLS/EmmyLua annotations in the codebase.
 ## Conditional Loading
 
 `lz-n.lua` detects available tools at the top level and loads alternatives:
-- `claude` CLI present → loads `claudecode-nvim`; `opencode` CLI → loads `opencode-nvim`
 - `deno` available → loads `denols`; otherwise → loads `ts_ls`
 
 Pattern: `vim.fn.executable("tool") == 1`

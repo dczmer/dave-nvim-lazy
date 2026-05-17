@@ -12,7 +12,6 @@ Comprehensive technical overview of a reproducible, lazy-loaded, AI-enhanced Neo
 - [Core Features](#core-features)
   - [Language Server Protocol (LSP)](#language-server-protocol-lsp)
   - [Code Completion & Snippets](#code-completion--snippets)
-  - [OpenCode AI Integration](#opencode-ai-integration)
   - [Fuzzy Finding (Telescope)](#fuzzy-finding-telescope)
   - [Debug Adapter (nvim-dap)](#debug-adapter-nvim-dap)
   - [Git Integration](#git-integration)
@@ -26,17 +25,14 @@ Comprehensive technical overview of a reproducible, lazy-loaded, AI-enhanced Neo
   - [Nix Flake Workflow](#nix-flake-workflow)
   - [LSP Discovery Process](#lsp-discovery-process)
   - [Plugin Configuration Workflow](#plugin-configuration-workflow)
-  - [OpenCode-Assisted Development](#opencode-assisted-development)
 - [Extensibility](#extensibility)
   - [Adding Plugins](#adding-plugins)
   - [Adding LSPs](#adding-lsps)
   - [Custom Keybindings](#custom-keybindings)
-  - [OpenCode Customization](#opencode-customization)
 - [Key Design Decisions](#key-design-decisions)
   - [Why Nix Flakes?](#why-nix-flakes)
   - [Why lz.n?](#why-lzn)
   - [Why Modular Plugin Pattern?](#why-modular-plugin-pattern)
-  - [Why OpenCode Integration?](#why-opencode-integration)
 - [Related Documentation](#related-documentation)
 - [Summary](#summary)
 
@@ -47,22 +43,22 @@ Comprehensive technical overview of a reproducible, lazy-loaded, AI-enhanced Neo
 - **Reproducible deployment** via Nix flakes with pinned dependencies
 - **Performance optimization** through strategic lazy-loading (75% of plugins)
 - **Multi-language support** with 11 LSP servers loaded on-demand
-- **AI-powered assistance** via OpenCode integration with 30+ keybindings
+- **AI agent integration** via tmux-agent.lua for lightweight tmux pane messaging
 - **Comprehensive documentation** with 2,500+ lines across 8 reference guides
 
 ### Design Philosophy
 
 1. **Reproducibility First**: All dependencies declared in `flake.nix`, no global state pollution
 2. **Performance Conscious**: Lazy-load everything possible, minimize startup time
-3. **Modular Architecture**: One file per plugin, consistent patterns across 38 configurations
-4. **AI-Enhanced Workflow**: Deep OpenCode integration with specialized domain experts
+3. **Modular Architecture**: One file per plugin, consistent patterns across 36 configurations
+4. **AI Agent Workflow**: Lightweight tmux-based agent messaging without plugin dependencies
 5. **Documentation-Driven**: Comprehensive guides for every major feature
 
 ### Target Use Cases
 
 - **System administration**: Core LSPs (Lua, Nix, Shell) always available
 - **Multi-language development**: Project-specific LSPs via dev shells
-- **AI-assisted coding**: Context-aware prompts and specialized agents
+- **AI-assisted coding**: Send prompts and file references to tmux agent panes
 - **Reproducible environments**: Works identically across systems with Nix
 
 ---
@@ -128,12 +124,11 @@ flake.nix
     │   │   ├── nvim-lspconfig
     │   │   └── ... (8 more)
     │   │
-    │   └── opt (36 plugins - lazy-loaded)
+    │   └── opt (34 plugins - lazy-loaded)
     │       ├── telescope-nvim
     │       ├── neo-tree-nvim
     │       ├── nvim-dap
-    │       ├── opencode-nvim
-    │       └── ... (32 more)
+    │       └── ... (31 more)
     │
     └── Runtime Inputs (30+ tools)
         ├── Language Tools
@@ -161,7 +156,7 @@ The configuration uses `wrapNeovim` to bundle Neovim with custom configuration a
 | Category | Count | Purpose | Examples |
 |----------|-------|---------|----------|
 | **Start** | 12 | Essential functionality, provide APIs | lz.n, treesitter, cmp, lspconfig, plenary |
-| **Opt** | 36 | Feature plugins, load on demand | telescope, neo-tree, dap, gitsigns, opencode |
+| **Opt** | 34 | Feature plugins, load on demand | telescope, neo-tree, dap, gitsigns, which-key |
 
 **Rationale**: Only load what's needed for startup. Everything else triggers on-demand via lz.n.
 
@@ -315,8 +310,7 @@ dave-nvim-lazy/
 │           ├── commands.lua                 # Autocmds & commands
 │           ├── toggle-transparent-bg.lua    # Background toggle
 │           │
-│           └── plugins/ (38 files)
-│               ├── opencode.lua (741 lines) # OpenCode AI integration
+│           └── plugins/ (36 files)
 │               ├── telescope.lua            # Fuzzy finding
 │               ├── nvim-dap.lua             # Debug adapter
 │               ├── neo-tree.lua             # File explorer
@@ -340,22 +334,13 @@ dave-nvim-lazy/
 │                   ├── metals.lua           # Scala
 │                   └── denols.lua           # Deno (disabled)
 │
-├── docs/ (8 files, 2512 lines)
+├── docs/ (5 files, ~1800 lines)
 │   ├── overview.md (this file)
 │   ├── keybindings-master.md (775 lines)
 │   ├── nvim-dap-reference.md (377 lines)
 │   ├── telescope-reference.md (409 lines)
 │   ├── nvim-cmp-reference.md (175 lines)
-│   ├── keybindings-core.md (193 lines)
-│   ├── opencode-keybindings.md
-│   ├── opencode-usage.md
-│   └── opencode-troubleshooting.md
-│
-└── .opencode/
-    └── rules/                      # Project coding standards
-        ├── neovim.md               # Neovim/Lua best practices
-        ├── nix.md                  # Nix flake patterns
-        └── documentation.md        # Documentation standards
+│   └── keybindings-core.md (193 lines)
 ```
 
 #### Key Configuration Files
@@ -365,7 +350,7 @@ dave-nvim-lazy/
 | `flake.nix` | 139 | Nix flake definition, plugin lists, dependencies |
 | `lz-n.lua` | 175 | Lazy-loader specification, plugin loading triggers |
 | `maps.lua` | 37 | Core keybindings (leader keys, LSP, terminal) |
-| `opencode.lua` | 741 | OpenCode AI integration, agents, keybindings |
+| `tmux-agent.lua` | ~80 | Tmux agent pane messaging and keybindings |
 | `cmp-nvim.lua` | 102 | Completion configuration, sources, keybindings |
 | `nvim-dap.lua` | 129 | Debug adapter protocol, Python debugging |
 | `telescope.lua` | 20 | Fuzzy finder keybindings |
@@ -578,200 +563,6 @@ Uses **lspkind** for VS Code-like pictograms:
 
 ---
 
-### OpenCode AI Integration
-
-The most extensive feature integration, with 741 lines of configuration and 30+ keybindings.
-
-#### Architecture
-
-```
-OpenCode Integration
-├── Configuration (opencode.lua)
-│   ├── Model Selection
-│   │   ├── claude-sonnet-4-5 (complex tasks)
-│   │   └── claude-haiku-4-5 (fast tasks, titles)
-│   │
-│   ├── Permission System
-│   │   ├── bash: "ask"     (security)
-│   │   ├── write: "ask"    (safety)
-│   │   └── edit: "allow"   (convenience)
-│   │
-│   ├── Specialized Agents (3)
-│   │   ├── nix-expert      (Nix/NixOS specialist)
-│   │   ├── neovim-expert   (Neovim/Lua specialist)
-│   │   └── code-reviewer   (read-only reviewer)
-│   │
-│   ├── Project Standards
-│   │   ├── README.md
-│   │   ├── CONTRIBUTING.md
-│   │   └── .opencode/rules/*.md
-│   │
-│   └── TUI Preferences
-│       ├── Scroll speed & acceleration
-│       ├── Diff style (auto/stacked)
-│       └── Context compaction
-│
-├── Keybindings (30+)
-│   ├── Core Operations (2)
-│   ├── Context Prompts (6)
-│   ├── Session Management (3)
-│   ├── Text Operators (2)
-│   ├── Telescope Integration (3)
-│   ├── Mode Switching (2)
-│   ├── Navigation (2)
-│   ├── Utilities (3)
-│   └── Visual Mode Variants (5)
-│
-└── Integration Points
-    ├── Telescope (multi-file selection)
-    ├── Neo-tree (add from tree view)
-    ├── Git (review diffs)
-    └── Which-key (command discovery)
-```
-
-#### Specialized Agents
-
-```lua
--- From config/lua/dave-vim/plugins/opencode.lua
-agent = {
-    ["nix-expert"] = {
-        description = "Nix and NixOS configuration expert",
-        prompt = [[You are a Nix expert specializing in:
-- Nix flakes and flake.nix structure
-- Package management and derivations  
-- NixOS configuration and modules
-- Reproducible development environments
-- Best practices for declarative systems
-
-Focus on:
-- Reproducibility and declarative patterns
-- Avoiding impure operations
-- Proper dependency management
-- Performance optimization
-- Common pitfalls and anti-patterns]],
-        model = "anthropic/claude-sonnet-4-5",
-    },
-
-    ["neovim-expert"] = {
-        description = "Neovim plugin development and Lua configuration expert",
-        prompt = [[You are a Neovim and Lua expert specializing in:
-- Neovim plugin architecture and APIs
-- Lua programming for Neovim
-- Lazy-loading patterns (especially lz.n)
-- Plugin configuration best practices
-- Performance optimization
-
-Focus on:
-- Modern Neovim APIs (vim.lsp, vim.diagnostic, vim.keymap)
-- Efficient lazy-loading strategies
-- Clean plugin module patterns
-- Avoiding deprecated APIs]],
-        model = "anthropic/claude-sonnet-4-5",
-    },
-
-    ["code-reviewer"] = {
-        description = "Code quality and best practices reviewer (read-only)",
-        prompt = [[You are an expert code reviewer focusing on:
-- Security vulnerabilities and risks
-- Performance bottlenecks
-- Code maintainability and readability
-- Design patterns and anti-patterns
-- Testing coverage and quality
-
-IMPORTANT: You are in read-only mode. Suggest changes but do not implement them.]],
-        model = "anthropic/claude-haiku-4-5",
-        tools = {
-            write = false,
-            edit = false,
-            bash = false,
-        },
-    },
-}
-```
-
-**Agent Switching**: Use `/agent <name>` in OpenCode TUI to switch between agents.
-
-#### Keybindings (30+)
-
-All OpenCode commands use the `<leader>a` (`,a`) prefix:
-
-**Context-Aware Prompts**:
-```lua
-{ ",ae", "Explain this code: @this" }
-{ ",af", "Review this code for bugs: @this" }
-{ ",ar", "Refactor and improve: @this" }
-{ ",at", "Write comprehensive tests: @this" }
-{ ",ad", "Add comprehensive documentation: @this" }
-{ ",ai", "Improve and optimize: @this" }
-```
-
-**Session Management**:
-```lua
-{ ",an", command("session.new") }
-{ ",al", command("session.list") }
-{ ",ac", command("session.clear") }
-```
-
-**Telescope Integration**:
-```lua
-{ ",aF", telescope_files_to_opencode }     -- Search and add files
-{ ",aG", telescope_grep_to_opencode }      -- Grep and add matches
-{ ",aB", telescope_buffers_to_opencode }   -- Select open buffers
-```
-
-**Mode Switching**:
-```lua
-{ ",ab", command("mode.build") }    -- Can edit files
-{ ",ap", command("mode.plan") }     -- Read-only exploration
-```
-
-**Visual Mode Variants**:
-```lua
-{ ",ae", "Explain this code: @selection", mode = "v" }
-{ ",af", "Review this code for bugs: @selection", mode = "v" }
-{ ",ar", "Refactor this code: @selection", mode = "v" }
-{ ",at", "Write tests for: @selection", mode = "v" }
-{ ",ad", "Add documentation to: @selection", mode = "v" }
-```
-
-**Complete Keybinding Reference**: See `docs/opencode-keybindings.md`
-
-#### Project-Aware Context
-
-OpenCode automatically loads coding standards from:
-
-```
-.opencode/rules/
-├── neovim.md        # Neovim/Lua best practices
-├── nix.md           # Nix flake patterns
-└── documentation.md # Documentation standards
-```
-
-**Auto-loaded in all sessions**:
-```lua
-instructions = {
-    "README.md",
-    "CONTRIBUTING.md",
-    ".opencode/rules/*.md",
-}
-```
-
-This ensures OpenCode follows project conventions without manual reminders.
-
-#### Safety Controls
-
-```lua
-permission = {
-    bash = "ask",      -- Ask before running shell commands
-    write = "ask",     -- Ask before creating new files
-    edit = "allow",    -- Allow editing existing files
-}
-```
-
-**Rationale**: Balance convenience (allow edits) with safety (ask for potentially dangerous operations).
-
----
-
 ### Fuzzy Finding (Telescope)
 
 #### Core Operations
@@ -904,33 +695,10 @@ Inline git indicators and blame:
 - Current line blame (toggle with `\gb`)
 - Hunks navigation (via gitsigns commands)
 
-#### OpenCode Git Review
-
-```lua
--- Keybinding: ,ag
-{
-    "<leader>ag",
-    function()
-        local diff = vim.fn.system("git diff")
-        if diff == "" then
-            vim.notify("No git changes to review", vim.log.levels.INFO)
-            return
-        end
-        require("opencode").ask("Review these git changes:\n\n" .. diff, 
-                               { submit = true })
-    end,
-    desc = "Review git diff",
-}
-```
-
-**Workflow**: Review changes with AI before committing.
-
----
-
 ### Additional Features
 
 **File Navigation**:
-- **Neo-tree**: File explorer (`,tt` to toggle, `,aa` to add to OpenCode)
+- **Neo-tree**: File explorer (`,tt` to toggle)
 - **Tagbar**: Code outline/tags (`,ta` to toggle)
 - **Undo tree**: Visual undo history (`,u` to toggle)
 
@@ -975,42 +743,11 @@ Keybindings (80+)
 │   │   ├── ,fb - Buffers
 │   │   └── ,fh - Help tags
 │   │
-│   ├── ,a* - AI (OpenCode) - 30 bindings
-│   │   ├── Core Operations
-│   │   │   ├── ,as - Ask with context
-│   │   │   └── ,ax - Select operation
-│   │   ├── Context Prompts
-│   │   │   ├── ,ae - Explain
-│   │   │   ├── ,af - Find bugs
-│   │   │   ├── ,ar - Refactor
-│   │   │   ├── ,at - Write tests
-│   │   │   ├── ,ad - Add docs
-│   │   │   └── ,ai - Improve
-│   │   ├── Session Management
-│   │   │   ├── ,an - New session
-│   │   │   ├── ,al - List sessions
-│   │   │   └── ,ac - Clear session
-│   │   ├── Text Operators
-│   │   │   ├── ,ao - Add range
-│   │   │   └── ,aoo - Add line
-│   │   ├── Telescope Integration
-│   │   │   ├── ,aF - Search files
-│   │   │   ├── ,aG - Grep code
-│   │   │   └── ,aB - Select buffers
-│   │   ├── Neo-tree (context-specific)
-│   │   │   └── ,aa - Add node
-│   │   ├── Mode Switching
-│   │   │   ├── ,ab - Build mode
-│   │   │   └── ,ap - Plan mode
-│   │   ├── Navigation
-│   │   │   ├── ,ak - Scroll up
-│   │   │   └── ,aj - Scroll down
-│   │   ├── Utilities
-│   │   │   ├── ,au - Undo change
-│   │   │   ├── ,ah - Show help
-│   │   │   └── ,ag - Git diff review
-│   │   └── Visual Mode (5)
-│   │       └── ,ae/af/ar/at/ad
+│   ├── ,a* - AI (tmux-agent) - 4 bindings
+│   │   ├── ,af - Find agent pane
+│   │   ├── ,ab - Send buffer ref
+│   │   ├── ,av - Send visual range
+│   │   └── ,ap - Prompt agent
 │   │
 │   ├── ,t* - Toggle/Tags
 │   │   ├── ,tt - Neo-tree toggle
@@ -1148,9 +885,9 @@ Startup Overhead
 - **vim-sleuth**: Auto-detect indentation (automatic)
 - **cyberdream-nvim**: Colorscheme (theme)
 
-**What loads on-demand** (36 plugins):
+**What loads on-demand** (34 plugins):
 - **Filetype triggers**: LSP configs (11), markdown plugins (5)
-- **Keybinding triggers**: Telescope, Neo-tree, DAP, OpenCode
+- **Keybinding triggers**: Telescope, Neo-tree, DAP, which-key
 - **Event triggers**: Gitsigns, Lualine, Bufferline
 
 ### Filetype-based LSP Loading
@@ -1301,25 +1038,6 @@ Full language support available
 3. Add filetype trigger to `lz-n.lua`
 4. LSP auto-loads when opening relevant files
 
-### OpenCode-Assisted Development
-
-**Workflow**:
-1. Open Neovim with OpenCode integration
-2. Select code or position cursor
-3. Use context prompts (`,ae`, `,af`, `,ar`, `,at`)
-4. Review suggestions
-5. Accept/modify changes
-6. Continue coding
-
-**Specialized agents**:
-- Working on Nix config → `/agent nix-expert`
-- Plugin development → `/agent neovim-expert`
-- Code review → `/agent code-reviewer`
-
-**Project-aware**: OpenCode automatically understands project structure from `.opencode/rules/`.
-
----
-
 ## Extensibility
 
 ### Adding Plugins
@@ -1426,32 +1144,6 @@ vim.keymap.set("n", "<leader>x", function()
     -- custom action
 end, { desc = "Custom action" })
 ```
-
-### OpenCode Customization
-
-**Add custom prompts** (in `opencode.lua`):
-```lua
-{
-    "<leader>ac",
-    function()
-        require("opencode").ask("Custom prompt: @this", { submit = true })
-    end,
-    desc = "Custom action",
-}
-```
-
-**Add project standards** (`.opencode/rules/my-standards.md`):
-```markdown
-# My Project Standards
-
-- Use tabs not spaces
-- Max line length: 120
-- ...
-```
-
-Automatically loaded in all OpenCode sessions.
-
----
 
 ## Key Design Decisions
 
@@ -1566,57 +1258,22 @@ require("lz.n").load({
 })
 ```
 
-### Why OpenCode Integration?
-
-**1. Productivity**
-- AI assistance in normal workflow
-- Context-aware suggestions
-- Reduces context switching
-- Speeds up common tasks
-
-**2. Specialized Expertise**
-- Domain experts (Nix, Neovim)
-- Project-specific knowledge
-- Code review capabilities
-- Consistent with project standards
-
-**3. Project-Aware**
-- Auto-loads coding standards
-- Understands project structure
-- Follows conventions automatically
-- No manual reminders needed
-
-**4. Safe & Controlled**
-- Permission prompts for dangerous ops
-- Read-only reviewer agent
-- Undo capability
-- Git review before commit
-
-**Alternative rejected**: Generic AI tools (no project awareness, no specialized agents)
-
----
-
 ## Related Documentation
 
 ### Documentation Hierarchy
 
 ```
-Documentation (8 files, 2512 lines)
+Documentation (5 files, ~1800 lines)
 ├── overview.md (this file)           # Project architecture & features
 │
-├── Keybindings (3 files)
-│   ├── keybindings-master.md         # Complete reference (all 80+ bindings)
-│   ├── keybindings-core.md           # Core bindings detailed guide
-│   └── opencode-keybindings.md       # OpenCode bindings reference
+├── Keybindings (2 files)
+│   ├── keybindings-master.md         # Complete reference (all 50+ bindings)
+│   └── keybindings-core.md           # Core bindings detailed guide
 │
-├── Plugin References (3 files)
-│   ├── telescope-reference.md        # Fuzzy finder guide
-│   ├── nvim-dap-reference.md         # Debug adapter guide
-│   └── nvim-cmp-reference.md         # Completion reference
-│
-└── OpenCode Guides (2 files)
-    ├── opencode-usage.md             # Workflows & examples
-    └── opencode-troubleshooting.md   # Common issues
+└── Plugin References (3 files)
+    ├── telescope-reference.md        # Fuzzy finder guide
+    ├── nvim-dap-reference.md         # Debug adapter guide
+    └── nvim-cmp-reference.md         # Completion reference
 ```
 
 ### Quick Reference Guide
@@ -1626,15 +1283,11 @@ Documentation (8 files, 2512 lines)
 | **Understand architecture** | `docs/overview.md` (this file) |
 | **Find a keybinding** | `docs/keybindings-master.md` |
 | **Learn core keybindings** | `docs/keybindings-core.md` |
-| **Use OpenCode** | `docs/opencode-usage.md` |
-| **Debug OpenCode issues** | `docs/opencode-troubleshooting.md` |
 | **Use Telescope** | `docs/telescope-reference.md` |
 | **Debug with DAP** | `docs/nvim-dap-reference.md` |
 | **Configure completion** | `docs/nvim-cmp-reference.md` |
-| **See OpenCode keybindings** | `docs/opencode-keybindings.md` |
-| **Understand Neovim standards** | `.opencode/rules/neovim.md` |
-| **Understand Nix patterns** | `.opencode/rules/nix.md` |
-| **Contribute documentation** | `.opencode/rules/documentation.md` |
+| **Understand Neovim standards** | `AGENTS.md` |
+| **Understand Nix patterns** | `AGENTS.md` |
 
 ---
 
@@ -1643,28 +1296,28 @@ Documentation (8 files, 2512 lines)
 **dave-nvim-lazy** is a production-ready Neovim configuration that balances:
 
 - **Reproducibility** (Nix flakes) with **flexibility** (project dev shells)
-- **Performance** (lazy-loading) with **features** (48 plugins)
-- **Simplicity** (lz.n) with **power** (11 LSPs, AI integration)
+- **Performance** (lazy-loading) with **features** (46 plugins)
+- **Simplicity** (lz.n) with **power** (11 LSPs, tmux-agent)
 - **Conventions** (modular pattern) with **customization** (extensible)
 
 **Key strengths**:
 1. **Nix-based reproducibility**: Works identically everywhere
 2. **Lazy-loading efficiency**: 75% of plugins load on-demand
 3. **Comprehensive LSP support**: 11 languages with filetype-based loading
-4. **Deep OpenCode integration**: 30+ keybindings, 3 specialized agents
-5. **Extensive documentation**: 2,500+ lines across 8 guides
+4. **Lightweight AI integration**: tmux-agent for pane messaging
+5. **Extensive documentation**: 1,800+ lines across 5 guides
 
 **Ideal for**:
 - Developers seeking reproducible environments
 - Multi-language projects requiring LSP support
-- Teams wanting AI-assisted workflows
+- Teams wanting reproducible editor environments
 - Anyone valuing documentation and conventions
 
 **Project statistics**:
 - 2,100 lines of Lua configuration
-- 48 plugins (12 startup, 36 lazy)
+- 46 plugins (12 startup, 34 lazy)
 - 11 LSP servers
-- 80+ custom keybindings
-- 2,512 lines of documentation
+- 50+ custom keybindings
+- 1,800 lines of documentation
 
-**Start exploring**: Check out `docs/keybindings-master.md` for complete keybinding reference or `docs/opencode-usage.md` for AI-assisted development workflows.
+**Start exploring**: Check out `docs/keybindings-master.md` for complete keybinding reference.

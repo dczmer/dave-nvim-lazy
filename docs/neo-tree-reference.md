@@ -17,7 +17,7 @@ Neo-tree is lazy-loaded and triggered by the `,tt` keybinding. This means it has
 
 - **Git**: Displays git status symbols next to files, provides git commands
 - **Filesystem**: Auto-refresh on external changes, follows current file
-- **OpenCode**: Custom mapping (`,aa`) to add files/directories to OpenCode context
+- **Tmux-agent**: Send file references to agent pane via separate keybindings (`<leader>a`)
 
 ## Quick Reference
 
@@ -26,7 +26,7 @@ Neo-tree is lazy-loaded and triggered by the `,tt` keybinding. This means it has
 | Key | Action | Description |
 |-----|--------|-------------|
 | `,tt` | Toggle Neo-tree | Open/close file explorer |
-| `,aa` | Add to OpenCode | Add file/directory to OpenCode (inside neo-tree) |
+
 
 ### Navigation (inside neo-tree)
 
@@ -228,15 +228,6 @@ j/k           → Navigate to destination
 p             → Paste
   or
 m             → Move (prompts for destination)
-```
-
-### OpenCode Integration
-
-```
-,tt           → Open neo-tree
-j/k           → Navigate to file or directory
-,aa           → Add to OpenCode context
-                (For directories, shows confirmation prompt)
 ```
 
 ## Performance Notes

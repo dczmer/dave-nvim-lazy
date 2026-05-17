@@ -189,5 +189,5 @@ LSP keybindings work with any configured language server:
 
 - **Plugin keybindings**: See individual plugin configs in `config/lua/dave-vim/plugins/`
 - **LSP servers**: `config/lua/dave-vim/plugins/lsp/`
-- **OpenCode bindings**: `docs/opencode-keybindings.md`
+- **tmux-agent**: `config/lua/dave-vim/tmux-agent.lua`
 - **Which-key**: Press `,` or `\` and wait to see available commands
