@@ -4,13 +4,17 @@
 
 local M = {}
 
+local function escape_path(p)
+    return (p:gsub(" ", "\\ "))
+end
+
 M.find_agent_pane = function(target)
     if not vim.env.TMUX then
         vim.notify("not inside tmux", vim.log.levels.ERROR)
         return nil
     end
 
-    local pattern = "bin/[" .. target:sub(1, 1) .. "]" .. target:sub(2)
+    local pattern = "[" .. target:sub(1, 1) .. "]" .. target:sub(2)
     local shell_cmd = string.format(
         "tmux list-panes -a -F '#{pane_id} #{pane_pid}' | while read -r id pid; do pstree \"$pid\" 2>/dev/null | grep -qE '%s' && echo \"$id\"; done",
         pattern
@@ -59,19 +63,19 @@ M.send_to_agent = function(text, opts)
 end
 
 M.send_buffer = function()
-    local filepath = vim.fn.expand("%:p")
+    local filepath = escape_path(vim.fn.expand("%:p"))
     M.send_to_agent("@" .. filepath, { submit = false })
 end
 
 M.send_visual = function()
-    local filepath = vim.fn.expand("%:p")
+    local filepath = escape_path(vim.fn.expand("%:p"))
     local start_line = vim.fn.line("'<")
     local end_line = vim.fn.line("'>")
     M.send_to_agent("@" .. filepath .. ":" .. start_line .. ":" .. end_line, { submit = false })
 end
 
 M.prompt_send = function()
-    local filepath = vim.fn.expand("%:p")
+    local filepath = escape_path(vim.fn.expand("%:p"))
     local cursor_line = vim.fn.line(".")
     local prefix = "@" .. filepath .. ":" .. cursor_line .. " "
 
