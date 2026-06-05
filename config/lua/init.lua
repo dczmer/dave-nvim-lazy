@@ -3,7 +3,8 @@ require("dave-vim.settings")
 require("dave-vim.maps")
 require("dave-vim.commands")
 require("dave-vim.tmux-agent").setup()
-require("dave-vim.toggle-transparent-bg")
+local toggler = require("dave-vim.toggle-transparent-bg")
+toggler.Toggle_transparent_bg()
 
 -- 2. non-lazy-loaded plugin configs go here (always sourced at startup)
 -- nvim-treesitter seems to work with lazy loading but gives checkhealth errors.

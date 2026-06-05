@@ -1,4 +1,6 @@
-local transparent_bg = {
+local M = {}
+
+M.transparent_bg = {
     "Normal",
     "ctermfg=188",
     "ctermbg=NONE",
@@ -6,7 +8,7 @@ local transparent_bg = {
     "guibg=NONE",
 }
 
-local opaque_bg = {
+M.opaque_bg = {
     "Normal",
     "ctermfg=188",
     "ctermbg=234",
@@ -14,16 +16,20 @@ local opaque_bg = {
     "guibg=#151515",
 }
 
-local transparent = 0
+M.is_transparent = 0
 
-local Toggle_transparent_bg = function()
-    if transparent > 0 then
-        vim.cmd.highlight(opaque_bg)
-        transparent = 0
+M.Toggle_transparent_bg = function()
+    if M.is_transparent > 0 then
+        vim.cmd.highlight(M.opaque_bg)
+        M.is_transparent = 0
     else
-        vim.cmd.highlight(transparent_bg)
-        transparent = 1
+        vim.cmd.highlight(M.transparent_bg)
+        M.is_transparent = 1
     end
 end
 
-vim.keymap.set("n", ",bg", Toggle_transparent_bg)
+vim.api.nvim_create_user_command("ToggleTransparentBG", M.Toggle_transparent_bg, {})
+
+vim.keymap.set("n", ",bg", M.Toggle_transparent_bg)
+
+return M

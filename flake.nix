@@ -20,7 +20,10 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          allowUnfree = true;
+        };
         davewiki2Plugin = pkgs.vimUtils.buildVimPlugin {
           pname = "davewiki2";
           version = "unstable";
