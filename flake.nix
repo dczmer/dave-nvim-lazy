@@ -64,6 +64,13 @@
             pstree
           ]
           ++ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+        # HACK: license information is broken for a lot of vimPlugins packages.
+        # force this to be a free license until it's fixed upstream.
+        vim-closetags-hack = pkgs.vimPlugins.vim-closetag.overrideAttrs (old: {
+          meta = old // {
+            license = pkgs.lib.licenses.mit;
+          };
+        });
         neovimWrapped = pkgs.wrapNeovim pkgs.neovim-unwrapped {
           configure = {
             inherit customRC;
@@ -120,10 +127,12 @@
                 vim-table-mode
                 mattn-calendar-vim
                 bullets-vim
-                vim-closetag
                 which-key-nvim
                 snacks-nvim
                 mini-test
+
+                # HACK: fix broken license restriction
+                vim-closetags-hack
               ];
             };
           };
