@@ -14,7 +14,7 @@ M.find_agent_pane = function(target)
         return nil
     end
 
-    local pattern = "bin/[" .. target:sub(1, 1) .. "]" .. target:sub(2)
+    local pattern = "\\s[" .. target:sub(1, 1) .. "]" .. target:sub(2) .. "\\b"
     local shell_cmd = string.format(
         "tmux list-panes -a -F '#{pane_id} #{pane_pid}' | while read -r id pid; do pstree \"$pid\" 2>/dev/null | grep -qE '%s' && echo \"$id\"; done",
         pattern
