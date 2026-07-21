@@ -139,6 +139,15 @@ cmp.setup({
     experimental = experimental,
 })
 
+cmp.setup.filetype("markdown", {
+    sources = cmp.config.sources({
+        { name = "wiki_tags", keyword_length = 1, priority = 800 },
+        { name = "luasnip", keyword_length = 2, priority = 750 },
+        { name = "buffer", keyword_length = 3, priority = 500 },
+        { name = "path", priority = 250 },
+    }),
+})
+
 cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
