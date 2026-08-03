@@ -123,6 +123,13 @@ local spec = {
         end,
         ft = { "scala" },
     },
+    {
+        "dave-vim.plugins.lsp.terraform-ls",
+        load = function()
+            require("dave-vim.plugins.lsp.terraform-ls")
+        end,
+        ft = { "tf" },
+    },
 }
 
 --
