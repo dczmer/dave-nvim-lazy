@@ -38,3 +38,38 @@ snippet python-with-pkgs Python3 with packages
       $1
     ]
   ))
+
+snippet mkDerivation Nix mkDerivation
+  $1 = pkgs.stdenv.mkDerivation {
+    pname = "$1";
+    version = "$2";
+    nativeBuildInputs = with pkgs; [
+    ];
+    buildInputs = with pkgs; [
+    ];
+    src = $3;
+    patchPhase = ''
+      runHook prePatch
+      # ...
+      runHook postPatch
+    '';
+    buildPhase = ''
+      runHook preBuild
+      # ...
+      runHook postBuild
+    '';
+    installPhase = ''
+      runHook preInstall
+      # ...
+      runHook postInstall
+    '';
+  };
+
+snippet fetchFromGitHub Fetch Source from GitHub
+    src = pkgs.fetchFromGitHub {
+      owner = "$2";
+      repo = "$3";
+      rev = "master";
+      sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      fetchSubmodules = true;
+    };
