@@ -38,6 +38,9 @@ local spec = {
     {
         "markdown-preview.nvim",
         ft = { "markdown", "vimwiki" },
+        after = function()
+            vim.cmd("let g:mkdp_theme = 'light'")
+        end,
     },
     {
         "vim-table-mode",
